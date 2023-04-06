@@ -33,6 +33,15 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref descripcion, value); }
         }
 
+        public Categorias(int idCategoria, string nombreCategoria, string descripcion)
+        {
+            this.idCategoria = idCategoria;
+            this.nombreCategoria = nombreCategoria;
+            this.descripcion = descripcion;
+        }
 
+        public Categorias()
+        {
+        }
     }
 }

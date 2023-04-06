@@ -33,7 +33,15 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref capacidad, value); }
         }
 
+        public Mesas()
+        {
+        }
 
-
+        public Mesas(int idMesa, string mesa, int capacidad)
+        {
+            this.idMesa = idMesa;
+            this.mesa = mesa;
+            this.capacidad = capacidad;
+        }
     }
 }

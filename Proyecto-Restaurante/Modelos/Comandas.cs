@@ -57,8 +57,14 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref fecha, value); }
         }
 
-
-
-
+        public Comandas(int idComanda, Empleados empleado, Mesas mesa, int cantidadPersonas, bool pagada, DateTime fecha)
+        {
+            this.idComanda = idComanda;
+            this.empleado = empleado;
+            this.mesa = mesa;
+            this.cantidadPersonas = cantidadPersonas;
+            this.pagada = pagada;
+            this.fecha = fecha;
+        }
     }
 }

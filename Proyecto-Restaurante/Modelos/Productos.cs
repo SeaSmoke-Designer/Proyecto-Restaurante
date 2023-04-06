@@ -25,12 +25,12 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref nombreProducto, value); }
         }
 
-        private Categorias _categoria;
+        private Categorias categoria;
 
-        public Categorias _Categoria
+        public Categorias Categoria
         {
-            get { return _categoria; }
-            set { SetProperty(ref _categoria, value); }
+            get { return categoria; }
+            set { SetProperty(ref categoria, value); }
         }
 
         private double precioUnitario;
@@ -49,9 +49,17 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref unidadesEnAlmacen, value); }
         }
 
+        public Productos()
+        {
+        }
 
-
-
-
+        public Productos(int idProducto, string nombreProducto, Categorias categoria, double precioUnitario, int unidadesEnAlmacen)
+        {
+            this.idProducto = idProducto;
+            this.nombreProducto = nombreProducto;
+            this.categoria = categoria;
+            this.precioUnitario = precioUnitario;
+            this.unidadesEnAlmacen = unidadesEnAlmacen;
+        }
     }
 }

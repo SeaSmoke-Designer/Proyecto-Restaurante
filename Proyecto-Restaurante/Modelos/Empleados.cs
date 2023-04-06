@@ -83,13 +83,21 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref urlFoto, value); }
         }
 
+        public Empleados()
+        {
+        }
 
-
-
-
-
-
-
-
+        public Empleados(int idEmpleado, string dni, string nombre, string apellido, string cargo, DateTime fechaNacimiento, string direccion, string telefonoParticular, string urlFoto)
+        {
+            this.idEmpleado = idEmpleado;
+            this.dni = dni;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.cargo = cargo;
+            this.fechaNacimiento = fechaNacimiento;
+            this.direccion = direccion;
+            this.telefonoParticular = telefonoParticular;
+            this.urlFoto = urlFoto;
+        }
     }
 }

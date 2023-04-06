@@ -189,6 +189,8 @@
   <ItemGroup>
     <Compile Include="Modelos\Categorias.cs" />
     <Compile Include="Modelos\Comandas.cs" />
+    <Compile Include="Modelos\DetallesComanda.cs" />
+    <Compile Include="Modelos\DetallesComandaPK.cs" />
     <Compile Include="Modelos\Empleados.cs" />
     <Compile Include="Modelos\Mesas.cs" />
     <Compile Include="Modelos\Productos.cs" />
