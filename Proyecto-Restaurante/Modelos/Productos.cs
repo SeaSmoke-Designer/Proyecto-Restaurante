@@ -49,6 +49,15 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref unidadesEnAlmacen, value); }
         }
 
+        private string urlFotoProducto;
+
+        public string URLFotoProducto
+        {
+            get { return urlFotoProducto; }
+            set { SetProperty(ref urlFotoProducto, value); }
+        }
+
+
         public Productos()
         {
         }
