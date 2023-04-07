@@ -4,9 +4,88 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto_Restaurante"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         
-    </Grid>
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000">
+    
+    <DockPanel> 
+        <syncfusion:SfNavigationDrawer x:Name="navigationDrawer" DisplayMode="Compact" AutoChangeDisplayMode="False">
+           
+            <syncfusion:NavigationItem
+                Header="Editor de la revista"
+                IsExpanded="True"
+                IsSelected="True"
+                Margin="0,5,0,0">
+                <!--<syncfusion:NavigationItem.Icon>
+                    <Image Source="./Assets/editor.png" />
+                </syncfusion:NavigationItem.Icon>-->
+                <syncfusion:NavigationItem Header="Gestionar autores" Command="{Binding Path=GestionarAutoresCommand}">
+                    <!--<syncfusion:NavigationItem.Icon>
+                        <Image Source="./Assets/gestion-autores.png" />
+                    </syncfusion:NavigationItem.Icon>-->
+                </syncfusion:NavigationItem>
+                <syncfusion:NavigationItem Header="Gestionar artículos" Command="{Binding Path=GestionarArticulosCommand}">
+                    <!--<syncfusion:NavigationItem.Icon>
+                        <Image Source="./Assets/gestion-articulos.png" />
+                    </syncfusion:NavigationItem.Icon>-->
+                </syncfusion:NavigationItem>
+                <syncfusion:NavigationItem Header="Generar revista" Command="{Binding Path=PublicarPaginaCommand}">
+                    <!--<syncfusion:NavigationItem.Icon>
+                        <Image Source="./Assets/generar-revista.png" />
+                    </syncfusion:NavigationItem.Icon>-->
+                </syncfusion:NavigationItem>
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem ItemType="Separator" />
+            <syncfusion:NavigationItem Header="Autor de artículos"
+                                       IsExpanded="True"
+                                       IsSelected="True"
+                                       >
+                <!--<syncfusion:NavigationItem.Icon>
+                    <Image Source="./Assets/escritor.png" ></Image>
+                </syncfusion:NavigationItem.Icon>-->
+                <syncfusion:NavigationItem Header="Crear artículo" Command="{Binding Path=NuevoArticuloCommand}">
+                    <!--<syncfusion:NavigationItem.Icon>
+                        <Image Source="./Assets/nuevo-articulo.png"></Image>
+                    </syncfusion:NavigationItem.Icon>-->
+                </syncfusion:NavigationItem>
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem ItemType="Separator" />
+            <syncfusion:NavigationItem Header="Censor de la revista"
+                                       IsExpanded="True"
+                                       IsSelected="True">
+                <!-- <syncfusion:NavigationItem.Icon>
+                    <Image Source="./Assets/censor.png" Width="32" Height="32"></Image>
+                </syncfusion:NavigationItem.Icon>-->
+                <syncfusion:NavigationItem Header="Gestionar lista de palabras" Command="{Binding Path=GestionarListasCommand}">
+                    <!--<syncfusion:NavigationItem.Icon>
+                        <Image Source="./Assets/Ban.png"/>
+                    </syncfusion:NavigationItem.Icon> -->
+                </syncfusion:NavigationItem>
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem ItemType="Separator"/>
+            <syncfusion:NavigationItem Header="Configuracion"
+                                       IsExpanded="True"
+                                       IsSelected="True"
+                                       Command="{Binding Path=AbrirAyudaUsuarioCommand}">
+                 <syncfusion:NavigationItem.Icon>
+                     <Image Source="./Assets/Configuration.png" Width="25" Height="28"/>
+                </syncfusion:NavigationItem.Icon> 
+            </syncfusion:NavigationItem>
+            <syncfusion:SfNavigationDrawer.FooterItems>
+                <syncfusion:NavigationItem Header="Salir" IsExpanded="True" IsSelected="True">
+                    <syncfusion:NavigationItem.Icon>
+                        <Image Source="./Assets/out2.png" Width="30" Height="28"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+
+
+            </syncfusion:SfNavigationDrawer.FooterItems>
+            <syncfusion:SfNavigationDrawer.ContentView>
+                <Border>
+                    <ContentControl Content="{Binding Path=ContenidoVentana}"/>
+                </Border>
+            </syncfusion:SfNavigationDrawer.ContentView>
+        </syncfusion:SfNavigationDrawer>
+    </DockPanel>
 </Window>
