@@ -41,16 +41,16 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref urlFotoCategoria, value); }
         }
 
+        public Categorias()
+        {
+        }
 
-        public Categorias(int idCategoria, string nombreCategoria, string descripcion)
+        public Categorias(int idCategoria, string nombreCategoria, string descripcion, string urlFotoCategoria)
         {
             this.idCategoria = idCategoria;
             this.nombreCategoria = nombreCategoria;
             this.descripcion = descripcion;
-        }
-
-        public Categorias()
-        {
+            this.urlFotoCategoria = urlFotoCategoria;
         }
     }
 }

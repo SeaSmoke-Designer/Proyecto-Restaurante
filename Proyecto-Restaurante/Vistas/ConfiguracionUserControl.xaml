@@ -6,7 +6,28 @@
              xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <DockPanel Background="White" LastChildFill="False">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10">
+                <DockPanel Height="100" Width="250" LastChildFill="False" Margin="7">
+                    <Image DockPanel.Dock="Left" Source="../Assets/addProductos.png" Margin="5"/>
+                    <TextBlock Text="Productos" DockPanel.Dock="Top" FontSize="14" FontWeight="Bold"/>
+                    <TextBlock Text="Añadir, editar, eliminar productos..." DockPanel.Dock="Top" TextWrapping="Wrap" />
+                    <Button Content="Ir..." DockPanel.Dock="Bottom" Width="50" HorizontalAlignment="Right"/>
+                </DockPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10">
+                <DockPanel Height="100" Width="250" LastChildFill="False" Margin="7">
+                    <Image DockPanel.Dock="Left" Source="../Assets/addProductos.png" Margin="5"/>
+                    <TextBlock Text="Descripcion: " DockPanel.Dock="Top"/>
+                    <TextBlock Text="gg" DockPanel.Dock="Top"/>
+                    <Button Content="Ir..." DockPanel.Dock="Bottom"/>
+                </DockPanel>
+            </Border>
             
-    </Grid>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            
+        </StackPanel>
+    </DockPanel>
 </UserControl>

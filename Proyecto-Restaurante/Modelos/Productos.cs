@@ -62,13 +62,14 @@ namespace Proyecto_Restaurante.Modelos
         {
         }
 
-        public Productos(int idProducto, string nombreProducto, Categorias categoria, double precioUnitario, int unidadesEnAlmacen)
+        public Productos(int idProducto, string nombreProducto, Categorias categoria, double precioUnitario, int unidadesEnAlmacen, string urlFotoProducto)
         {
             this.idProducto = idProducto;
             this.nombreProducto = nombreProducto;
             this.categoria = categoria;
             this.precioUnitario = precioUnitario;
             this.unidadesEnAlmacen = unidadesEnAlmacen;
+            this.urlFotoProducto = urlFotoProducto;
         }
     }
 }
