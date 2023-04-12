@@ -1,5 +1,4 @@
-﻿using Proyecto_Restaurante.VistasModelo;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Proyecto_Restaurante
+namespace Proyecto_Restaurante.Vistas
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para ArticulosUserControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ArticulosUserControl : UserControl
     {
-        private MainWindowVM vm;
-        public MainWindow()
+        public ArticulosUserControl()
         {
             InitializeComponent();
-            vm = new MainWindowVM();
-            this.DataContext = vm;
         }
     }
 }

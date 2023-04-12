@@ -67,7 +67,7 @@
             <syncfusion:NavigationItem Header="Configuracion"
                                        IsExpanded="True"
                                        IsSelected="True"
-                                       Command="{Binding Path=AbrirAyudaUsuarioCommand}">
+                                       Command="{Binding Path=ConfiguracionCommand}">
                  <syncfusion:NavigationItem.Icon>
                      <Image Source="./Assets/Configuration.png" Width="25" Height="28"/>
                 </syncfusion:NavigationItem.Icon> 
