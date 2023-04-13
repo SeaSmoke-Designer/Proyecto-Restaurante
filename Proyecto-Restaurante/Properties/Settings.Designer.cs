@@ -23,16 +23,13 @@ namespace Proyecto_Restaurante.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("OTE4NTAxQDMyMzAyZTM0MmUzMEZPU0Q5VEtWQzB3WXlDZGFvNVM2dEw0cFNPVlVpUTgyWVFMdkFQNzAwc" +
             "kk9")]
         public string ClaveSyncfusion {
             get {
                 return ((string)(this["ClaveSyncfusion"]));
-            }
-            set {
-                this["ClaveSyncfusion"] = value;
             }
         }
     }

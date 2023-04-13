@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Restaurante.Modelos
 {
-    class DetallesComanda : ObservableObject
+    class DetalleComanda : ObservableObject
     {
 
         private int cantidad;
@@ -18,30 +18,30 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref cantidad, value); }
         }
 
-        private DetallesComandaPK _detallesComandaPK;
+        private DetalleComandaPK _detallesComandaPK;
 
-        public DetallesComandaPK _DetallesComandaPK
+        public DetalleComandaPK _DetallesComandaPK
         {
             get { return _detallesComandaPK; }
             set { SetProperty(ref _detallesComandaPK, value); }
         }
 
-        private Productos producto;
+        private Producto producto;
 
-        public Productos Producto
+        public Producto Producto
         {
             get { return producto; }
             set { SetProperty(ref producto, value); }
         }
 
-        public DetallesComanda(int cantidad, DetallesComandaPK detallesComandaPK, Productos producto)
+        public DetalleComanda(int cantidad, DetalleComandaPK detallesComandaPK, Producto producto)
         {
             this.cantidad = cantidad;
             _detallesComandaPK = detallesComandaPK;
             this.producto = producto;
         }
 
-        public DetallesComanda()
+        public DetalleComanda()
         {
         }
 

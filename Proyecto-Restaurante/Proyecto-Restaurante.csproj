@@ -177,6 +177,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Servicios\ServicioNavegacion.cs" />
+    <Compile Include="VistasModelo\ArticulosVM.cs" />
     <Compile Include="VistasModelo\ConfiguracionVM.cs" />
     <Compile Include="VistasModelo\MainWindowVM.cs" />
     <Compile Include="Vistas\ArticulosUserControl.xaml.cs">
@@ -207,13 +208,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modelos\Categorias.cs" />
-    <Compile Include="Modelos\Comandas.cs" />
-    <Compile Include="Modelos\DetallesComanda.cs" />
-    <Compile Include="Modelos\DetallesComandaPK.cs" />
-    <Compile Include="Modelos\Empleados.cs" />
-    <Compile Include="Modelos\Mesas.cs" />
-    <Compile Include="Modelos\Productos.cs" />
+    <Compile Include="Modelos\Categoria.cs" />
+    <Compile Include="Modelos\Comanda.cs" />
+    <Compile Include="Modelos\DetalleComanda.cs" />
+    <Compile Include="Modelos\DetalleComandaPK.cs" />
+    <Compile Include="Modelos\Empleado.cs" />
+    <Compile Include="Modelos\Mesa.cs" />
+    <Compile Include="Modelos\Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -266,6 +267,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\AddProduct.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\DeleteProduct.png" />
+    <Resource Include="Assets\EditProduct.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('..\packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />

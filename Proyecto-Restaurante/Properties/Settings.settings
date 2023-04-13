@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Proyecto_Restaurante.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ClaveSyncfusion" Type="System.String" Scope="User">
+    <Setting Name="ClaveSyncfusion" Type="System.String" Scope="Application">
       <Value Profile="(Default)">OTE4NTAxQDMyMzAyZTM0MmUzMEZPU0Q5VEtWQzB3WXlDZGFvNVM2dEw0cFNPVlVpUTgyWVFMdkFQNzAwckk9</Value>
     </Setting>
   </Settings>

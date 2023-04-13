@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Restaurante.Modelos
 {
-    class Categorias : ObservableObject
+    class Categoria : ObservableObject
     {
         private int idCategoria;
 
@@ -41,11 +41,11 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref urlFotoCategoria, value); }
         }
 
-        public Categorias()
+        public Categoria()
         {
         }
 
-        public Categorias(int idCategoria, string nombreCategoria, string descripcion, string urlFotoCategoria)
+        public Categoria(int idCategoria, string nombreCategoria, string descripcion, string urlFotoCategoria)
         {
             this.idCategoria = idCategoria;
             this.nombreCategoria = nombreCategoria;

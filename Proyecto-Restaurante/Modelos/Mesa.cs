@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Restaurante.Modelos
 {
-    class Mesas : ObservableObject
+    class Mesa : ObservableObject
     {
         private int idMesa;
 
@@ -17,12 +17,12 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref idMesa, value); }
         }
 
-        private string mesa;
+        private string _mesa;
 
-        public string Mesa
+        public string _Mesa
         {
-            get { return mesa; }
-            set { SetProperty(ref mesa, value); }
+            get { return _mesa; }
+            set { SetProperty(ref _mesa, value); }
         }
 
         private int capacidad;
@@ -33,14 +33,14 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref capacidad, value); }
         }
 
-        public Mesas()
+        public Mesa()
         {
         }
 
-        public Mesas(int idMesa, string mesa, int capacidad)
+        public Mesa(int idMesa, string mesa, int capacidad)
         {
             this.idMesa = idMesa;
-            this.mesa = mesa;
+            this._mesa = mesa;
             this.capacidad = capacidad;
         }
     }

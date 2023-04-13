@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Restaurante.Modelos
 {
-    class DetallesComandaPK : ObservableObject
+    class DetalleComandaPK : ObservableObject
     {
         private int idComanda;
 
@@ -25,11 +25,11 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref idProducto, value); }
         }
 
-        public DetallesComandaPK()
+        public DetalleComandaPK()
         {
         }
 
-        public DetallesComandaPK(int idComanda, int idProducto)
+        public DetalleComandaPK(int idComanda, int idProducto)
         {
             this.idComanda = idComanda;
             this.idProducto = idProducto;

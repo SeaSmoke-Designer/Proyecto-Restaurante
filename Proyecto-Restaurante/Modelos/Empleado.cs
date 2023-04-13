@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Restaurante.Modelos
 {
-    class Empleados : ObservableObject
+    class Empleado : ObservableObject
     {
         private int idEmpleado;
 
@@ -83,11 +83,11 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref urlFoto, value); }
         }
 
-        public Empleados()
+        public Empleado()
         {
         }
 
-        public Empleados(int idEmpleado, string dni, string nombre, string apellido, string cargo, DateTime fechaNacimiento, string direccion, string telefonoParticular, string urlFoto)
+        public Empleado(int idEmpleado, string dni, string nombre, string apellido, string cargo, DateTime fechaNacimiento, string direccion, string telefonoParticular, string urlFoto)
         {
             this.idEmpleado = idEmpleado;
             this.dni = dni;
