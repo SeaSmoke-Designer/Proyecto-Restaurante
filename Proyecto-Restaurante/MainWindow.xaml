@@ -42,7 +42,7 @@
                 </syncfusion:NavigationItem.Icon>
                 <syncfusion:NavigationItem Header="Gestionar mesas" Command="{Binding Path=NuevoArticuloCommand}">
                     <syncfusion:NavigationItem.Icon>
-                        <Image Source="./Assets/GestionarMesas.png" Width="40" Height="25"/>
+                        <Image Source="./Assets/GestionarMesas.png" Width="40" Height="28"/>
                     </syncfusion:NavigationItem.Icon>
                 </syncfusion:NavigationItem>
             </syncfusion:NavigationItem>
