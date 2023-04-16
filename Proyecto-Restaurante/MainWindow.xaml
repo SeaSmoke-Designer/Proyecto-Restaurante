@@ -14,18 +14,18 @@
         <syncfusion:SfNavigationDrawer x:Name="navigationDrawer" DisplayMode="Compact" AutoChangeDisplayMode="False">
             <syncfusion:NavigationItem
                 Header="Comandas"
-                IsExpanded="True"
-                IsSelected="True"
+                IsExpanded="False"
+                IsSelected="False"
                 Margin="0,5,0,0">
                 <syncfusion:NavigationItem.Icon>
                     <Image Source="./Assets/Comandas.png" Width="40" Height="25"/>
                 </syncfusion:NavigationItem.Icon>
-                <syncfusion:NavigationItem Header="Tomar Comanda" Command="{Binding Path=GestionarAutoresCommand}">
+                <syncfusion:NavigationItem Header="Tomar Comanda">
                     <syncfusion:NavigationItem.Icon>
                         <Image Source="./Assets/TomarComanda.png" />
                     </syncfusion:NavigationItem.Icon>
                 </syncfusion:NavigationItem>
-                <syncfusion:NavigationItem Header="Ver Comandas" Command="{Binding Path=GestionarArticulosCommand}">
+                <syncfusion:NavigationItem Header="Ver Comandas" >
                     <syncfusion:NavigationItem.Icon>
                         <Image Source="./Assets/VerComandas.png" />
                     </syncfusion:NavigationItem.Icon>
@@ -33,32 +33,42 @@
                 
             </syncfusion:NavigationItem>
             <syncfusion:NavigationItem ItemType="Separator" />
-            <syncfusion:NavigationItem Header="Mesas"
-                                       IsExpanded="True"
-                                       IsSelected="True"
+            <syncfusion:NavigationItem Header="Gestionar mesas"
+                                       IsExpanded="False"
+                                       IsSelected="False"
                                        >
                 <syncfusion:NavigationItem.Icon>
                     <Image Source="./Assets/mesas.png" />
                 </syncfusion:NavigationItem.Icon>
-                <syncfusion:NavigationItem Header="Gestionar mesas" Command="{Binding Path=NuevoArticuloCommand}">
-                    <syncfusion:NavigationItem.Icon>
-                        <Image Source="./Assets/GestionarMesas.png" Width="40" Height="28"/>
-                    </syncfusion:NavigationItem.Icon>
-                </syncfusion:NavigationItem>
+                
             </syncfusion:NavigationItem>
             <syncfusion:NavigationItem ItemType="Separator" />
             
          
             <syncfusion:NavigationItem Header="Configuracion"
-                                       IsExpanded="True"
-                                       IsSelected="True"
-                                       Command="{Binding Path=ConfiguracionCommand}">
+                                       IsExpanded="False"
+                                       IsSelected="True">
                  <syncfusion:NavigationItem.Icon>
                      <Image Source="./Assets/Configuration.png" Width="25" Height="28"/>
-                </syncfusion:NavigationItem.Icon> 
+                </syncfusion:NavigationItem.Icon>
+                <syncfusion:NavigationItem Header="Gestionar Productos" Command="{Binding Path=GestionarProductosCommand}">
+                    <syncfusion:NavigationItem.Icon>
+                        <Image Source="./Assets/addProductos.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+                <syncfusion:NavigationItem Header="Gestionar Empleados">
+                    <syncfusion:NavigationItem.Icon>
+                        <Image Source="./Assets/empleados.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+                <syncfusion:NavigationItem Header="Historico" ToolTip="Comandas en el tiempo">
+                    <syncfusion:NavigationItem.Icon>
+                        <Image Source="./Assets/historico.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
             </syncfusion:NavigationItem>
             <syncfusion:SfNavigationDrawer.FooterItems>
-                <syncfusion:NavigationItem Header="Salir" IsExpanded="True" IsSelected="True">
+                <syncfusion:NavigationItem Header="Salir" IsExpanded="False" IsSelected="False">
                     <syncfusion:NavigationItem.Icon>
                         <Image Source="./Assets/out2.png" Width="30" Height="28"/>
                     </syncfusion:NavigationItem.Icon>

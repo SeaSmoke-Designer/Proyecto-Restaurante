@@ -43,36 +43,39 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=ProductoSeleccionado}" Value="{x:Null}">
                     <Setter Property="IsEnabled" Value="False"/>
-                    <Setter Property="Opacity" Value="50"/>
+                    <Setter Property="Opacity" Value="0.5"/>
                 </DataTrigger>
+                
             </Style.Triggers>
         </Style>
+        
+        
     </UserControl.Resources>
     <DockPanel Background="White">
         <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="10">
             
-            <Button DockPanel.Dock="Right" Background="#a4e4d9" Command="{Binding Path=NuevaImagenArticuloCommand}" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}">
+            <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}">
                 <Button.Content>
-                    <Image Source="../assets/AddProduct.png" Width="24"/>
+                    <Image Source="../assets/AddProduct.png" Width="24" />
                 </Button.Content>
             </Button>
-            <Button DockPanel.Dock="Right" Background="#a4e4d9" Command="{Binding Path=NuevaImagenArticuloCommand}" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}">
+            <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}">
                 <Button.Content>
-                    <Image Source="../assets/EditProduct.png" Width="24"/>
+                    <Image Source="../assets/EditProduct.png" Width="24" />
                 </Button.Content>
             </Button>
-            <Button DockPanel.Dock="Right" Background="#FFE4A4A4"  Command="{Binding Path=NuevaImagenArticuloCommand}" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}">
+            <Button DockPanel.Dock="Right" Background="#FFE4A4A4" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}">
                 <Button.Content>
-                    <Image Source="../assets/DeleteProduct.png" Width="24"/>
+                    <Image Source="../assets/DeleteProduct.png" Width="24" />
                 </Button.Content>
             </Button>
             <inputLayout:SfTextInputLayout Hint="Categorias" Margin="5" Width="170" DockPanel.Dock="Left" Foreground="Black" VerticalAlignment="Top">
-                <ComboBox ItemsSource="{Binding Path=ListaAutores}" SelectedItem="{Binding Path=AutorArticulo}" DisplayMemberPath="Nombre"/>
+                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria"/>
             </inputLayout:SfTextInputLayout>
             
            
         </DockPanel>
-        <ListBox Margin="10,5">
+        <ListBox Margin="10,5,10,10">
             
         </ListBox>
     </DockPanel>

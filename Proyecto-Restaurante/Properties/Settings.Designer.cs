@@ -25,11 +25,29 @@ namespace Proyecto_Restaurante.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("OTE4NTAxQDMyMzAyZTM0MmUzMEZPU0Q5VEtWQzB3WXlDZGFvNVM2dEw0cFNPVlVpUTgyWVFMdkFQNzAwc" +
-            "kk9")]
+        [global::System.Configuration.DefaultSettingValueAttribute("MTczNzg2MUAzMjMxMmUzMTJlMzMzNWRoRWk4eGJoVG9qRjg5Q0wwSm8wTWZwbVFXNENRb1NONnd6UHFOc" +
+            "mZNTFU9")]
         public string ClaveSyncfusion {
             get {
                 return ((string)(this["ClaveSyncfusion"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1234")]
+        public string ClaveAPIRest {
+            get {
+                return ((string)(this["ClaveAPIRest"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/apirestaurante/restaurante/")]
+        public string endpoint {
+            get {
+                return ((string)(this["endpoint"]));
             }
         }
     }

@@ -14,11 +14,6 @@ namespace Proyecto_Restaurante.Servicios
         {
         }
 
-        public UserControl CargarConfiguracion()
-        {
-            return new ConfiguracionUserControl();
-        }
-
         public UserControl CargarArticulos()
         {
             return new ArticulosUserControl();

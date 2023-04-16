@@ -3,7 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="ClaveSyncfusion" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">OTE4NTAxQDMyMzAyZTM0MmUzMEZPU0Q5VEtWQzB3WXlDZGFvNVM2dEw0cFNPVlVpUTgyWVFMdkFQNzAwckk9</Value>
+      <Value Profile="(Default)">MTczNzg2MUAzMjMxMmUzMTJlMzMzNWRoRWk4eGJoVG9qRjg5Q0wwSm8wTWZwbVFXNENRb1NONnd6UHFOcmZNTFU9</Value>
+    </Setting>
+    <Setting Name="ClaveAPIRest" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">1234</Value>
+    </Setting>
+    <Setting Name="endpoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8080/apirestaurante/restaurante/</Value>
     </Setting>
   </Settings>
 </SettingsFile>
