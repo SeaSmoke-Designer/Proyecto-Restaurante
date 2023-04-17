@@ -48,8 +48,34 @@
                 
             </Style.Triggers>
         </Style>
-        
-        
+
+        <DataTemplate x:Key="plantillaProductos">
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Background="AliceBlue" Padding="5" Width="200" Height="230" CornerRadius="10">
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+                <DockPanel>
+                    <TextBlock Text="Cafe solo" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold"/>
+                    <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Margin="5">
+                        <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
+                            <TextBlock Text="Categoria: " DockPanel.Dock="Left" Margin="3"/>
+                            <TextBlock DockPanel.Dock="Right" Margin="3"/>
+                        </DockPanel>
+                        <Separator BorderBrush="#D1D1D1" BorderThickness="1" DockPanel.Dock="Top" Width="100"/>
+                        <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
+                            <TextBlock Text="Precio Unitario: " DockPanel.Dock="Left" Margin="3"/>
+                            <TextBlock Text="Bebidas Frias" DockPanel.Dock="Right" Margin="3"/>
+                        </DockPanel>
+                        <Separator BorderBrush="#D1D1D1" BorderThickness="1" DockPanel.Dock="Top" Width="100"/>
+                        <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
+                            <TextBlock Text="Unidades en Almacen: " DockPanel.Dock="Left" Margin="3"/>
+                            <TextBlock Text="Bebidas Frias" DockPanel.Dock="Right" Margin="3"/>
+                        </DockPanel>
+                    </DockPanel>
+                    <Image Source="./Imagen/Comandas.png" Margin="5" />
+                </DockPanel>
+            </Border>
+        </DataTemplate>
     </UserControl.Resources>
     <DockPanel Background="White">
         <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="10">
