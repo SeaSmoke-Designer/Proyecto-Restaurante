@@ -28,12 +28,19 @@ namespace Proyecto_Restaurante.Servicios
             //request.AddHeader("Content-Type", "application/json");
             //request.AddHeader("Content-Type",)
             var response = cliente.Execute(request);
-
-            
-
-
-
             return JsonConvert.DeserializeObject<ObservableCollection<Categoria>>(response.Content);
+        }
+
+        public ObservableCollection<Producto> GetProductos()
+        {
+            string clave = Properties.Settings.Default.ClaveAPIRest;
+            var cliente = new RestClient(Properties.Settings.Default.endpoint);
+            RestRequest request = new RestRequest("productos", Method.Get);
+            request.AddHeader("Root", clave);
+            //request.AddHeader("Content-Type", "application/json");
+            //request.AddHeader("Content-Type",)
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<ObservableCollection<Producto>>(response.Content);
         }
     }
 }

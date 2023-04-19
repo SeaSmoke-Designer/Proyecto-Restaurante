@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
              xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF"
+             xmlns:convertidores="clr-namespace:Proyecto_Restaurante.Convertidores"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <convertidores:ConvertidorProductoSinImagen x:Key="ConvertidorProductoSinImagen"/>
         <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
             <Border x:Name="border" BorderBrush="#98B8CA" BorderThickness="2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5" >
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="35" Height="35"/>
@@ -48,31 +50,43 @@
                 
             </Style.Triggers>
         </Style>
+        <Style TargetType="{x:Type Image}" x:Key="ProductosSinImagen">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=URLFotoProducto}" Value="{x:Null}">
+                    <Setter Property="Source" Value="../Assets/SinImagen.png"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
-        <DataTemplate x:Key="plantillaProductos">
+        <DataTemplate x:Key="PlantillaProductos">
             <Border BorderBrush="Black" BorderThickness="1" Margin="5" Background="AliceBlue" Padding="5" Width="200" Height="230" CornerRadius="10">
                 <Border.Effect>
                     <DropShadowEffect/>
                 </Border.Effect>
                 <DockPanel>
-                    <TextBlock Text="Cafe solo" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold"/>
+                    <Viewbox DockPanel.Dock="Top" Height="25">
+                        <TextBlock Text="{Binding Path=NombreProducto}"  HorizontalAlignment="Center" FontWeight="Bold"/>
+                    </Viewbox>
+                        
+                    
+                    
                     <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Margin="5">
                         <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
                             <TextBlock Text="Categoria: " DockPanel.Dock="Left" Margin="3"/>
-                            <TextBlock DockPanel.Dock="Right" Margin="3"/>
+                            <TextBlock Text="{Binding Path=Categoria}" DockPanel.Dock="Right" Margin="3"/>
                         </DockPanel>
                         <Separator BorderBrush="#D1D1D1" BorderThickness="1" DockPanel.Dock="Top" Width="100"/>
                         <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
                             <TextBlock Text="Precio Unitario: " DockPanel.Dock="Left" Margin="3"/>
-                            <TextBlock Text="Bebidas Frias" DockPanel.Dock="Right" Margin="3"/>
+                            <TextBlock Text="{Binding Path=PrecioUnitario}" DockPanel.Dock="Right" Margin="3"/>
                         </DockPanel>
                         <Separator BorderBrush="#D1D1D1" BorderThickness="1" DockPanel.Dock="Top" Width="100"/>
                         <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
                             <TextBlock Text="Unidades en Almacen: " DockPanel.Dock="Left" Margin="3"/>
-                            <TextBlock Text="Bebidas Frias" DockPanel.Dock="Right" Margin="3"/>
+                            <TextBlock Text="{Binding Path=UnidadesEnAlmacen}" DockPanel.Dock="Right" Margin="3"/>
                         </DockPanel>
                     </DockPanel>
-                    <Image Source="./Imagen/Comandas.png" Margin="5" />
+                    <Image Source="{Binding Path=URLFotoProducto, Converter={StaticResource ConvertidorProductoSinImagen}}" Margin="5"/>
                 </DockPanel>
             </Border>
         </DataTemplate>
@@ -96,13 +110,17 @@
                 </Button.Content>
             </Button>
             <inputLayout:SfTextInputLayout Hint="Categorias" Margin="5" Width="170" DockPanel.Dock="Left" Foreground="Black" VerticalAlignment="Top">
-                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria"/>
+                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria" />
             </inputLayout:SfTextInputLayout>
             
            
         </DockPanel>
-        <ListBox Margin="10,5,10,10">
-            
+        <ListBox Margin="10,5,10,10" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado}" ItemTemplate="{StaticResource PlantillaProductos}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
         </ListBox>
     </DockPanel>
 </UserControl>

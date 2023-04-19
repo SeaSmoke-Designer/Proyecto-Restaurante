@@ -9,7 +9,7 @@
       <Value Profile="(Default)">1234</Value>
     </Setting>
     <Setting Name="endpoint" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://localhost:8080/apirestaurante/restaurante/</Value>
+      <Value Profile="(Default)">http://localhost:8080/apirestaurantev2/restaurante/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

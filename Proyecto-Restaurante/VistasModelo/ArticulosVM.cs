@@ -59,12 +59,18 @@ namespace Proyecto_Restaurante.VistasModelo
         {
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
             CargarCategorias();
+            CargarProductos();
             
         }
 
         public void CargarCategorias()
         {
             ListaCategorias = servicioAPIRestRestaurante.GetCategorias();
+        }
+
+        public void CargarProductos()
+        {
+            ListaProductos = servicioAPIRestRestaurante.GetProductos();
         }
     }
 }
