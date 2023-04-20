@@ -72,5 +72,16 @@ namespace Proyecto_Restaurante.VistasModelo
         {
             ListaProductos = servicioAPIRestRestaurante.GetProductos();
         }
+
+        public void CargarProductosFiltrados()
+        {
+            ObservableCollection<Producto> listaAux = new ObservableCollection<Producto>();
+            foreach (Producto item in ListaProductos)
+            {
+                if (item.IdCategoria.NombreCategoria == CategoriaSeleccionada.NombreCategoria)
+                    listaAux.Add(item);
+            }
+            ListaProductos = listaAux;
+        }
     }
 }

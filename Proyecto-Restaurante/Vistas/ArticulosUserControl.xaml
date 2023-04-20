@@ -67,13 +67,10 @@
                     <Viewbox DockPanel.Dock="Top" Height="25">
                         <TextBlock Text="{Binding Path=NombreProducto}"  HorizontalAlignment="Center" FontWeight="Bold"/>
                     </Viewbox>
-                        
-                    
-                    
                     <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Margin="5">
                         <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
                             <TextBlock Text="Categoria: " DockPanel.Dock="Left" Margin="3"/>
-                            <TextBlock Text="{Binding Path=Categoria}" DockPanel.Dock="Right" Margin="3"/>
+                            <TextBlock Text="{Binding Path=IdCategoria.NombreCategoria}" DockPanel.Dock="Right" Margin="3"/>
                         </DockPanel>
                         <Separator BorderBrush="#D1D1D1" BorderThickness="1" DockPanel.Dock="Top" Width="100"/>
                         <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
@@ -86,7 +83,7 @@
                             <TextBlock Text="{Binding Path=UnidadesEnAlmacen}" DockPanel.Dock="Right" Margin="3"/>
                         </DockPanel>
                     </DockPanel>
-                    <Image Source="{Binding Path=URLFotoProducto, Converter={StaticResource ConvertidorProductoSinImagen}}" Margin="5"/>
+                    <Image Source="{Binding Path=URLFotoProducto}" Margin="5"/>
                 </DockPanel>
             </Border>
         </DataTemplate>
@@ -110,7 +107,7 @@
                 </Button.Content>
             </Button>
             <inputLayout:SfTextInputLayout Hint="Categorias" Margin="5" Width="170" DockPanel.Dock="Left" Foreground="Black" VerticalAlignment="Top">
-                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria" />
+                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria"  SelectionChanged="ComboBox_SelectionChanged"/>
             </inputLayout:SfTextInputLayout>
             
            
