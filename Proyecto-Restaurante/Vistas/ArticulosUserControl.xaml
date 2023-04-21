@@ -90,7 +90,8 @@
     </UserControl.Resources>
     <DockPanel Background="White">
         <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="10">
-            
+
+           
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}">
                 <Button.Content>
                     <Image Source="../assets/AddProduct.png" Width="24" />
@@ -106,11 +107,15 @@
                     <Image Source="../assets/DeleteProduct.png" Width="24" />
                 </Button.Content>
             </Button>
-            <inputLayout:SfTextInputLayout Hint="Categorias" Margin="5" Width="170" DockPanel.Dock="Left" Foreground="Black" VerticalAlignment="Top">
-                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria"  SelectionChanged="ComboBox_SelectionChanged"/>
+            <inputLayout:SfTextInputLayout Hint="Categorias" Margin="5" Width="170" Height="60" DockPanel.Dock="Left" Foreground="Black">
+                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria"  SelectionChanged="ComboBox_SelectionChanged" />
             </inputLayout:SfTextInputLayout>
-            
-           
+            <Button DockPanel.Dock="Left" Background="#FFA4C1E4" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=RefrescarListaProductosCommand}">
+                <Button.Content>
+                    <Image Source="../assets/refresh.png" Width="25" />
+                </Button.Content>
+            </Button>
+
         </DockPanel>
         <ListBox Margin="10,5,10,10" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado}" ItemTemplate="{StaticResource PlantillaProductos}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemsPanel>

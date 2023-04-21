@@ -13,15 +13,14 @@ namespace Proyecto_Restaurante.VistasModelo
     class MainWindowVM : ObservableObject
     {
         private readonly ServicioNavegacion servicioNavegacion;
-        
+        public RelayCommand GestionarProductosCommand { get; }
+
         private UserControl contenidoVentana;
         public UserControl ContenidoVentana
         {
             get { return contenidoVentana; }
             set { SetProperty(ref contenidoVentana, value); }
         }
-
-        public RelayCommand GestionarProductosCommand { get; }
 
         public MainWindowVM()
         {

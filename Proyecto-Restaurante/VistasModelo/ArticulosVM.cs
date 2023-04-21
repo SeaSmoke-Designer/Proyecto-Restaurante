@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Proyecto_Restaurante.Modelos;
 using Proyecto_Restaurante.Servicios;
 using System;
@@ -13,6 +14,8 @@ namespace Proyecto_Restaurante.VistasModelo
     class ArticulosVM : ObservableObject
     {
         private readonly ServicioAPIRestRestaurante servicioAPIRestRestaurante;
+        public RelayCommand RefrescarListaProductosCommand { get; }
+
 
         private Producto nuevoProducto;
         public Producto NuevoProducto
@@ -60,6 +63,7 @@ namespace Proyecto_Restaurante.VistasModelo
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
             CargarCategorias();
             CargarProductos();
+            RefrescarListaProductosCommand = new RelayCommand(RefrescarListaProductos);
             
         }
 
@@ -72,16 +76,27 @@ namespace Proyecto_Restaurante.VistasModelo
         {
             ListaProductos = servicioAPIRestRestaurante.GetProductos();
         }
+        public void RefrescarListaProductos()
+        {
+            CargarProductos();
+            CategoriaSeleccionada = null;
+            
+        }
 
         public void CargarProductosFiltrados()
         {
             ObservableCollection<Producto> listaAux = new ObservableCollection<Producto>();
-            foreach (Producto item in ListaProductos)
+            ObservableCollection<Producto> listaAux2 = servicioAPIRestRestaurante.GetProductos();
+            if(CategoriaSeleccionada != null)
             {
-                if (item.IdCategoria.NombreCategoria == CategoriaSeleccionada.NombreCategoria)
-                    listaAux.Add(item);
+                foreach (Producto item in listaAux2)
+                {
+                    if (item.IdCategoria.NombreCategoria == CategoriaSeleccionada.NombreCategoria)
+                        listaAux.Add(item);
+                }
+                ListaProductos = listaAux;
             }
-            ListaProductos = listaAux;
+            
         }
     }
 }
