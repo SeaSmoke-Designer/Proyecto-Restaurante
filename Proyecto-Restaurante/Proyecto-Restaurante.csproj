@@ -183,6 +183,7 @@
     <Compile Include="Servicios\ServicioAPIRestRestaurante.cs" />
     <Compile Include="Servicios\ServicioNavegacion.cs" />
     <Compile Include="VistasModelo\ArticulosVM.cs" />
+    <Compile Include="VistasModelo\AñadirNuevoProductoVM.cs" />
     <Compile Include="VistasModelo\MainWindowVM.cs" />
     <Compile Include="Vistas\ArticulosUserControl.xaml.cs">
       <DependentUpon>ArticulosUserControl.xaml</DependentUpon>
@@ -286,6 +287,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Add_Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Aceptar.png" />
+    <Resource Include="Assets\Cancelar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('..\packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />

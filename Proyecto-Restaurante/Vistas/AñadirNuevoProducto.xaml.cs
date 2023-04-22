@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto_Restaurante.VistasModelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,19 @@ namespace Proyecto_Restaurante.Vistas
     /// </summary>
     public partial class AñadirNuevoProducto : Window
     {
+        private AñadirNuevoProductoVM vm;
         public AñadirNuevoProducto()
         {
             InitializeComponent();
+            vm = new AñadirNuevoProductoVM();
+            this.DataContext = vm;
         }
+
+        private void ButtonClick_Aceptar(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+       
     }
 }

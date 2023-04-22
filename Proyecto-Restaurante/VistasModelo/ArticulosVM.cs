@@ -13,8 +13,10 @@ namespace Proyecto_Restaurante.VistasModelo
 {
     class ArticulosVM : ObservableObject
     {
+        private readonly ServicioNavegacion servicioNavegacion;
         private readonly ServicioAPIRestRestaurante servicioAPIRestRestaurante;
         public RelayCommand RefrescarListaProductosCommand { get; }
+        public RelayCommand AñadirNuevoProductoCommand { get; }
 
 
         private Producto nuevoProducto;
@@ -56,14 +58,14 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref listaProductos, value); }
         }
 
-
-
         public ArticulosVM()
         {
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
+            servicioNavegacion = new ServicioNavegacion();
             CargarCategorias();
             CargarProductos();
             RefrescarListaProductosCommand = new RelayCommand(RefrescarListaProductos);
+            AñadirNuevoProductoCommand = new RelayCommand(AñadirNuevoProducto);
             
         }
 
@@ -97,6 +99,11 @@ namespace Proyecto_Restaurante.VistasModelo
                 ListaProductos = listaAux;
             }
             
+        }
+
+        public void AñadirNuevoProducto()
+        {
+            bool? resultado = servicioNavegacion.CargarAñadirNuevoProducto();
         }
     }
 }

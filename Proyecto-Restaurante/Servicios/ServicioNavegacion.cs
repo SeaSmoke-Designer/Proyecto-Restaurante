@@ -18,5 +18,11 @@ namespace Proyecto_Restaurante.Servicios
         {
             return new ArticulosUserControl();
         }
+
+        public bool? CargarAñadirNuevoProducto()
+        {
+            AñadirNuevoProducto añadirNuevoProducto = new AñadirNuevoProducto();
+            return añadirNuevoProducto.ShowDialog();
+        }
     }
 }
