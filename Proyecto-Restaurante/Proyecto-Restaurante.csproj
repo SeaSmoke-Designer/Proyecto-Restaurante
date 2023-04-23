@@ -180,7 +180,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Convertidores\ConvertidorProductoSinImagen.cs" />
+    <Compile Include="Mensajes\EnviarNuevoProductoMessage.cs" />
     <Compile Include="Servicios\ServicioAPIRestRestaurante.cs" />
+    <Compile Include="Servicios\ServicioAzure.cs" />
+    <Compile Include="Servicios\ServicioDialogo.cs" />
     <Compile Include="Servicios\ServicioNavegacion.cs" />
     <Compile Include="VistasModelo\ArticulosVM.cs" />
     <Compile Include="VistasModelo\AñadirNuevoProductoVM.cs" />
@@ -246,9 +249,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mensajes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\Configuration.png" />
   </ItemGroup>

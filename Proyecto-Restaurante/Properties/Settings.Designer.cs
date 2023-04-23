@@ -50,5 +50,25 @@ namespace Proyecto_Restaurante.Properties {
                 return ((string)(this["endpoint"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DefaultEndpointsProtocol=https;AccountName=imagenesrestaurante;AccountKey=bAp7JRB" +
+            "2ZMPX7oB64aQ9L2XlEVqkKeEdO6+DXDjw8m+8OyNJY/RfX37OgexUGctNHTcq/vmZpYfG+AStu3XBkg=" +
+            "=;EndpointSuffix=core.windows.net")]
+        public string ClaveAzure {
+            get {
+                return ((string)(this["ClaveAzure"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("imagenesproductos")]
+        public string NombreContenedor {
+            get {
+                return ((string)(this["NombreContenedor"]));
+            }
+        }
     }
 }
