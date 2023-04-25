@@ -66,13 +66,13 @@
     </Window.Resources>
     <DockPanel >
         <StackPanel DockPanel.Dock="Left">
-            <Button DockPanel.Dock="Left" Background="#FFE1F0FF" Template="{DynamicResource ButtonControlTemplate}">
+            <Button DockPanel.Dock="Left" Background="#FFE1F0FF" Template="{DynamicResource ButtonControlTemplate}" Command="{Binding Path=NuevaImagenProductoCommand}">
                 <Button.Content>
                     <Image Source="{Binding Path=NuevoProducto.URLFotoProducto}"/>
                 </Button.Content>
             </Button>
             <inputLayout:SfTextInputLayout Hint="Categorias" Margin="10" Width="170" Height="60" DockPanel.Dock="Left" Foreground="Black">
-                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria"  />
+                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=NuevoProducto.IdCategoria}" DisplayMemberPath="NombreCategoria"  />
             </inputLayout:SfTextInputLayout>
         </StackPanel>
         <StackPanel>
@@ -92,7 +92,7 @@
                
             </DockPanel>
             <DockPanel LastChildFill="False" Margin="10,15">
-                <Button Content="Aceptar" Click="ButtonClick_Aceptar" IsDefault="True" Command="{Binding Path=AñadirSeccionCommand}" Template="{DynamicResource ButtonControlTemplate2}" DockPanel.Dock="Right" Margin="10"/>
+                <Button Content="Aceptar" Click="ButtonClick_Aceptar" IsDefault="True" Template="{DynamicResource ButtonControlTemplate2}" DockPanel.Dock="Right" Margin="10" Command="{Binding Path=AgregarProductoCommand}"/>
                 <Button Content="Cancelar" IsCancel="True" Template="{DynamicResource ButtonControlTemplate2}" DockPanel.Dock="Right" Margin="10"/>
             </DockPanel>
             

@@ -8,7 +8,7 @@
     <Setting Name="ClaveAPIRest" Type="System.String" Scope="Application">
       <Value Profile="(Default)">1234</Value>
     </Setting>
-    <Setting Name="endpoint" Type="System.String" Scope="Application">
+    <Setting Name="endpointLocal" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://localhost:8080/apirestaurantev2/restaurante/</Value>
     </Setting>
     <Setting Name="ClaveAzure" Type="System.String" Scope="Application">
@@ -16,6 +16,9 @@
     </Setting>
     <Setting Name="NombreContenedor" Type="System.String" Scope="Application">
       <Value Profile="(Default)">imagenesproductos</Value>
+    </Setting>
+    <Setting Name="endpointAzure" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://restauranteapi.eastus.cloudapp.azure.com:8080/apirestaurante/restaurante/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

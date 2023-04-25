@@ -15,31 +15,39 @@ namespace Proyecto_Restaurante.Servicios
 {
     class ServicioAPIRestRestaurante
     {
+        private string clave;
+        
+        
         public ServicioAPIRestRestaurante()
         {
+            this.clave = Properties.Settings.Default.ClaveAPIRest;
         }
+
+        
 
         public ObservableCollection<Categoria> GetCategorias()
         {
-            string clave = Properties.Settings.Default.ClaveAPIRest;
-            var cliente = new RestClient(Properties.Settings.Default.endpoint);
+            clave = Properties.Settings.Default.ClaveAPIRest;
+            var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
+            var cliente2 = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("categorias",Method.Get);
             request.AddHeader("Root",clave);
             //request.AddHeader("Content-Type", "application/json");
             //request.AddHeader("Content-Type",)
-            var response = cliente.Execute(request);
+            var response = cliente2.Execute(request);
             return JsonConvert.DeserializeObject<ObservableCollection<Categoria>>(response.Content);
         }
 
         public ObservableCollection<Producto> GetProductos()
         {
-            string clave = Properties.Settings.Default.ClaveAPIRest;
-            var cliente = new RestClient(Properties.Settings.Default.endpoint);
+            clave = Properties.Settings.Default.ClaveAPIRest;
+            var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
+            var cliente2 = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("productos", Method.Get);
             request.AddHeader("Root", clave);
             //request.AddHeader("Content-Type", "application/json");
             //request.AddHeader("Content-Type",)
-            var response = cliente.Execute(request);
+            var response = cliente2.Execute(request);
             return JsonConvert.DeserializeObject<ObservableCollection<Producto>>(response.Content);
         }
     }
