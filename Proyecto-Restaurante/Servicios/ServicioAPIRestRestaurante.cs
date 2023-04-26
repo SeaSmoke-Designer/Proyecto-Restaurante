@@ -27,10 +27,10 @@ namespace Proyecto_Restaurante.Servicios
 
         public ObservableCollection<Categoria> GetCategorias()
         {
-            clave = Properties.Settings.Default.ClaveAPIRest;
+            //clave = Properties.Settings.Default.ClaveAPIRest;
             var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
             var cliente2 = new RestClient(Properties.Settings.Default.endpointAzure);
-            RestRequest request = new RestRequest("categorias",Method.Get);
+            RestRequest request = new RestRequest("categorias",Method.GET);
             request.AddHeader("Root",clave);
             //request.AddHeader("Content-Type", "application/json");
             //request.AddHeader("Content-Type",)
@@ -40,15 +40,27 @@ namespace Proyecto_Restaurante.Servicios
 
         public ObservableCollection<Producto> GetProductos()
         {
-            clave = Properties.Settings.Default.ClaveAPIRest;
+            //clave = Properties.Settings.Default.ClaveAPIRest;
             var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
             var cliente2 = new RestClient(Properties.Settings.Default.endpointAzure);
-            RestRequest request = new RestRequest("productos", Method.Get);
+            RestRequest request = new RestRequest("productos", Method.GET);
             request.AddHeader("Root", clave);
             //request.AddHeader("Content-Type", "application/json");
             //request.AddHeader("Content-Type",)
             var response = cliente2.Execute(request);
             return JsonConvert.DeserializeObject<ObservableCollection<Producto>>(response.Content);
+        }
+
+        public IRestResponse PostProducto(Producto nuevoProducto)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("productos", Method.POST);
+            string data = JsonConvert.SerializeObject(nuevoProducto);
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            
+            var response = cliente.Execute(request);
+            return response;
         }
     }
 }

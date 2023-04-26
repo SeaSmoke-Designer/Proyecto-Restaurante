@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Proyecto_Restaurante.Modelos;
 using Proyecto_Restaurante.Servicios;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ namespace Proyecto_Restaurante.VistasModelo
 {
     class AñadirNuevoProductoVM : ObservableObject
     {
+        private string imagenDefault = "../Assets/Add_Image.png";
         public RelayCommand AgregarProductoCommand { get; }
         public RelayCommand NuevaImagenProductoCommand { get; }
 
@@ -47,7 +49,7 @@ namespace Proyecto_Restaurante.VistasModelo
         public AñadirNuevoProductoVM()
         {
             NuevoProducto = new Producto();
-            NuevoProducto.URLFotoProducto = "../Assets/Add_Image.png";
+            NuevoProducto.URLFotoProducto = imagenDefault;
             NuevaImagenProductoCommand = new RelayCommand(SeleccionImagen);
             AgregarProductoCommand = new RelayCommand(AñadirNuevoProducto);
             servicioAzure = new ServicioAzure();
@@ -60,18 +62,36 @@ namespace Proyecto_Restaurante.VistasModelo
         {
             string file = servicioDialogo.DialogoAbrirFichero();
             NuevoProducto.URLFotoProducto = file != null ? servicioAzure.AlmacenarImagenEnLaNube(file) : "../Assets/Add_Image.png";
-
         }
 
         public void AñadirNuevoProducto()
         {
-            if (ProductoExiste())
+            if (!ProductoExiste())
             {
-                servicioDialogo.MostrarMensajeInformacion("El producto existe", "Existe producto");
+                if (NuevoProducto.IdCategoria != null)
+                {
+                    if(NuevoProducto.URLFotoProducto.Equals(imagenDefault) || NuevoProducto.URLFotoProducto == null)
+                    {
+                        NuevoProducto.URLFotoProducto = "../Assets/SinImagen.png";
+                    }
+                    //NuevoProducto.IdProducto = 0;
+                    IRestResponse response = servicioAPIRestRestaurante.PostProducto(NuevoProducto);
+                    if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        servicioDialogo.MostrarMensajeInformacion("El producto se ha agregado con exito", "Producto añadido");
+                    }else if(response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                    {
+                        servicioDialogo.MostrarMensajeError("Error al agregar el producto", "Error ");
+                    }
+                }
+                else
+                {
+                    servicioDialogo.MostrarMensajeAdvertencia("Eliga una categoria para el producto", "Prodcuto sin categoria");
+                }
             }
             else
             {
-                servicioDialogo.MostrarMensajeInformacion("El producto no existe", "No existe producto");
+                servicioDialogo.MostrarMensajeAdvertencia("No se puede repetir los productos, cambie el nombre", "Producto repetido");
             }
         }
 
