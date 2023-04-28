@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Proyecto_Restaurante.Mensajes;
 using Proyecto_Restaurante.Modelos;
 using Proyecto_Restaurante.Servicios;
 using RestSharp;
@@ -74,11 +76,12 @@ namespace Proyecto_Restaurante.VistasModelo
                     {
                         NuevoProducto.URLFotoProducto = "../Assets/SinImagen.png";
                     }
-                    //NuevoProducto.IdProducto = 0;
+                    
                     IRestResponse response = servicioAPIRestRestaurante.PostProducto(NuevoProducto);
-                    if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                    if(response.StatusCode == System.Net.HttpStatusCode.Created)
                     {
-                        servicioDialogo.MostrarMensajeInformacion("El producto se ha agregado con exito", "Producto añadido");
+                        //servicioDialogo.MostrarMensajeInformacion("El producto se ha agregado con exito", "Producto añadido");
+                        WeakReferenceMessenger.Default.Send(new EnviarNuevoProductoMessage(NuevoProducto));
                     }else if(response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
                     {
                         servicioDialogo.MostrarMensajeError("Error al agregar el producto", "Error ");

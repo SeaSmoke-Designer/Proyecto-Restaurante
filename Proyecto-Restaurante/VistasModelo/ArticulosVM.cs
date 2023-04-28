@@ -1,13 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Proyecto_Restaurante.Mensajes;
 using Proyecto_Restaurante.Modelos;
 using Proyecto_Restaurante.Servicios;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Proyecto_Restaurante.VistasModelo
 {
@@ -15,8 +19,10 @@ namespace Proyecto_Restaurante.VistasModelo
     {
         private readonly ServicioNavegacion servicioNavegacion;
         private readonly ServicioAPIRestRestaurante servicioAPIRestRestaurante;
+        private readonly ServicioDialogo servicioDialogo;
         public RelayCommand RefrescarListaProductosCommand { get; }
         public RelayCommand AñadirNuevoProductoCommand { get; }
+        public RelayCommand EliminarProductoCommand { get; }
 
 
         private Producto nuevoProducto;
@@ -62,10 +68,17 @@ namespace Proyecto_Restaurante.VistasModelo
         {
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
             servicioNavegacion = new ServicioNavegacion();
+            servicioDialogo = new ServicioDialogo();
             CargarCategorias();
             CargarProductos();
             RefrescarListaProductosCommand = new RelayCommand(RefrescarListaProductos);
             AñadirNuevoProductoCommand = new RelayCommand(AñadirNuevoProducto);
+            EliminarProductoCommand = new RelayCommand(EliminarProducto);
+            WeakReferenceMessenger.Default.Register<EnviarNuevoProductoMessage>(this, (r, m) =>
+            {
+                ListaProductos.Add(m.Value);
+                servicioDialogo.MostrarMensajeInformacion("Producto añadido con exito", "Producto Añadido");    
+            });
             
         }
 
@@ -104,6 +117,28 @@ namespace Proyecto_Restaurante.VistasModelo
         public void AñadirNuevoProducto()
         {
             bool? resultado = servicioNavegacion.CargarAñadirNuevoProducto();
+        }
+
+        public void EliminarProducto()
+        {
+            MessageBoxResult result = MessageBox.Show("¿Estas seguro de eliminar este producto?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if(result == MessageBoxResult.Yes)
+            {
+                if (ProductoSeleccionado != null)
+                {
+                    IRestResponse response = servicioAPIRestRestaurante.DeleteProducto(ProductoSeleccionado.IdProducto);
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {  
+                        ListaProductos.Remove(ProductoSeleccionado);
+                        servicioDialogo.MostrarMensajeInformacion("Producto eliminado con exito!", "Producto Eliminado");
+                    }
+                    else
+                    {
+                        servicioDialogo.MostrarMensajeError(response.Content, "Error al borrar el producto");
+                    }
+                }
+            }
+            
         }
     }
 }

@@ -28,8 +28,8 @@ namespace Proyecto_Restaurante.Servicios
         public ObservableCollection<Categoria> GetCategorias()
         {
             //clave = Properties.Settings.Default.ClaveAPIRest;
-            var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
-            var cliente2 = new RestClient(Properties.Settings.Default.endpointAzure);
+            //var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("categorias",Method.GET);
             request.AddHeader("Root",clave);
             //request.AddHeader("Content-Type", "application/json");
@@ -41,8 +41,8 @@ namespace Proyecto_Restaurante.Servicios
         public ObservableCollection<Producto> GetProductos()
         {
             //clave = Properties.Settings.Default.ClaveAPIRest;
-            var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
-            var cliente2 = new RestClient(Properties.Settings.Default.endpointAzure);
+            //var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("productos", Method.GET);
             request.AddHeader("Root", clave);
             //request.AddHeader("Content-Type", "application/json");
@@ -53,9 +53,10 @@ namespace Proyecto_Restaurante.Servicios
 
         public IRestResponse PostProducto(Producto nuevoProducto)
         {
-            var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("productos", Method.POST);
-            string data = JsonConvert.SerializeObject(new {
+            string data = JsonConvert.SerializeObject(new
+            {
                 idProducto = nuevoProducto.IdProducto,
                 nombreProducto = nuevoProducto.NombreProducto,
                 precioUnitario = nuevoProducto.PrecioUnitario,
@@ -65,11 +66,20 @@ namespace Proyecto_Restaurante.Servicios
                 {
                     descripcion = nuevoProducto.IdCategoria.Descripcion,
                     idCategoria = nuevoProducto.IdCategoria.IdCategoria,
-                    nombreCategoria = nuevoProducto.IdCategoria.NombreCategoria
+                    nombreCategoria = nuevoProducto.IdCategoria.NombreCategoria,
+                    uRLFotoCategoria = nuevoProducto.IdCategoria.URLFotoCategoria
                 }
-
             });
             request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public IRestResponse DeleteProducto(int id)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"productos/{id}", Method.DELETE);
             request.AddHeader("Root", clave);
             var response = cliente.Execute(request);
             return response;
