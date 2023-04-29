@@ -181,18 +181,19 @@
     </ApplicationDefinition>
     <Compile Include="Convertidores\ConvertidorProductoSinImagen.cs" />
     <Compile Include="Mensajes\EnviarNuevoProductoMessage.cs" />
+    <Compile Include="Mensajes\EnviarProductoMessage.cs" />
     <Compile Include="Servicios\ServicioAPIRestRestaurante.cs" />
     <Compile Include="Servicios\ServicioAzure.cs" />
     <Compile Include="Servicios\ServicioDialogo.cs" />
     <Compile Include="Servicios\ServicioNavegacion.cs" />
     <Compile Include="VistasModelo\ArticulosVM.cs" />
-    <Compile Include="VistasModelo\AñadirNuevoProductoVM.cs" />
+    <Compile Include="VistasModelo\AñadirEditarProductoVM.cs" />
     <Compile Include="VistasModelo\MainWindowVM.cs" />
     <Compile Include="Vistas\ArticulosUserControl.xaml.cs">
       <DependentUpon>ArticulosUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\AñadirNuevoProducto.xaml.cs">
-      <DependentUpon>AñadirNuevoProducto.xaml</DependentUpon>
+    <Compile Include="Vistas\AñadirEditarProducto.xaml.cs">
+      <DependentUpon>AñadirEditarProducto.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -210,7 +211,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Vistas\AñadirNuevoProducto.xaml">
+    <Page Include="Vistas\AñadirEditarProducto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

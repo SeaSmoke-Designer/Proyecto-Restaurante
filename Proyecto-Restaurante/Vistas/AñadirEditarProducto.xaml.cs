@@ -20,11 +20,11 @@ namespace Proyecto_Restaurante.Vistas
     /// </summary>
     public partial class AñadirNuevoProducto : Window
     {
-        private AñadirNuevoProductoVM vm;
+        private AñadirEditarProductoVM vm;
         public AñadirNuevoProducto()
         {
             InitializeComponent();
-            vm = new AñadirNuevoProductoVM();
+            vm = new AñadirEditarProductoVM();
             this.DataContext = vm;
         }
 

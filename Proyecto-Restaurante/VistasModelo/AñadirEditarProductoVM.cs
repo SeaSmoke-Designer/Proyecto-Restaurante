@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Restaurante.VistasModelo
 {
-    class AñadirNuevoProductoVM : ObservableObject
+    class AñadirEditarProductoVM : ObservableObject
     {
         private string imagenDefault = "../Assets/Add_Image.png";
         public RelayCommand AgregarProductoCommand { get; }
@@ -48,7 +48,7 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref categoriaSeleccionada, value); }
         }
 
-        public AñadirNuevoProductoVM()
+        public AñadirEditarProductoVM()
         {
             NuevoProducto = new Producto();
             NuevoProducto.URLFotoProducto = imagenDefault;
