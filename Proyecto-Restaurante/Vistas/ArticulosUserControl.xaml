@@ -97,7 +97,7 @@
                     <Image Source="../assets/AddProduct.png" Width="24" />
                 </Button.Content>
             </Button>
-            <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}">
+            <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}" Command="{Binding Path=EditarProductoCommand}">
                 <Button.Content>
                     <Image Source="../assets/EditProduct.png" Width="24" />
                 </Button.Content>

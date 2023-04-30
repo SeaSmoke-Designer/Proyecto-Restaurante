@@ -23,6 +23,7 @@ namespace Proyecto_Restaurante.VistasModelo
         public RelayCommand RefrescarListaProductosCommand { get; }
         public RelayCommand AñadirNuevoProductoCommand { get; }
         public RelayCommand EliminarProductoCommand { get; }
+        public RelayCommand EditarProductoCommand { get; }
 
 
         private Producto nuevoProducto;
@@ -74,11 +75,20 @@ namespace Proyecto_Restaurante.VistasModelo
             RefrescarListaProductosCommand = new RelayCommand(RefrescarListaProductos);
             AñadirNuevoProductoCommand = new RelayCommand(AñadirNuevoProducto);
             EliminarProductoCommand = new RelayCommand(EliminarProducto);
+            EditarProductoCommand = new RelayCommand(EditarProducto);
             WeakReferenceMessenger.Default.Register<EnviarNuevoProductoMessage>(this, (r, m) =>
             {
                 ListaProductos.Add(m.Value);
                 servicioDialogo.MostrarMensajeInformacion("Producto añadido con exito", "Producto Añadido");    
             });
+
+            WeakReferenceMessenger.Default.Register<ArticulosVM, EnviarProductoMessage>(this, (r, m) =>
+             {
+                 if (!m.HasReceivedResponse)
+                 {
+                     m.Reply(r.ProductoSeleccionado);
+                 }
+             });
             
         }
 
@@ -95,7 +105,6 @@ namespace Proyecto_Restaurante.VistasModelo
         {
             CargarProductos();
             CategoriaSeleccionada = null;
-            
         }
 
         public void CargarProductosFiltrados()
@@ -116,7 +125,16 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void AñadirNuevoProducto()
         {
-            bool? resultado = servicioNavegacion.CargarAñadirNuevoProducto();
+            ProductoSeleccionado = null;
+            bool? resultado = servicioNavegacion.CargarAñadirEditarProducto();
+        }
+
+        public void EditarProducto()
+        {
+            if(ProductoSeleccionado != null)
+            {
+                bool? resultado = servicioNavegacion.CargarAñadirEditarProducto();
+            }
         }
 
         public void EliminarProducto()

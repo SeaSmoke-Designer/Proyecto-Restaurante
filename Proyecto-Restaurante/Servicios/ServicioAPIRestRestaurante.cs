@@ -76,6 +76,31 @@ namespace Proyecto_Restaurante.Servicios
             return response;
         }
 
+        public IRestResponse PutProducto(Producto editarProducto)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("productos", Method.PUT);
+            string data = JsonConvert.SerializeObject(new
+            {
+                idProducto = editarProducto.IdProducto,
+                nombreProducto = editarProducto.NombreProducto,
+                precioUnitario = editarProducto.PrecioUnitario,
+                unidadesEnAlmacen = editarProducto.UnidadesEnAlmacen,
+                URLFotoProducto = editarProducto.URLFotoProducto,
+                idCategoria = new
+                {
+                    descripcion = editarProducto.IdCategoria.Descripcion,
+                    idCategoria = editarProducto.IdCategoria.IdCategoria,
+                    nombreCategoria = editarProducto.IdCategoria.NombreCategoria,
+                    uRLFotoCategoria = editarProducto.IdCategoria.URLFotoCategoria
+                }
+            });
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
         public IRestResponse DeleteProducto(int id)
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);

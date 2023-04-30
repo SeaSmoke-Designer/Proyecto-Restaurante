@@ -7,7 +7,7 @@
         xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
-        Title="AñadirNuevoProducto" Height="250" Width="600" ResizeMode="NoResize">
+        Title="AñadirEditarProducto" Height="270" Width="600" ResizeMode="NoResize">
     <Window.Resources>
         <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
             <Border x:Name="border" BorderBrush="#98B8CA" BorderThickness="2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" Margin="10">
@@ -64,35 +64,36 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
-    <DockPanel >
+    <DockPanel>
+        <TextBlock Text="{Binding Path=ModoVentana}" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
         <StackPanel DockPanel.Dock="Left">
             <Button DockPanel.Dock="Left" Background="#FFE1F0FF" Template="{DynamicResource ButtonControlTemplate}" Command="{Binding Path=NuevaImagenProductoCommand}">
                 <Button.Content>
-                    <Image Source="{Binding Path=NuevoProducto.URLFotoProducto}"/>
+                    <Image Source="{Binding Path=ProductoActual.URLFotoProducto}"/>
                 </Button.Content>
             </Button>
             <inputLayout:SfTextInputLayout Hint="Categorias" Margin="10" Width="170" Height="60" DockPanel.Dock="Left" Foreground="Black">
-                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=NuevoProducto.IdCategoria}" DisplayMemberPath="NombreCategoria"  />
+                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=ProductoActual.IdCategoria}" DisplayMemberPath="NombreCategoria"  />
             </inputLayout:SfTextInputLayout>
         </StackPanel>
         <StackPanel>
             <inputLayout:SfTextInputLayout Hint="Nombre del producto" HintFloatMode="Float" DockPanel.Dock="Top" Margin="10,10,10,5">
-                <TextBox Text="{Binding Path=NuevoProducto.NombreProducto,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Text="{Binding Path=ProductoActual.NombreProducto,UpdateSourceTrigger=PropertyChanged}"/>
             </inputLayout:SfTextInputLayout>
             <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10,0">
 
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
                     <TextBlock Text="Precio" Margin="5" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
-                    <syncfusion:DoubleTextBox  Width="100" Height="25" Value="{Binding Path=NuevoProducto.PrecioUnitario, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="5" BorderBrush="Black" BorderThickness="1" CornerRadius="3" TextAlignment="Right" ToolTip="Precio Unitario del producto"/>
+                    <syncfusion:DoubleTextBox  Width="100" Height="25" Value="{Binding Path=ProductoActual.PrecioUnitario, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="5" BorderBrush="Black" BorderThickness="1" CornerRadius="3" TextAlignment="Right" ToolTip="Precio Unitario del producto"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Right">
                     <TextBlock Text="Unidades" Margin="5" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
-                    <syncfusion:IntegerTextBox x:Name="doubleTextBox" Width="100" Height="25" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" BorderBrush="Black" BorderThickness="1" CornerRadius="3" TextAlignment="Right" Margin="5" ToolTip="Unidades en el almacen" Value="{Binding Path=NuevoProducto.UnidadesEnAlmacen}"/>
+                    <syncfusion:IntegerTextBox x:Name="doubleTextBox" Width="100" Height="25" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" BorderBrush="Black" BorderThickness="1" CornerRadius="3" TextAlignment="Right" Margin="5" ToolTip="Unidades en el almacen" Value="{Binding Path=ProductoActual.UnidadesEnAlmacen}"/>
                 </StackPanel>
                
             </DockPanel>
             <DockPanel LastChildFill="False" Margin="10,15">
-                <Button Content="Aceptar" Click="ButtonClick_Aceptar" IsDefault="True" Template="{DynamicResource ButtonControlTemplate2}" DockPanel.Dock="Right" Margin="10" Command="{Binding Path=AgregarProductoCommand}"/>
+                <Button Content="Aceptar" Click="ButtonClick_Aceptar" IsDefault="True" Template="{DynamicResource ButtonControlTemplate2}" DockPanel.Dock="Right" Margin="10" Command="{Binding Path=GuardarProductoCommand}"/>
                 <Button Content="Cancelar" IsCancel="True" Template="{DynamicResource ButtonControlTemplate2}" DockPanel.Dock="Right" Margin="10"/>
             </DockPanel>
             

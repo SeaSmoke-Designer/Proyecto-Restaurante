@@ -16,20 +16,20 @@ namespace Proyecto_Restaurante.VistasModelo
 {
     class AñadirEditarProductoVM : ObservableObject
     {
-        private string imagenDefault = "../Assets/Add_Image.png";
-        public RelayCommand AgregarProductoCommand { get; }
+        private readonly string imagenDefault = "../Assets/Add_Image.png";
+        public RelayCommand GuardarProductoCommand { get; }
         public RelayCommand NuevaImagenProductoCommand { get; }
 
         private readonly ServicioDialogo servicioDialogo;
         private readonly ServicioAzure servicioAzure;
         private readonly ServicioAPIRestRestaurante servicioAPIRestRestaurante;
         
-        private Producto nuevoProducto;
+        private Producto productoActual;
 
-        public Producto NuevoProducto
+        public Producto ProductoActual
         {
-            get { return nuevoProducto; }
-            set { SetProperty(ref nuevoProducto, value); }
+            get { return productoActual; }
+            set { SetProperty(ref productoActual, value); }
         }
 
         private ObservableCollection<Categoria> listaCategorias;
@@ -48,12 +48,26 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref categoriaSeleccionada, value); }
         }
 
+        private string modoVentana;
+
+        public string ModoVentana
+        {
+            get { return modoVentana; }
+            set { SetProperty(ref modoVentana, value); }
+        }
+
+
         public AñadirEditarProductoVM()
         {
-            NuevoProducto = new Producto();
-            NuevoProducto.URLFotoProducto = imagenDefault;
+            ProductoActual = WeakReferenceMessenger.Default.Send<EnviarProductoMessage>();
+            if(ProductoActual is null)
+            {
+                ProductoActual = new Producto();
+                ProductoActual.URLFotoProducto = imagenDefault;
+            }
+            ModoVentana = ProductoActual.IdProducto == 0 ? "Crear Producto" : "Editar Producto";
             NuevaImagenProductoCommand = new RelayCommand(SeleccionImagen);
-            AgregarProductoCommand = new RelayCommand(AñadirNuevoProducto);
+            GuardarProductoCommand = new RelayCommand(GuardarProducto);
             servicioAzure = new ServicioAzure();
             servicioDialogo = new ServicioDialogo();
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
@@ -63,25 +77,37 @@ namespace Proyecto_Restaurante.VistasModelo
         public void SeleccionImagen()
         {
             string file = servicioDialogo.DialogoAbrirFichero();
-            NuevoProducto.URLFotoProducto = file != null ? servicioAzure.AlmacenarImagenEnLaNube(file) : "../Assets/Add_Image.png";
+            ProductoActual.URLFotoProducto = file != null ? servicioAzure.AlmacenarImagenEnLaNube(file) : imagenDefault;
+        }
+
+        public void GuardarProducto()
+        {
+            if(ProductoActual.IdProducto == 0)
+            {
+                AñadirNuevoProducto();
+            }
+            else
+            {
+
+            }
         }
 
         public void AñadirNuevoProducto()
         {
             if (!ProductoExiste())
             {
-                if (NuevoProducto.IdCategoria != null)
+                if (ProductoActual.IdCategoria != null)
                 {
-                    if(NuevoProducto.URLFotoProducto.Equals(imagenDefault) || NuevoProducto.URLFotoProducto == null)
+                    if(ProductoActual.URLFotoProducto.Equals(imagenDefault) || ProductoActual.URLFotoProducto == null)
                     {
-                        NuevoProducto.URLFotoProducto = "../Assets/SinImagen.png";
+                        ProductoActual.URLFotoProducto = "../Assets/SinImagen.png";
                     }
                     
-                    IRestResponse response = servicioAPIRestRestaurante.PostProducto(NuevoProducto);
+                    IRestResponse response = servicioAPIRestRestaurante.PostProducto(ProductoActual);
                     if(response.StatusCode == System.Net.HttpStatusCode.Created)
                     {
-                        //servicioDialogo.MostrarMensajeInformacion("El producto se ha agregado con exito", "Producto añadido");
-                        WeakReferenceMessenger.Default.Send(new EnviarNuevoProductoMessage(NuevoProducto));
+                        
+                        WeakReferenceMessenger.Default.Send(new EnviarNuevoProductoMessage(ProductoActual));
                     }else if(response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
                     {
                         servicioDialogo.MostrarMensajeError("Error al agregar el producto", "Error ");
@@ -103,7 +129,7 @@ namespace Proyecto_Restaurante.VistasModelo
             ObservableCollection<Producto> listaProductos = servicioAPIRestRestaurante.GetProductos();
             foreach (Producto item in listaProductos)
             {
-                if (NuevoProducto.NombreProducto.Equals(item.NombreProducto))
+                if (ProductoActual.NombreProducto.Equals(item.NombreProducto))
                 {
                     return true;
                 }
