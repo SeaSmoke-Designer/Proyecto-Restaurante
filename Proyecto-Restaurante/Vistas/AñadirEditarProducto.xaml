@@ -73,7 +73,7 @@
                 </Button.Content>
             </Button>
             <inputLayout:SfTextInputLayout Hint="Categorias" Margin="10" Width="170" Height="60" DockPanel.Dock="Left" Foreground="Black">
-                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=ProductoActual.IdCategoria}" DisplayMemberPath="NombreCategoria"  />
+                <ComboBox ItemsSource="{Binding Path=ListaCategorias, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=ProductoActual.IdCategoria, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NombreCategoria" />
             </inputLayout:SfTextInputLayout>
         </StackPanel>
         <StackPanel>

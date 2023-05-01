@@ -40,13 +40,13 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref listaCategorias, value); }
         }
 
-        private Categoria categoriaSeleccionada;
+        /*private Categoria categoriaSeleccionada;
 
         public Categoria CategoriaSeleccionada
         {
             get { return categoriaSeleccionada; }
             set { SetProperty(ref categoriaSeleccionada, value); }
-        }
+        }*/
 
         private string modoVentana;
 
@@ -59,6 +59,10 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public AñadirEditarProductoVM()
         {
+            servicioAzure = new ServicioAzure();
+            servicioDialogo = new ServicioDialogo();
+            servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
+            CargarCategorias();
             ProductoActual = WeakReferenceMessenger.Default.Send<EnviarProductoMessage>();
             if(ProductoActual is null)
             {
@@ -68,10 +72,7 @@ namespace Proyecto_Restaurante.VistasModelo
             ModoVentana = ProductoActual.IdProducto == 0 ? "Crear Producto" : "Editar Producto";
             NuevaImagenProductoCommand = new RelayCommand(SeleccionImagen);
             GuardarProductoCommand = new RelayCommand(GuardarProducto);
-            servicioAzure = new ServicioAzure();
-            servicioDialogo = new ServicioDialogo();
-            servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
-            CargarCategorias();
+             
         }
 
         public void SeleccionImagen()
@@ -88,7 +89,7 @@ namespace Proyecto_Restaurante.VistasModelo
             }
             else
             {
-
+                ActualizarProducto();
             }
         }
 
@@ -106,7 +107,6 @@ namespace Proyecto_Restaurante.VistasModelo
                     IRestResponse response = servicioAPIRestRestaurante.PostProducto(ProductoActual);
                     if(response.StatusCode == System.Net.HttpStatusCode.Created)
                     {
-                        
                         WeakReferenceMessenger.Default.Send(new EnviarNuevoProductoMessage(ProductoActual));
                     }else if(response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
                     {
@@ -122,6 +122,19 @@ namespace Proyecto_Restaurante.VistasModelo
             {
                 servicioDialogo.MostrarMensajeAdvertencia("No se puede repetir los productos, cambie el nombre", "Producto repetido");
             }
+        }
+
+        public void ActualizarProducto()
+        {
+            if(ProductoActual.IdProducto != 0)
+            {
+                IRestResponse response = servicioAPIRestRestaurante.PutProducto(ProductoActual);
+                if (response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                {
+                    servicioDialogo.MostrarMensajeError(response.Content, "ERROR - NO SE PUEDE ACTUALIZAR EL PRODUCTO");
+                }
+            }
+           
         }
 
         public bool ProductoExiste()

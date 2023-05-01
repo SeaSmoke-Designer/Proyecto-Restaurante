@@ -134,6 +134,12 @@ namespace Proyecto_Restaurante.VistasModelo
             if(ProductoSeleccionado != null)
             {
                 bool? resultado = servicioNavegacion.CargarAñadirEditarProducto();
+                if ((bool)resultado)
+                {
+                    servicioDialogo.MostrarMensajeInformacion("Producto modificado con exito!", "PRODUCTO MODIFICADO");
+                }
+                
+                ProductoSeleccionado = null;
             }
         }
 

@@ -51,25 +51,36 @@ namespace Proyecto_Restaurante.Servicios
             return JsonConvert.DeserializeObject<ObservableCollection<Producto>>(response.Content);
         }
 
+        /// <summary>
+        /// Este metodo simplemete se utiliza para cambiar el nombre de las propiedades para que la API lo acepte sin ningun problema
+        /// </summary>
+        /// <param name="producto"></param>
+        /// <returns></returns>
+        
+        private object CambiarPropiedadesProducto(Producto producto)
+        {
+            return new
+            {
+                idProducto = producto.IdProducto,
+                nombreProducto = producto.NombreProducto,
+                precioUnitario = producto.PrecioUnitario,
+                unidadesEnAlmacen = producto.UnidadesEnAlmacen,
+                URLFotoProducto = producto.URLFotoProducto,
+                idCategoria = new
+                {
+                    descripcion = producto.IdCategoria.Descripcion,
+                    idCategoria = producto.IdCategoria.IdCategoria,
+                    nombreCategoria = producto.IdCategoria.NombreCategoria,
+                    uRLFotoCategoria = producto.IdCategoria.URLFotoCategoria
+                }
+            };
+        }
+
         public IRestResponse PostProducto(Producto nuevoProducto)
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("productos", Method.POST);
-            string data = JsonConvert.SerializeObject(new
-            {
-                idProducto = nuevoProducto.IdProducto,
-                nombreProducto = nuevoProducto.NombreProducto,
-                precioUnitario = nuevoProducto.PrecioUnitario,
-                unidadesEnAlmacen = nuevoProducto.UnidadesEnAlmacen,
-                URLFotoProducto = nuevoProducto.URLFotoProducto,
-                idCategoria = new
-                {
-                    descripcion = nuevoProducto.IdCategoria.Descripcion,
-                    idCategoria = nuevoProducto.IdCategoria.IdCategoria,
-                    nombreCategoria = nuevoProducto.IdCategoria.NombreCategoria,
-                    uRLFotoCategoria = nuevoProducto.IdCategoria.URLFotoCategoria
-                }
-            });
+            string data = JsonConvert.SerializeObject(CambiarPropiedadesProducto(nuevoProducto));
             request.AddParameter("application/json", data, ParameterType.RequestBody);
             request.AddHeader("Root", clave);
             var response = cliente.Execute(request);
@@ -80,21 +91,7 @@ namespace Proyecto_Restaurante.Servicios
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("productos", Method.PUT);
-            string data = JsonConvert.SerializeObject(new
-            {
-                idProducto = editarProducto.IdProducto,
-                nombreProducto = editarProducto.NombreProducto,
-                precioUnitario = editarProducto.PrecioUnitario,
-                unidadesEnAlmacen = editarProducto.UnidadesEnAlmacen,
-                URLFotoProducto = editarProducto.URLFotoProducto,
-                idCategoria = new
-                {
-                    descripcion = editarProducto.IdCategoria.Descripcion,
-                    idCategoria = editarProducto.IdCategoria.IdCategoria,
-                    nombreCategoria = editarProducto.IdCategoria.NombreCategoria,
-                    uRLFotoCategoria = editarProducto.IdCategoria.URLFotoCategoria
-                }
-            });
+            string data = JsonConvert.SerializeObject(CambiarPropiedadesProducto(editarProducto));
             request.AddParameter("application/json", data, ParameterType.RequestBody);
             request.AddHeader("Root", clave);
             var response = cliente.Execute(request);
