@@ -90,8 +90,6 @@
     </UserControl.Resources>
     <DockPanel Background="White">
         <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="10">
-
-
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=AñadirNuevoProductoCommand}">
                 <Button.Content>
                     <Image Source="../assets/AddProduct.png" Width="24" />
