@@ -51,9 +51,9 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref cargo, value); }
         }
 
-        private DateTime fechaNacimiento;
+        private string fechaNacimiento;
 
-        public DateTime FechaNacimiento
+        public string FechaNacimiento
         {
             get { return fechaNacimiento; }
             set { SetProperty(ref fechaNacimiento, value); }
@@ -83,21 +83,31 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref urlFoto, value); }
         }
 
+        private string contraseñaEmpleado;
+
+        public string ContraseñaEmpleado
+        {
+            get { return contraseñaEmpleado; }
+            set { SetProperty(ref contraseñaEmpleado, value); }
+        }
+
+
         public Empleado()
         {
         }
 
-        public Empleado(int idEmpleado, string dni, string nombre, string apellido, string cargo, DateTime fechaNacimiento, string direccion, string telefonoParticular, string urlFoto)
+        public Empleado(int idEmpleado, string dni, string nombre, string apellido, string cargo, string fechaNacimiento, string direccion, string telefonoParticular, string uRLFoto, string contraseñaEmpleado)
         {
-            this.idEmpleado = idEmpleado;
-            this.dni = dni;
-            this.nombre = nombre;
-            this.apellido = apellido;
-            this.cargo = cargo;
-            this.fechaNacimiento = fechaNacimiento;
-            this.direccion = direccion;
-            this.telefonoParticular = telefonoParticular;
-            this.urlFoto = urlFoto;
+            IdEmpleado = idEmpleado;
+            Dni = dni;
+            Nombre = nombre;
+            Apellido = apellido;
+            Cargo = cargo;
+            FechaNacimiento = fechaNacimiento;
+            Direccion = direccion;
+            TelefonoParticular = telefonoParticular;
+            URLFoto = uRLFoto;
+            ContraseñaEmpleado = contraseñaEmpleado;
         }
     }
 }

@@ -106,5 +106,18 @@ namespace Proyecto_Restaurante.Servicios
             var response = cliente.Execute(request);
             return response;
         }
+
+        public ObservableCollection<Empleado> GetEmpleados()
+        {
+            //clave = Properties.Settings.Default.ClaveAPIRest;
+            //var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("empleados", Method.GET);
+            request.AddHeader("Root", clave);
+            //request.AddHeader("Content-Type", "application/json");
+            //request.AddHeader("Content-Type",)
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<ObservableCollection<Empleado>>(response.Content);
+        }
     }
 }

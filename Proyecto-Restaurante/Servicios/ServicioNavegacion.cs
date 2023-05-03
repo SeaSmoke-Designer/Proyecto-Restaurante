@@ -24,5 +24,10 @@ namespace Proyecto_Restaurante.Servicios
             AñadirNuevoProducto añadirNuevoProducto = new AñadirNuevoProducto();
             return añadirNuevoProducto.ShowDialog();
         }
+
+        public UserControl CargarGestionarEmpleados()
+        {
+            return new GestionarEmpleadosUserControl();
+        }
     }
 }

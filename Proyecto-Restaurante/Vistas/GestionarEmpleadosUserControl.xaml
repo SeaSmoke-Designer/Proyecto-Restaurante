@@ -41,7 +41,7 @@
         </Style>
         <Style TargetType="{x:Type Button}" x:Key="ButtonsTrigger" BasedOn="{StaticResource ButtonsDiseño}">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=ProductoSeleccionado}" Value="{x:Null}">
+                <DataTrigger Binding="{Binding Path=EmpleadoSeleccionado}" Value="{x:Null}">
                     <Setter Property="IsEnabled" Value="False"/>
                     <Setter Property="Opacity" Value="0.5"/>
                 </DataTrigger>
@@ -61,45 +61,39 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="5" Height="150" HorizontalAlignment="Left" 
-                   Source="{Binding Path=IdEmpleado}" />
+                   Source="{Binding Data.URLFoto}"/>
                 <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
                    Margin="25,0,0,0" Content="Order Details" FontWeight="Bold" />
                 <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" 
 						HorizontalAlignment="Left" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="SemiBold"
-                           Content="Product Name :"/>
+                           Content="Nombre :"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.ProductName}"/>
+                               Text="{Binding Data.Nombre}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <Label HorizontalAlignment="Left" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Quantity :"/>
+                           FontWeight="SemiBold" Content="Apellido :"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.Quantity}"/>
+                               Text="{Binding Data.Apellido}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <Label HorizontalAlignment="Left" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Unit Price :"/>
+                           FontWeight="SemiBold" Content="Cargo :"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.UnitPrice, StringFormat='{}{0:C}'}"/>
+                               Text="{Binding Data.Cargo}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <Label HorizontalAlignment="Left" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Discount :"/>
+                           FontWeight="SemiBold" Content="Fecha Nacimiento :"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.Discount, StringFormat='{}{0:P}'}"/>
+                               Text="{Binding Data.FechaNacimiento, StringFormat=d}"/>
                     </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Freight :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.Freight, StringFormat='{}{0:c}'}"/>
-                    </StackPanel>
+ 
                 </StackPanel>
                 <Label Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="25,0,0,0"
                    Content="Shipping Details" FontWeight="Bold" />
@@ -107,37 +101,16 @@
 						HorizontalAlignment="Left" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Label HorizontalAlignment="Right" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Order Date :"/>
+                           FontWeight="SemiBold" Content="Direccion :"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.OrderDate, StringFormat=d}"/>
+                               Text="{Binding Data.Direccion}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <Label HorizontalAlignment="Right" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Shipped Date :"/>
+                           FontWeight="SemiBold" Content="Telefono particular :"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.ShippedDate, StringFormat=d}"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Ship Address :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.ShipAddress}"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Ship Postal Code :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.ShipPostalCode, StringFormat=hh\\:mm}"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Delivery Delay :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.DeliveryDelay, StringFormat=dd\\:hh}"/>
+                               Text="{Binding Data.TelefonoParticular}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -145,18 +118,18 @@
     </UserControl.Resources>
     <DockPanel>
         <DockPanel LastChildFill="False" DockPanel.Dock="Top">
-            <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=AñadirNuevoProductoCommand}">
+            <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=AñadirNuevoEmpleadoCommand}">
                 <Button.Content>
                     <Image Source="../assets/AddProduct.png" Width="24" />
                 </Button.Content>
             </Button>
-            <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}" Command="{Binding Path=EditarProductoCommand}">
+            <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}" Command="{Binding Path=EditarEmpleadoCommand}">
                 <Button.Content>
                     <Image Source="../assets/EditProduct.png" Width="24" />
                 </Button.Content>
             </Button>
             <Button DockPanel.Dock="Right" Background="#FFE4A4A4" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}"
-                    Command="{Binding Path=EliminarProductoCommand}">
+                    Command="{Binding Path=EliminarEmpleadoCommand}">
                 <Button.Content>
                     <Image Source="../assets/DeleteProduct.png" Width="24" />
                 </Button.Content>
@@ -165,8 +138,8 @@
         <DockPanel LastChildFill="False" DockPanel.Dock="Bottom">
             
         </DockPanel>
-        <syncfusion:SfDataGrid x:Name="dataGrid"  ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}"
-                               AllowFiltering="True" ColumnSizer="Star">
+        <syncfusion:SfDataGrid x:Name="dataGrid" ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}"
+                               AllowFiltering="True" Margin="10" Padding="5">
             <syncfusion:SfDataGrid.DetailsViewDefinition>
                 <syncfusion:TemplateViewDefinition RowTemplate="{StaticResource DetailsViewTemplate}"/>
             </syncfusion:SfDataGrid.DetailsViewDefinition>

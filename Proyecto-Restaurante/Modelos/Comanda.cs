@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,14 +58,27 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref fecha, value); }
         }
 
-        public Comanda(int idComanda, Empleado empleado, Mesa mesa, int cantidadPersonas, bool pagada, DateTime fecha)
+        private ObservableCollection<DetalleComanda> detallescomandaCollection;
+
+        public ObservableCollection<DetalleComanda> DetallescomandaCollection
         {
-            this.idComanda = idComanda;
-            this.empleado = empleado;
-            this.mesa = mesa;
-            this.cantidadPersonas = cantidadPersonas;
-            this.pagada = pagada;
-            this.fecha = fecha;
+            get { return detallescomandaCollection; }
+            set { SetProperty(ref detallescomandaCollection, value); }
+        }
+
+        public Comanda()
+        {
+        }
+
+        public Comanda(int idComanda, Empleado empleado, Mesa mesa, int cantidadPersonas, bool pagada, DateTime fecha, ObservableCollection<DetalleComanda> detallescomandaCollection)
+        {
+            IdComanda = idComanda;
+            Empleado = empleado;
+            Mesa = mesa;
+            CantidadPersonas = cantidadPersonas;
+            Pagada = pagada;
+            Fecha = fecha;
+            DetallescomandaCollection = detallescomandaCollection;
         }
     }
 }

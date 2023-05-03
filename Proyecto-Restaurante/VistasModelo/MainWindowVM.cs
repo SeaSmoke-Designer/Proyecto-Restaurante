@@ -14,6 +14,7 @@ namespace Proyecto_Restaurante.VistasModelo
     {
         private readonly ServicioNavegacion servicioNavegacion;
         public RelayCommand GestionarProductosCommand { get; }
+        public RelayCommand GestionarEmpleadosCommand { get; }
 
         private UserControl contenidoVentana;
         public UserControl ContenidoVentana
@@ -25,12 +26,18 @@ namespace Proyecto_Restaurante.VistasModelo
         public MainWindowVM()
         {
             servicioNavegacion = new ServicioNavegacion();
-            GestionarProductosCommand = new RelayCommand(GestionarProductos);
+            GestionarProductosCommand = new RelayCommand(NavegarGestionarProductos);
+            GestionarEmpleadosCommand = new RelayCommand(NavegarGestionEmpleados);
         }
 
-        public void GestionarProductos()
+        public void NavegarGestionarProductos()
         {
             ContenidoVentana = servicioNavegacion.CargarArticulos();
+        }
+
+        public void NavegarGestionEmpleados()
+        {
+            ContenidoVentana = servicioNavegacion.CargarGestionarEmpleados();
         }
 
         

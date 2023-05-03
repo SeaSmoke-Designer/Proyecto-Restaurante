@@ -44,7 +44,7 @@ namespace Proyecto_Restaurante.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/apirestaurantev2/restaurante/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/apirestaurantev3/restaurante/")]
         public string endpointLocal {
             get {
                 return ((string)(this["endpointLocal"]));
@@ -73,7 +73,8 @@ namespace Proyecto_Restaurante.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://restauranteapi.eastus.cloudapp.azure.com:8080/apirestaurante/restaurante/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://restauranteapi.eastus.cloudapp.azure.com:8080/apirestaurantev3/restaurante" +
+            "/")]
         public string endpointAzure {
             get {
                 return ((string)(this["endpointAzure"]));
