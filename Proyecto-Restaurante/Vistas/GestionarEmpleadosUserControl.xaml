@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
+             xmlns:convertidores="clr-namespace:Proyecto_Restaurante.Convertidores"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="600" d:DesignWidth="1000" Background="White">
     <UserControl.Resources>
+        <convertidores:ConvertidorFechaEmpleado x:Key="ConvertidorFechaEmpleado"/>
         <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
             <Border x:Name="border" BorderBrush="#98B8CA" BorderThickness="2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5" >
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="35" Height="35"/>
@@ -45,76 +47,88 @@
                     <Setter Property="IsEnabled" Value="False"/>
                     <Setter Property="Opacity" Value="0.5"/>
                 </DataTrigger>
-
             </Style.Triggers>
         </Style>
-
-        <DataTemplate x:Key="DetailsViewTemplate">
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="TextoTarjeta">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        
+        <DataTemplate x:Key="DataTemplateEmpleados">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="125"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="5" Height="150" HorizontalAlignment="Left" 
-                   Source="{Binding Data.URLFoto}"/>
-                <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
-                   Margin="25,0,0,0" Content="Order Details" FontWeight="Bold" />
-                <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" 
-						HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="SemiBold"
-                           Content="Nombre :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.Nombre}"/>
+                
+            
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Background="AliceBlue"  Height="170" Width="1000" CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="{Binding Path=URLFoto}" Margin="5" Grid.Column="0" Grid.RowSpan="4" />
+                    <TextBlock Text="Datos del empleado" HorizontalAlignment="Center" FontSize="25" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"/>
+                    <StackPanel  Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+                        <Label Content="Nombre :"/>
+                        <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=Nombre}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center">
+                        <Label Content="Apellido :"/>
+                        <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=Apellido}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center">
+                        <Label Content="Direccion :"/>
+                        <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=Direccion}"/>
+                    </StackPanel>
+                    <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" Margin="0,10">
+                        <Separator.LayoutTransform>
+                            <RotateTransform Angle="90" />
+                        </Separator.LayoutTransform>
+                    </Separator>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center">
+                        <Label Content="Fecha de nacimiento :"/>
+                            <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=FechaNacimiento, Converter={StaticResource ConvertidorFechaEmpleado}}"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="3">
+                        <Label Content="Telefono :"/>
+                        <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=TelefonoParticular}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Apellido :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.Apellido}"/>
-                    </StackPanel>
+                    <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Grid.Row="1" Grid.Column="4" Grid.RowSpan="3" Margin="0,10">
+                        <Separator.LayoutTransform>
+                            <RotateTransform Angle="90" />
+                        </Separator.LayoutTransform>
+                    </Separator>
 
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Cargo :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.Cargo}"/>
+                    <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="5" Grid.Row="1" Grid.RowSpan="3">
+                        <TextBlock Text="Cargo" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="12"/>
+                        <Separator BorderBrush="Black" BorderThickness="2" Margin="0,5"/>
+                        <TextBlock Text="{Binding Path=Cargo}" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"/>
                     </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Fecha Nacimiento :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.FechaNacimiento, StringFormat=d}"/>
-                    </StackPanel>
- 
-                </StackPanel>
-                <Label Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="25,0,0,0"
-                   Content="Shipping Details" FontWeight="Bold" />
-                <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1" 
-						HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Direccion :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.Direccion}"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Right" VerticalAlignment="Center"
-                           FontWeight="SemiBold" Content="Telefono particular :"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
-                               Text="{Binding Data.TelefonoParticular}"/>
-                    </StackPanel>
-                </StackPanel>
+                </Grid>
+            </Border>
             </Grid>
         </DataTemplate>
+        
     </UserControl.Resources>
     <DockPanel>
         <DockPanel LastChildFill="False" DockPanel.Dock="Top">
@@ -135,14 +149,18 @@
                 </Button.Content>
             </Button>
         </DockPanel>
-        <DockPanel LastChildFill="False" DockPanel.Dock="Bottom">
-            
-        </DockPanel>
-        <syncfusion:SfDataGrid x:Name="dataGrid" ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}"
+        <ListBox ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}" Margin="10" ItemTemplate="{StaticResource DataTemplateEmpleados}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <!--<syncfusion:SfDataGrid x:Name="dataGrid" ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}"
                                AllowFiltering="True" Margin="10" Padding="5">
             <syncfusion:SfDataGrid.DetailsViewDefinition>
                 <syncfusion:TemplateViewDefinition RowTemplate="{StaticResource DetailsViewTemplate}"/>
             </syncfusion:SfDataGrid.DetailsViewDefinition>
-        </syncfusion:SfDataGrid>
+        </syncfusion:SfDataGrid>-->
     </DockPanel>
 </UserControl>

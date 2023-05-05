@@ -185,6 +185,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Convertidores\ConvertidorFechaEmpleado.cs" />
     <Compile Include="Convertidores\ConvertidorProductoSinImagen.cs" />
     <Compile Include="Mensajes\EnviarNuevoProductoMessage.cs" />
     <Compile Include="Mensajes\EnviarProductoMessage.cs" />
