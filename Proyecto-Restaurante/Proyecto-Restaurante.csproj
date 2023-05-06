@@ -194,11 +194,15 @@
     <Compile Include="Servicios\ServicioDialogo.cs" />
     <Compile Include="Servicios\ServicioNavegacion.cs" />
     <Compile Include="VistasModelo\ArticulosVM.cs" />
+    <Compile Include="VistasModelo\AñadirEditarEmpleadoVM.cs" />
     <Compile Include="VistasModelo\AñadirEditarProductoVM.cs" />
     <Compile Include="VistasModelo\GestionarEmpleadosVM.cs" />
     <Compile Include="VistasModelo\MainWindowVM.cs" />
     <Compile Include="Vistas\ArticulosUserControl.xaml.cs">
       <DependentUpon>ArticulosUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\AñadirEditarEmpleado.xaml.cs">
+      <DependentUpon>AñadirEditarEmpleado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\AñadirEditarProducto.xaml.cs">
       <DependentUpon>AñadirEditarProducto.xaml</DependentUpon>
@@ -219,6 +223,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Vistas\ArticulosUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\AñadirEditarEmpleado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

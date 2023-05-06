@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Restaurante.Servicios
 {
-    class ServicioAPIRestRestaurante
+    class ServicioAPIRestRestaurante 
     {
         private string clave;
         
