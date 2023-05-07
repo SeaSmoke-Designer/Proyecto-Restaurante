@@ -6,21 +6,21 @@
         xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
         xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        
         mc:Ignorable="d"
-        Title="AñadirEditarEmpleado" Height="460" Width="700">
+        Title="{Binding Path=ModoVentana}" Height="600" Width="700">
     <Window.Resources>
-        <Style TargetType="{x:Type Button}">
+        <Style TargetType="{x:Type Button}" >
             <Setter Property="Margin" Value="7"/>
             <Setter Property="Padding" Value="4"/>
             <Setter Property="BorderBrush" Value="#a4e4d9"/>
             <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Template" Value="{DynamicResource ButtonControlTemplate}"/>
         </Style>
         <Style TargetType="{x:Type inputLayout:SfTextInputLayout}" x:Key="textInputLayout">
-            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Margin" Value="7"/>
         </Style>
         <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
-            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="70">
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
             <ControlTemplate.Triggers>
@@ -47,45 +47,82 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
-    <DockPanel LastChildFill="False">
-        <StackPanel Margin="15" DockPanel.Dock="Left">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE1F0FF" Template="{DynamicResource ButtonControlTemplate}" Command="{Binding Path=NuevaImagenProductoCommand}" HorizontalAlignment="Center" Height="100" Width="100">
+            <Button.Content>
+                <Image Source="{Binding Path=EmpleadoActual.URLFoto}"/>
+            </Button.Content>
+        </Button>
+
+        <StackPanel Margin="15" Grid.Column="0" Grid.Row="1">
             <!--int id, string nombre, string imagen, string nickname, string social-->
-            <inputLayout:SfTextInputLayout Hint="Nombre" HelperText="Nombre del autor" Style="{StaticResource textInputLayout}">
-                <TextBox Text="{Binding Path=AutorActual.Nombre, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <inputLayout:SfTextInputLayout Hint="Nombre" HelperText="Nombre del empleado" Style="{StaticResource textInputLayout}">
+                <TextBox Text="{Binding Path=EmpleadoActual.Nombre, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <inputLayout:SfTextInputLayout.LeadingView>
-                    <Image Source="../assets/nombre.png"/>
+                    <Image Source="../assets/nombreEmpleado.png"/>
                 </inputLayout:SfTextInputLayout.LeadingView>
             </inputLayout:SfTextInputLayout>
-            <inputLayout:SfTextInputLayout Hint="Nickname" HelperText="Nickname del autor" Style="{StaticResource textInputLayout}">
-                <TextBox Text="{Binding Path=AutorActual.Nickname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <inputLayout:SfTextInputLayout Hint="Apellido" HelperText="Apellido del empleado" Style="{StaticResource textInputLayout}">
+                <TextBox Text="{Binding Path=EmpleadoActual.Apellido, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <inputLayout:SfTextInputLayout.LeadingView>
-                    <Image Source="../assets/nickname.png"/>
+                    <Image Source="../assets/nombreEmpleado.png"/>
                 </inputLayout:SfTextInputLayout.LeadingView>
             </inputLayout:SfTextInputLayout>
-            <inputLayout:SfTextInputLayout Hint="Red Social" HelperText="Red social del autor" Style="{StaticResource textInputLayout}">
-                <ComboBox ItemsSource="{Binding Path=RedesSociales, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=AutorActual.Social, UpdateSourceTrigger=PropertyChanged}"/>
+            <inputLayout:SfTextInputLayout Hint="DNI" HelperText="DNI del empleado" Style="{StaticResource textInputLayout}">
+                <TextBox Text="{Binding Path=EmpleadoActual.Dni, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <inputLayout:SfTextInputLayout.LeadingView>
-                    <Image Source="../assets/redsocial.png"/>
+                    <Image Source="../assets/DNIEmpleado.png" Width="30" Height="30"/>
                 </inputLayout:SfTextInputLayout.LeadingView>
             </inputLayout:SfTextInputLayout>
-            <DockPanel Margin="10">
-                <Button DockPanel.Dock="Right" VerticalAlignment="Top" Width="50" Height="47" Background="#a4e4d9" Command="{Binding Path=CommandSeleccionImagen}" Template="{DynamicResource ButtonControlTemplate}">
-                    <Button.Content>
-                        <Image Source="../assets/file-explorer.png" Width="24"/>
-                    </Button.Content>
-                </Button>
-                <inputLayout:SfTextInputLayout Hint="Imagen" HelperText="Imagen del autor">
-                    <TextBox Text="{Binding Path=AutorActual.Imagen, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
-                    <inputLayout:SfTextInputLayout.LeadingView>
-                        <Image Source="../assets/fotoAutor.png"/>
-                    </inputLayout:SfTextInputLayout.LeadingView>
-                </inputLayout:SfTextInputLayout>
-            </DockPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="aceptarButton" Content="{Binding Path=Modo}" Background="#a4e4d9" Click="AceptarButton_Click" IsDefault="True"/>
-                <Button Content="Cancelar" Background="Transparent" IsCancel="True"/>
-            </StackPanel>
+            <inputLayout:SfTextInputLayout Hint="Fecha de nacimiento" HelperText="(aaaa-MM-dd)" Style="{StaticResource textInputLayout}">
+                <TextBox Text="{Binding Path=EmpleadoActual.FechaNacimiento, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                <inputLayout:SfTextInputLayout.LeadingView>
+                    <Image Source="../assets/calendarEmpleado.png"/>
+                </inputLayout:SfTextInputLayout.LeadingView>
+            </inputLayout:SfTextInputLayout>
+            
         </StackPanel>
-    </DockPanel>
+        <StackPanel Margin="15" Grid.Column="1" Grid.Row="1">
+            <!--int id, string nombre, string imagen, string nickname, string social-->
+            <inputLayout:SfTextInputLayout Hint="Cargo" HelperText="Cargo del empleado" Style="{StaticResource textInputLayout}">
+                <TextBox Text="{Binding Path=EmpleadoActual.Cargo, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <inputLayout:SfTextInputLayout.LeadingView>
+                    <Image Source="../assets/nombreEmpleado.png"/>
+                </inputLayout:SfTextInputLayout.LeadingView>
+            </inputLayout:SfTextInputLayout>
+            <inputLayout:SfTextInputLayout Hint="Direccion" HelperText="Direccion del empleado" Style="{StaticResource textInputLayout}">
+                <TextBox Text="{Binding Path=EmpleadoActual.Direccion, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <inputLayout:SfTextInputLayout.LeadingView>
+                    <Image Source="../assets/Direccion.png"/>
+                </inputLayout:SfTextInputLayout.LeadingView>
+            </inputLayout:SfTextInputLayout>
+            <inputLayout:SfTextInputLayout Hint="Telefono" HelperText="Telefono particular" Style="{StaticResource textInputLayout}">
+                <TextBox Text="{Binding Path=EmpleadoActual.TelefonoParticular, UpdateSourceTrigger=PropertyChanged}"/>
+                <inputLayout:SfTextInputLayout.LeadingView>
+                    <Image Source="../assets/Telefono.png" Width="30" Height="30"/>
+                </inputLayout:SfTextInputLayout.LeadingView>
+            </inputLayout:SfTextInputLayout>
+            
+            <inputLayout:SfTextInputLayout Hint="Contraseña" HelperText="Contraseña empleado" Style="{StaticResource textInputLayout}">
+                <PasswordBox PasswordChar="{Binding Path=EmpleadoActual.ContraseñaEmpleado, UpdateSourceTrigger=PropertyChanged}"/>
+                <inputLayout:SfTextInputLayout.LeadingView>
+                    <Image Source="../assets/password.png"/>
+                </inputLayout:SfTextInputLayout.LeadingView>
+            </inputLayout:SfTextInputLayout>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+            <Button Content="Cancelar" Background="Transparent" IsCancel="True"/>
+            <Button x:Name="aceptarButton" Content="{Binding Path=ModoVentana}" Background="#a4e4d9" Click="AceptarButton_Click" IsDefault="True"/>
+        </StackPanel>
+    </Grid>
     
 </Window>

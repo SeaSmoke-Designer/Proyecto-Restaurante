@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Restaurante.Mensajes
 {
-    class EnviarNuevoProductoMessage : ValueChangedMessage<Producto>
-    {
-        public EnviarNuevoProductoMessage(Producto producto) : base(producto) { }
-    }
+    class EnviarEmpleadoMessage : RequestMessage<Empleado> { }
+    
 }

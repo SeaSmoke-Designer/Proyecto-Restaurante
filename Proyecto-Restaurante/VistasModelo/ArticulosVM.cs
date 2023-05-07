@@ -76,7 +76,7 @@ namespace Proyecto_Restaurante.VistasModelo
             AñadirNuevoProductoCommand = new RelayCommand(AñadirNuevoProducto);
             EliminarProductoCommand = new RelayCommand(EliminarProducto);
             EditarProductoCommand = new RelayCommand(EditarProducto);
-            WeakReferenceMessenger.Default.Register<EnviarNuevoProductoMessage>(this, (r, m) =>
+            WeakReferenceMessenger.Default.Register<NuevoProductoMessage>(this, (r, m) =>
             {
                 ListaProductos.Add(m.Value);
                 servicioDialogo.MostrarMensajeInformacion("Producto añadido con exito", "Producto Añadido");    

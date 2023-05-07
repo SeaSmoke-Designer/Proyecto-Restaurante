@@ -15,7 +15,7 @@ namespace Proyecto_Restaurante.Servicios
 {
     class ServicioAPIRestRestaurante 
     {
-        private string clave;
+        private readonly string clave;
         
         
         public ServicioAPIRestRestaurante()
@@ -23,30 +23,20 @@ namespace Proyecto_Restaurante.Servicios
             this.clave = Properties.Settings.Default.ClaveAPIRest;
         }
 
-        
-
         public ObservableCollection<Categoria> GetCategorias()
         {
-            //clave = Properties.Settings.Default.ClaveAPIRest;
-            //var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("categorias",Method.GET);
             request.AddHeader("Root",clave);
-            //request.AddHeader("Content-Type", "application/json");
-            //request.AddHeader("Content-Type",)
             var response = cliente.Execute(request);
             return JsonConvert.DeserializeObject<ObservableCollection<Categoria>>(response.Content);
         }
 
         public ObservableCollection<Producto> GetProductos()
         {
-            //clave = Properties.Settings.Default.ClaveAPIRest;
-            //var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("productos", Method.GET);
             request.AddHeader("Root", clave);
-            //request.AddHeader("Content-Type", "application/json");
-            //request.AddHeader("Content-Type",)
             var response = cliente.Execute(request);
             return JsonConvert.DeserializeObject<ObservableCollection<Producto>>(response.Content);
         }
@@ -73,6 +63,23 @@ namespace Proyecto_Restaurante.Servicios
                     nombreCategoria = producto.IdCategoria.NombreCategoria,
                     uRLFotoCategoria = producto.IdCategoria.URLFotoCategoria
                 }
+            };
+        }
+
+        private object CambiarPropiedadesEmpleado(Empleado empleado)
+        {
+            return new
+            {
+                idEmpleado = empleado.IdEmpleado,
+                dni = empleado.Dni,
+                nombre = empleado.Nombre,
+                apellido = empleado.Apellido,
+                cargo = empleado.Cargo,
+                URLFoto = empleado.URLFoto,
+                fechaNacimiento = empleado.FechaNacimiento,
+                direccion = empleado.Direccion,
+                telefonoParticular = empleado.TelefonoParticular,
+                contraseñaEmpleado = empleado.ContraseñaEmpleado
             };
         }
 
@@ -109,15 +116,42 @@ namespace Proyecto_Restaurante.Servicios
 
         public ObservableCollection<Empleado> GetEmpleados()
         {
-            //clave = Properties.Settings.Default.ClaveAPIRest;
-            //var cliente = new RestClient(Properties.Settings.Default.endpointLocal);
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("empleados", Method.GET);
             request.AddHeader("Root", clave);
-            //request.AddHeader("Content-Type", "application/json");
-            //request.AddHeader("Content-Type",)
             var response = cliente.Execute(request);
             return JsonConvert.DeserializeObject<ObservableCollection<Empleado>>(response.Content);
+        }
+
+        public IRestResponse PostEmpleado(Empleado nuevoEmpleado)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("empleados", Method.POST);
+            string data = JsonConvert.SerializeObject(CambiarPropiedadesEmpleado(nuevoEmpleado));
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public IRestResponse PutEmpleado(Empleado editarEmpleado)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("empleados", Method.PUT);
+            string data = JsonConvert.SerializeObject(CambiarPropiedadesEmpleado(editarEmpleado));
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public IRestResponse DeleteEmpleado(int id)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"empleados/{id}", Method.DELETE);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
         }
     }
 }

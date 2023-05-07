@@ -29,5 +29,11 @@ namespace Proyecto_Restaurante.Servicios
         {
             return new GestionarEmpleadosUserControl();
         }
+
+        public bool? CargarAñadirEditarEmpleado()
+        {
+            AñadirEditarEmpleado añadirEditarEmpleado = new AñadirEditarEmpleado();
+            return añadirEditarEmpleado.ShowDialog();
+        }
     }
 }

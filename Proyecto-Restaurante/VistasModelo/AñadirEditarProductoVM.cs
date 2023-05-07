@@ -78,7 +78,7 @@ namespace Proyecto_Restaurante.VistasModelo
         public void SeleccionImagen()
         {
             string file = servicioDialogo.DialogoAbrirFichero();
-            ProductoActual.URLFotoProducto = file != null ? servicioAzure.AlmacenarImagenEnLaNube(file) : imagenDefault;
+            ProductoActual.URLFotoProducto = file != null ? servicioAzure.AlmacenarImagenProductoNube(file) : imagenDefault;
         }
 
         public void GuardarProducto()
@@ -107,7 +107,7 @@ namespace Proyecto_Restaurante.VistasModelo
                     IRestResponse response = servicioAPIRestRestaurante.PostProducto(ProductoActual);
                     if(response.StatusCode == System.Net.HttpStatusCode.Created)
                     {
-                        WeakReferenceMessenger.Default.Send(new EnviarNuevoProductoMessage(ProductoActual));
+                        WeakReferenceMessenger.Default.Send(new NuevoProductoMessage(ProductoActual));
                     }else if(response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
                     {
                         servicioDialogo.MostrarMensajeError("Error al agregar el producto", "Error ");

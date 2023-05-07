@@ -65,9 +65,9 @@ namespace Proyecto_Restaurante.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("imagenesproductos")]
-        public string NombreContenedor {
+        public string NombreContenedorProductos {
             get {
-                return ((string)(this["NombreContenedor"]));
+                return ((string)(this["NombreContenedorProductos"]));
             }
         }
         
@@ -78,6 +78,27 @@ namespace Proyecto_Restaurante.Properties {
         public string endpointAzure {
             get {
                 return ((string)(this["endpointAzure"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("imagenesempleados")]
+        public string NombreContenedorEmpleados {
+            get {
+                return ((string)(this["NombreContenedorEmpleados"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("imagenescategorias")]
+        public string NombreContenedorCategoria {
+            get {
+                return ((string)(this["NombreContenedorCategoria"]));
+            }
+            set {
+                this["NombreContenedorCategoria"] = value;
             }
         }
     }

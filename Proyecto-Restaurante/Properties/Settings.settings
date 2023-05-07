@@ -14,11 +14,17 @@
     <Setting Name="ClaveAzure" Type="System.String" Scope="Application">
       <Value Profile="(Default)">DefaultEndpointsProtocol=https;AccountName=imagenesrestaurante;AccountKey=bAp7JRB2ZMPX7oB64aQ9L2XlEVqkKeEdO6+DXDjw8m+8OyNJY/RfX37OgexUGctNHTcq/vmZpYfG+AStu3XBkg==;EndpointSuffix=core.windows.net</Value>
     </Setting>
-    <Setting Name="NombreContenedor" Type="System.String" Scope="Application">
+    <Setting Name="NombreContenedorProductos" Type="System.String" Scope="Application">
       <Value Profile="(Default)">imagenesproductos</Value>
     </Setting>
     <Setting Name="endpointAzure" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://restauranteapi.eastus.cloudapp.azure.com:8080/apirestaurantev3/restaurante/</Value>
+    </Setting>
+    <Setting Name="NombreContenedorEmpleados" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">imagenesempleados</Value>
+    </Setting>
+    <Setting Name="NombreContenedorCategoria" Type="System.String" Scope="User">
+      <Value Profile="(Default)">imagenescategorias</Value>
     </Setting>
   </Settings>
 </SettingsFile>
