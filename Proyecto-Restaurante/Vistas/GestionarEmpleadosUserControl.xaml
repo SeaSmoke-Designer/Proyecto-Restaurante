@@ -62,16 +62,13 @@
         
         <DataTemplate x:Key="DataTemplateEmpleados">
             <Grid>
-                
-            
-            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Background="AliceBlue"  Height="170" Width="1000" CornerRadius="5">
-                <Border.Effect>
-                    <DropShadowEffect/>
-                </Border.Effect>
-
-                <Grid>
+                <!--<Border BorderBrush="Black" BorderThickness="1" Margin="5" Background="AliceBlue"  Height="170" Width="1000" CornerRadius="5">
+                    <Border.Effect>
+                        <DropShadowEffect/>
+                    </Border.Effect>-->
+                    <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition />
@@ -82,55 +79,63 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition/>
                         <RowDefinition/>
-                        <RowDefinition/>
+                        
                     </Grid.RowDefinitions>
-                        <Ellipse Grid.Column="0" Grid.Row="0" Stretch="Fill" Grid.RowSpan="4" Margin="5" Width="180">
+                    <!--<Ellipse Grid.Column="0" Grid.Row="0" Stretch="Fill" Grid.RowSpan="3" Margin="5" Width="150">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding Path=URLFoto, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ImageBrush ImageSource="{Binding Data.URLFoto, UpdateSourceTrigger=PropertyChanged}"/>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <!--<Image Source="{Binding Path=URLFoto}" Margin="5" Grid.Column="0" Grid.RowSpan="4" Stretch="Fill"/>-->
-                        <TextBlock Text="Datos del empleado" HorizontalAlignment="Center" FontSize="25" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"/>
-                    <StackPanel  Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
-                        <Label Content="Nombre :"/>
-                        <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=Nombre}"/>
+                        <Image Source="{Binding Path=URLFoto}" Margin="5" Grid.Column="0" Grid.RowSpan="4" Stretch="Fill"/>
+                        <TextBlock Text="Datos del empleado" HorizontalAlignment="Center" FontSize="25" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"/>-->
+
+                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Margin="5" Height="130" HorizontalAlignment="Center" Source="{Binding Path=Data.URLFoto, UpdateSourceTrigger=PropertyChanged}"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Grid.RowSpan="3" VerticalAlignment="Center">
+                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="Nombre :"/>
+                            <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Data.Nombre}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="Apellido :"/>
+                            <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Data.Apellido}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="Direccion :"/>
+                            <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Data.Direccion}"/>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center">
-                        <Label Content="Apellido :"/>
-                        <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=Apellido}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center">
-                        <Label Content="Direccion :"/>
-                        <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=Direccion}"/>
-                    </StackPanel>
-                    <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" Margin="0,10">
+                    
+                    <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Margin="0,10">
                         <Separator.LayoutTransform>
                             <RotateTransform Angle="90" />
                         </Separator.LayoutTransform>
                     </Separator>
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center">
-                        <Label Content="Fecha de nacimiento :"/>
-                            <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=FechaNacimiento, Converter={StaticResource ConvertidorFechaEmpleado}}"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="Fecha de nacimiento :"/>
+                            <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Data.FechaNacimiento, Converter={StaticResource ConvertidorFechaEmpleado}}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="Telefono :"/>
+                            <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Data.TelefonoParticular}"/>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="3">
-                        <Label Content="Telefono :"/>
-                        <TextBlock Style="{StaticResource TextoTarjeta}" Text="{Binding Path=TelefonoParticular}"/>
-                    </StackPanel>
+                    
 
-                    <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Grid.Row="1" Grid.Column="4" Grid.RowSpan="3" Margin="0,10">
+                    <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Grid.Row="0" Grid.Column="4" Grid.RowSpan="3" Margin="0,10">
                         <Separator.LayoutTransform>
                             <RotateTransform Angle="90" />
                         </Separator.LayoutTransform>
                     </Separator>
 
-                    <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="5" Grid.Row="1" Grid.RowSpan="3">
+                    <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="5" Grid.Row="0" Grid.RowSpan="3">
                         <TextBlock Text="Cargo" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="12"/>
                         <Separator BorderBrush="Black" BorderThickness="2" Margin="0,5"/>
-                        <TextBlock Text="{Binding Path=Cargo}" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Data.Cargo}" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"/>
                     </StackPanel>
                 </Grid>
-            </Border>
+                    <!--</Border>-->
             </Grid>
         </DataTemplate>
         
@@ -154,18 +159,30 @@
                 </Button.Content>
             </Button>
         </DockPanel>
-        <ListBox ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}" Margin="10" ItemTemplate="{StaticResource DataTemplateEmpleados}">
+        <!--<ListBox ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}" Margin="10" ItemTemplate="{StaticResource DataTemplateEmpleados}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Vertical"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-        </ListBox>
-        <!--<syncfusion:SfDataGrid x:Name="dataGrid" ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}"
-                               AllowFiltering="True" Margin="10" Padding="5">
+        </ListBox>-->
+        <syncfusion:SfDataGrid x:Name="dataGrid" ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}"
+                               AllowFiltering="True" 
+                               Margin="10" 
+                               Padding="5"
+                               AllowEditing="True"
+                               ColumnSizer="Star"
+                               AutoGenerateColumns="False">
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:GridTextColumn MappingName="Nombre"/>
+                <syncfusion:GridTextColumn MappingName="Apellido"/>
+                <syncfusion:GridTextColumn MappingName="FechaNacimiento"/>
+                <syncfusion:GridTextColumn MappingName="TelefonoParticular"/>
+                <syncfusion:GridTextColumn MappingName="Cargo"/>
+            </syncfusion:SfDataGrid.Columns>
             <syncfusion:SfDataGrid.DetailsViewDefinition>
-                <syncfusion:TemplateViewDefinition RowTemplate="{StaticResource DetailsViewTemplate}"/>
+                <syncfusion:TemplateViewDefinition RowTemplate="{StaticResource DataTemplateEmpleados}"/>
             </syncfusion:SfDataGrid.DetailsViewDefinition>
-        </syncfusion:SfDataGrid>-->
+        </syncfusion:SfDataGrid>
     </DockPanel>
 </UserControl>

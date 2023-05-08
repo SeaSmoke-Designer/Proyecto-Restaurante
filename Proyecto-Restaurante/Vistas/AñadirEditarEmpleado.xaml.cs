@@ -27,5 +27,10 @@ namespace Proyecto_Restaurante.Vistas
             vm = new AñadirEditarEmpleadoVM();
             this.DataContext = vm;
         }
+
+        private void aceptarButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

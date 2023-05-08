@@ -17,8 +17,8 @@ namespace Proyecto_Restaurante.VistasModelo
     class AñadirEditarEmpleadoVM : ObservableObject
     {
         private readonly string imagenDefault = "../Assets/Add_ImageEmpleado.png";
-        public RelayCommand GuardarProductoCommand { get; }
-        public RelayCommand NuevaImagenProductoCommand { get; }
+        public RelayCommand GuardarEmpleadoCommand { get; }
+        public RelayCommand NuevaImagenEmpleadoCommand { get; }
 
         private readonly ServicioDialogo servicioDialogo;
         private readonly ServicioAzure servicioAzure;
@@ -31,6 +31,15 @@ namespace Proyecto_Restaurante.VistasModelo
             get { return empleadoActual; }
             set { SetProperty(ref empleadoActual, value); }
         }
+
+        private char password;
+
+        public char Password
+        {
+            get { return password; }
+            set { SetProperty(ref password, value); }
+        }
+
 
         private string modoVentana;
 
@@ -52,12 +61,14 @@ namespace Proyecto_Restaurante.VistasModelo
                 EmpleadoActual.URLFoto = imagenDefault;
             }
             ModoVentana = EmpleadoActual.IdEmpleado == 0 ? "Crear" : "Editar";
+            NuevaImagenEmpleadoCommand = new RelayCommand(SeleccionarImagen);
+            GuardarEmpleadoCommand = new RelayCommand(GuardarEmpleado);
         }
 
         public void SeleccionarImagen()
         {
             string file = servicioDialogo.DialogoAbrirFichero();
-            EmpleadoActual.URLFoto = file != null ? servicioAzure.AlmacenarImagenProductoNube(file) : imagenDefault;
+            EmpleadoActual.URLFoto = file != null ? servicioAzure.AlmacenarImagenEmpleadoNube(file) : imagenDefault;
         }
 
 
@@ -77,7 +88,7 @@ namespace Proyecto_Restaurante.VistasModelo
         {
             if (!ExisteEmpleado())
             {
-                if (EmpleadoActual.Dni.Length == 9)
+                if (EmpleadoActual.Dni.Length == 9 || EmpleadoActual.Dni is null)
                 {
                     if (EmpleadoActual.URLFoto.Equals(imagenDefault) || EmpleadoActual.URLFoto == null)
                     {

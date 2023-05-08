@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
         xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF"
+        xmlns:convertidores="clr-namespace:Proyecto_Restaurante.Convertidores"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         
         mc:Ignorable="d"
         Title="{Binding Path=ModoVentana}" Height="600" Width="700">
     <Window.Resources>
+        <convertidores:ConvertidorFechaEmpleado x:Key="ConvertidorFechaEmpleado"/>
         <Style TargetType="{x:Type Button}" >
             <Setter Property="Margin" Value="7"/>
             <Setter Property="Padding" Value="4"/>
@@ -57,9 +59,13 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE1F0FF" Template="{DynamicResource ButtonControlTemplate}" Command="{Binding Path=NuevaImagenProductoCommand}" HorizontalAlignment="Center" Height="100" Width="100">
+        <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE1F0FF" Template="{DynamicResource ButtonControlTemplate}" Command="{Binding Path=NuevaImagenEmpleadoCommand}" HorizontalAlignment="Center" Height="100" Width="100">
             <Button.Content>
-                <Image Source="{Binding Path=EmpleadoActual.URLFoto}"/>
+                <Ellipse Stretch="Uniform" Height="90" Width="90" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding Path=EmpleadoActual.URLFoto, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
             </Button.Content>
         </Button>
 
@@ -84,7 +90,7 @@
                 </inputLayout:SfTextInputLayout.LeadingView>
             </inputLayout:SfTextInputLayout>
             <inputLayout:SfTextInputLayout Hint="Fecha de nacimiento" HelperText="(aaaa-MM-dd)" Style="{StaticResource textInputLayout}">
-                <TextBox Text="{Binding Path=EmpleadoActual.FechaNacimiento, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                <TextBox Text="{Binding Path=EmpleadoActual.FechaNacimiento, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ConvertidorFechaEmpleado}}"/>
                 <inputLayout:SfTextInputLayout.LeadingView>
                     <Image Source="../assets/calendarEmpleado.png"/>
                 </inputLayout:SfTextInputLayout.LeadingView>
@@ -113,7 +119,7 @@
             </inputLayout:SfTextInputLayout>
             
             <inputLayout:SfTextInputLayout Hint="Contraseña" HelperText="Contraseña empleado" Style="{StaticResource textInputLayout}">
-                <PasswordBox PasswordChar="{Binding Path=EmpleadoActual.ContraseñaEmpleado, UpdateSourceTrigger=PropertyChanged}"/>
+                <PasswordBox PasswordChar="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged}"/>
                 <inputLayout:SfTextInputLayout.LeadingView>
                     <Image Source="../assets/password.png"/>
                 </inputLayout:SfTextInputLayout.LeadingView>
@@ -121,7 +127,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
             <Button Content="Cancelar" Background="Transparent" IsCancel="True"/>
-            <Button x:Name="aceptarButton" Content="{Binding Path=ModoVentana}" Background="#a4e4d9" Click="AceptarButton_Click" IsDefault="True"/>
+            <Button x:Name="aceptarButton" Content="{Binding Path=ModoVentana}" Background="#a4e4d9" Click="aceptarButton_Click" IsDefault="True" Command="{Binding Path=GuardarEmpleadoCommand}"/>
         </StackPanel>
     </Grid>
     
