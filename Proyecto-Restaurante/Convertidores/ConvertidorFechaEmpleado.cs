@@ -12,14 +12,19 @@ namespace Proyecto_Restaurante.Convertidores
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string fecha = value.ToString();
-
-            if (fecha != null)
+            if (value != null)
             {
-                string[] found = fecha.Split('T');
-                return found[0];
+                string fecha = value.ToString();
+
+                if (fecha != null)
+                {
+                    string[] found = fecha.Split('T');
+                    return found[0];
+                }
+                else return "";
             }
             else return "";
+            
 
         }
 

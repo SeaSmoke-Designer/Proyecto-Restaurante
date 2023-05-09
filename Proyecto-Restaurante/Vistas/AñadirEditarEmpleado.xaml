@@ -6,12 +6,14 @@
         xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
         xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF"
         xmlns:convertidores="clr-namespace:Proyecto_Restaurante.Convertidores"
+        xmlns:components="clr-namespace:Proyecto_Restaurante.Components"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         
         mc:Ignorable="d"
         Title="{Binding Path=ModoVentana}" Height="600" Width="700">
     <Window.Resources>
         <convertidores:ConvertidorFechaEmpleado x:Key="ConvertidorFechaEmpleado"/>
+
         <Style TargetType="{x:Type Button}" >
             <Setter Property="Margin" Value="7"/>
             <Setter Property="Padding" Value="4"/>
@@ -45,6 +47,22 @@
                     <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
                     <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
                     <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="BindablePasswordBoxControlTemplate" TargetType="{x:Type components:BindablePasswordBox}">
+            <Border x:Name="border" BorderBrush="#FFAEAEAE" BorderThickness="2" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True" CornerRadius="3">
+                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Height="30"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -95,7 +113,7 @@
                     <Image Source="../assets/calendarEmpleado.png"/>
                 </inputLayout:SfTextInputLayout.LeadingView>
             </inputLayout:SfTextInputLayout>
-            
+
         </StackPanel>
         <StackPanel Margin="15" Grid.Column="1" Grid.Row="1">
             <!--int id, string nombre, string imagen, string nickname, string social-->
@@ -117,18 +135,27 @@
                     <Image Source="../assets/Telefono.png" Width="30" Height="30"/>
                 </inputLayout:SfTextInputLayout.LeadingView>
             </inputLayout:SfTextInputLayout>
+            <DockPanel  Width="300" Margin="7">
+                <Image Source="../assets/password.png" Width="25" DockPanel.Dock="Left" Margin="9,7" VerticalAlignment="Bottom"/>
+                <StackPanel  Orientation="Vertical">
+                    <TextBlock Text="Contraseña" Margin="5,2" Foreground="#FF616161"/>
+                    <components:BindablePasswordBox Password="{Binding Path=EmpleadoActual.ContraseñaEmpleado}" Margin="5" Template="{DynamicResource BindablePasswordBoxControlTemplate}" />
+                </StackPanel>
+                
+            </DockPanel>
             
-            <inputLayout:SfTextInputLayout Hint="Contraseña" HelperText="Contraseña empleado" Style="{StaticResource textInputLayout}">
-                <PasswordBox PasswordChar="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!--<inputLayout:SfTextInputLayout Hint="Contraseña" HelperText="Contraseña empleado" Style="{StaticResource textInputLayout}">
+                <components:BindablePasswordBox Password="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                 <inputLayout:SfTextInputLayout.LeadingView>
                     <Image Source="../assets/password.png"/>
                 </inputLayout:SfTextInputLayout.LeadingView>
-            </inputLayout:SfTextInputLayout>
+            </inputLayout:SfTextInputLayout>-->
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
             <Button Content="Cancelar" Background="Transparent" IsCancel="True"/>
             <Button x:Name="aceptarButton" Content="{Binding Path=ModoVentana}" Background="#a4e4d9" Click="aceptarButton_Click" IsDefault="True" Command="{Binding Path=GuardarEmpleadoCommand}"/>
         </StackPanel>
     </Grid>
-    
+
 </Window>

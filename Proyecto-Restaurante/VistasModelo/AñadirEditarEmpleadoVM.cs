@@ -17,6 +17,7 @@ namespace Proyecto_Restaurante.VistasModelo
     class AñadirEditarEmpleadoVM : ObservableObject
     {
         private readonly string imagenDefault = "../Assets/Add_ImageEmpleado.png";
+
         public RelayCommand GuardarEmpleadoCommand { get; }
         public RelayCommand NuevaImagenEmpleadoCommand { get; }
 
@@ -32,13 +33,14 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref empleadoActual, value); }
         }
 
-        private char password;
+        private Encrypt encriptador;
 
-        public char Password
+        public Encrypt Encriptador
         {
-            get { return password; }
-            set { SetProperty(ref password, value); }
+            get { return encriptador; }
+            set { SetProperty(ref encriptador, value); }
         }
+
 
 
         private string modoVentana;
@@ -54,6 +56,7 @@ namespace Proyecto_Restaurante.VistasModelo
             servicioDialogo = new ServicioDialogo();
             servicioAzure = new ServicioAzure();
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
+            Encriptador = new Encrypt();
             EmpleadoActual = WeakReferenceMessenger.Default.Send<EnviarEmpleadoMessage>();
             if (EmpleadoActual is null)
             {
@@ -74,13 +77,15 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void GuardarEmpleado()
         {
+            EmpleadoActual.ContraseñaEmpleado = Encriptador.GetSHA256(EmpleadoActual.ContraseñaEmpleado);
+
             if (EmpleadoActual.IdEmpleado == 0)
             {
                 AñadirNuevoEmpleado();
             }
             else
             {
-                ActualizarProducto();
+                ActualizarEmpleado();
             }
         }
 
@@ -116,14 +121,18 @@ namespace Proyecto_Restaurante.VistasModelo
             }
         }
 
-        public void ActualizarProducto()
+        public void ActualizarEmpleado()
         {
             if (EmpleadoActual.IdEmpleado != 0)
             {
                 IRestResponse response = servicioAPIRestRestaurante.PutEmpleado(EmpleadoActual);
                 if (response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
                 {
-                    servicioDialogo.MostrarMensajeError(response.Content, "ERROR - NO SE PUEDE ACTUALIZAR EL PRODUCTO");
+                    servicioDialogo.MostrarMensajeError(response.Content, "ERROR - NO SE PUEDE ACTUALIZAR LOS DATOS DEL EMPLEADO");
+                }
+                if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    servicioDialogo.MostrarMensajeError(response.Content, "ERROR - NO SE PUEDE ACTUALIZAR LOS DATOS DEL EMPLEADO");
                 }
             }
 
