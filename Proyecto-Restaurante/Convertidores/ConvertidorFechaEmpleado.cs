@@ -30,7 +30,17 @@ namespace Proyecto_Restaurante.Convertidores
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            
+            string result = value.ToString();
+            
+            if(result is null)
+            {
+                return "";
+            }
+            else
+            {
+                return result;
+            }
         }
     }
 }

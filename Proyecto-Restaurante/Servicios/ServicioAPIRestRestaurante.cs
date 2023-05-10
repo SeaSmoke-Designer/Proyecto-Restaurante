@@ -87,7 +87,7 @@ namespace Proyecto_Restaurante.Servicios
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("productos", Method.POST);
-            string data = JsonConvert.SerializeObject(CambiarPropiedadesProducto(nuevoProducto));
+            string data = JsonConvert.SerializeObject(nuevoProducto);
             request.AddParameter("application/json", data, ParameterType.RequestBody);
             request.AddHeader("Root", clave);
             var response = cliente.Execute(request);
@@ -98,7 +98,7 @@ namespace Proyecto_Restaurante.Servicios
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("productos", Method.PUT);
-            string data = JsonConvert.SerializeObject(CambiarPropiedadesProducto(editarProducto));
+            string data = JsonConvert.SerializeObject(editarProducto);
             request.AddParameter("application/json", data, ParameterType.RequestBody);
             request.AddHeader("Root", clave);
             var response = cliente.Execute(request);
@@ -123,11 +123,20 @@ namespace Proyecto_Restaurante.Servicios
             return JsonConvert.DeserializeObject<ObservableCollection<Empleado>>(response.Content);
         }
 
+        public Empleado GetEmpleado(int id)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"empleados/{id}", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<Empleado>(response.Content);
+        }
+
         public IRestResponse PostEmpleado(Empleado nuevoEmpleado)
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("empleados", Method.POST);
-            string data = JsonConvert.SerializeObject(CambiarPropiedadesEmpleado(nuevoEmpleado));
+            string data = JsonConvert.SerializeObject(nuevoEmpleado);
             request.AddParameter("application/json", data, ParameterType.RequestBody);
             request.AddHeader("Root", clave);
             var response = cliente.Execute(request);
@@ -138,7 +147,7 @@ namespace Proyecto_Restaurante.Servicios
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest("empleados", Method.PUT);
-            string data = JsonConvert.SerializeObject(CambiarPropiedadesEmpleado(editarEmpleado));
+            string data = JsonConvert.SerializeObject(editarEmpleado);
             request.AddParameter("application/json", data, ParameterType.RequestBody);
             request.AddHeader("Root", clave);
             var response = cliente.Execute(request);

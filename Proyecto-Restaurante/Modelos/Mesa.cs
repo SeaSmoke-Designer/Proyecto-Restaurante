@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Proyecto_Restaurante.Modelos
     class Mesa : ObservableObject
     {
         private int idMesa;
-
+        [JsonProperty("idMesa")]
         public int IdMesa
         {
             get { return idMesa; }
@@ -18,7 +19,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string _mesa;
-
+        [JsonProperty("mesa")]
         public string _Mesa
         {
             get { return _mesa; }
@@ -26,7 +27,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private int capacidad;
-
+        [JsonProperty("capacidad")]
         public int Capacidad
         {
             get { return capacidad; }

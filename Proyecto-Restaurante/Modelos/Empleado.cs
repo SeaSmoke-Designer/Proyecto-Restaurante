@@ -1,16 +1,20 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
+using Proyecto_Restaurante.Convertidores;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Proyecto_Restaurante.Modelos
 {
     class Empleado : ObservableObject
     {
         private int idEmpleado;
-
+        [JsonProperty("idEmpleado")]
         public int IdEmpleado
         {
             get { return idEmpleado; }
@@ -18,7 +22,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string dni;
-
+        [JsonProperty("dni")]
         public string Dni
         {
             get { return dni; }
@@ -26,7 +30,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string nombre;
-
+        [JsonProperty("nombre")]
         public string Nombre
         {
             get { return nombre; }
@@ -35,7 +39,7 @@ namespace Proyecto_Restaurante.Modelos
 
 
         private string apellido;
-
+        [JsonProperty("apellido")]
         public string Apellido
         {
             get { return apellido; }
@@ -44,7 +48,7 @@ namespace Proyecto_Restaurante.Modelos
 
 
         private string cargo;
-
+        [JsonProperty("cargo")]
         public string Cargo
         {
             get { return cargo; }
@@ -52,7 +56,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string fechaNacimiento;
-
+        [JsonProperty("fechaNacimiento")]
         public string FechaNacimiento
         {
             get { return fechaNacimiento; }
@@ -60,7 +64,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string direccion;
-
+        [JsonProperty("direccion")]
         public string Direccion
         {
             get { return direccion; }
@@ -68,7 +72,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string telefonoParticular;
-
+        [JsonProperty("telefonoParticular")]
         public string TelefonoParticular
         {
             get { return telefonoParticular; }
@@ -76,7 +80,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string urlFoto;
-
+        [JsonProperty("URLFoto")]
         public string URLFoto
         {
             get { return urlFoto; }
@@ -84,7 +88,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string contraseñaEmpleado;
-
+        [JsonProperty("contraseñaEmpleado")]
         public string ContraseñaEmpleado
         {
             get { return contraseñaEmpleado; }
@@ -96,18 +100,6 @@ namespace Proyecto_Restaurante.Modelos
         {
         }
 
-        public Empleado(int idEmpleado, string dni, string nombre, string apellido, string cargo, string fechaNacimiento, string direccion, string telefonoParticular, string uRLFoto, string contraseñaEmpleado)
-        {
-            IdEmpleado = idEmpleado;
-            Dni = dni;
-            Nombre = nombre;
-            Apellido = apellido;
-            Cargo = cargo;
-            FechaNacimiento = fechaNacimiento;
-            Direccion = direccion;
-            TelefonoParticular = telefonoParticular;
-            URLFoto = uRLFoto;
-            ContraseñaEmpleado = contraseñaEmpleado;
-        }
+       
     }
 }

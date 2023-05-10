@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Proyecto_Restaurante.Modelos
     class Producto : ObservableObject
     {
         private int idProducto;
-
+        [JsonProperty("idProducto")]
         public int IdProducto
         {
             get { return idProducto; }
@@ -18,7 +19,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string nombreProducto;
-
+        [JsonProperty("nombreProducto")]
         public string NombreProducto
         {
             get { return nombreProducto; }
@@ -26,7 +27,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private Categoria idCategoria;
-
+        [JsonProperty("idCategoria")]
         public Categoria IdCategoria
         {
             get { return idCategoria; }
@@ -34,7 +35,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private double precioUnitario;
-
+        [JsonProperty("precioUnitario")]
         public double PrecioUnitario
         {
             get { return precioUnitario; }
@@ -42,7 +43,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private int unidadesEnAlmacen;
-
+        [JsonProperty("unidadesEnAlmacen")]
         public int UnidadesEnAlmacen
         {
             get { return unidadesEnAlmacen; }
@@ -50,7 +51,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private string urlFotoProducto;
-
+        [JsonProperty("URLFotoProducto")]
         public string URLFotoProducto
         {
             get { return urlFotoProducto; }

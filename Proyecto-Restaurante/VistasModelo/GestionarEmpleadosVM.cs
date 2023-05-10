@@ -51,7 +51,7 @@ namespace Proyecto_Restaurante.VistasModelo
 
             WeakReferenceMessenger.Default.Register<NuevoEmpleadoMessage>(this, (r, m) =>
             {
-                ListaEmpleados.Add(m.Value);
+                CargarEmpleados();
                 servicioDialogo.MostrarMensajeInformacion("Empleado añadido con exito", "EMPLEADO AÑADIDO");
             });
             WeakReferenceMessenger.Default.Register<GestionarEmpleadosVM, EnviarEmpleadoMessage>(this, (r, m) =>

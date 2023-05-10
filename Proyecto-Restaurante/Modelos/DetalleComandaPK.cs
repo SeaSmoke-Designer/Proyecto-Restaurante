@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Proyecto_Restaurante.Modelos
     class DetalleComandaPK : ObservableObject
     {
         private int idComanda;
-
+        [JsonProperty("idComanda")]
         public int IdComanda
         {
             get { return idComanda; }
@@ -18,7 +19,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private int idProducto;
-
+        [JsonProperty("idProducto")]
         public int IdProducto
         {
             get { return idProducto; }

@@ -41,6 +41,15 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref encriptador, value); }
         }
 
+        private string passwordEncriptada;
+
+        public string PasswordEncriptada
+        {
+            get { return passwordEncriptada; }
+            set { SetProperty(ref passwordEncriptada, value); }
+        }
+
+
 
 
         private string modoVentana;
@@ -63,6 +72,11 @@ namespace Proyecto_Restaurante.VistasModelo
                 EmpleadoActual = new Empleado();
                 EmpleadoActual.URLFoto = imagenDefault;
             }
+            else
+            {
+                EmpleadoActual.ContraseñaEmpleado = Encriptador.DesEncriptar(servicioAPIRestRestaurante.GetEmpleado(EmpleadoActual.IdEmpleado).ContraseñaEmpleado);
+            }
+
             ModoVentana = EmpleadoActual.IdEmpleado == 0 ? "Crear" : "Editar";
             NuevaImagenEmpleadoCommand = new RelayCommand(SeleccionarImagen);
             GuardarEmpleadoCommand = new RelayCommand(GuardarEmpleado);
@@ -77,7 +91,7 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void GuardarEmpleado()
         {
-            EmpleadoActual.ContraseñaEmpleado = Encriptador.GetSHA256(EmpleadoActual.ContraseñaEmpleado);
+            EmpleadoActual.ContraseñaEmpleado = Encriptador.Encriptar(EmpleadoActual.ContraseñaEmpleado == null ? string.Empty : EmpleadoActual.ContraseñaEmpleado);
 
             if (EmpleadoActual.IdEmpleado == 0)
             {
@@ -95,20 +109,26 @@ namespace Proyecto_Restaurante.VistasModelo
             {
                 if (EmpleadoActual.Dni.Length == 9 || EmpleadoActual.Dni is null)
                 {
-                    if (EmpleadoActual.URLFoto.Equals(imagenDefault) || EmpleadoActual.URLFoto == null)
+                    if (ComprobarFecha())
                     {
-                        EmpleadoActual.URLFoto = "../Assets/SinImagen.png";
-                    }
+                        EmpleadoActual.FechaNacimiento = EmpleadoActual.FechaNacimiento + "T00:00:00Z[UTC]";
+                        if (EmpleadoActual.URLFoto.Equals(imagenDefault) || EmpleadoActual.URLFoto == null)
+                        {
+                            EmpleadoActual.URLFoto = "../Assets/SinImagen.png";
+                        }
 
-                    IRestResponse response = servicioAPIRestRestaurante.PostEmpleado(EmpleadoActual);
-                    if (response.StatusCode == System.Net.HttpStatusCode.Created)
-                    {
-                        WeakReferenceMessenger.Default.Send(new NuevoEmpleadoMessage(EmpleadoActual));
+                        IRestResponse response = servicioAPIRestRestaurante.PostEmpleado(EmpleadoActual);
+                        if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                        {
+                            WeakReferenceMessenger.Default.Send(new NuevoEmpleadoMessage(EmpleadoActual));
+                        }
+                        else if (response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                        {
+                            servicioDialogo.MostrarMensajeError(response.Content, "ERROR - NO SE PUDO AGREGAR EL NUEVO EMPLEADO");
+                        }
                     }
-                    else if (response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
-                    {
-                        servicioDialogo.MostrarMensajeError(response.Content, "ERROR - NO SE PUDO AGREGAR EL NUEVO EMPLEADO");
-                    }
+                    else servicioDialogo.MostrarMensajeError("El formato de la fecha de nacimiento es incorrecto", "FORMATO DE LA FECHA NACIMIENTO INCORRECTO");
+
                 }
                 else
                 {
@@ -121,6 +141,34 @@ namespace Proyecto_Restaurante.VistasModelo
             }
         }
 
+        public bool ComprobarFecha()
+        {
+            string fecha = EmpleadoActual.FechaNacimiento.Split('T')[0];
+            //bool FechaError = false;
+            DateTime FechaValida = new DateTime();
+            
+
+            try
+            {
+                FechaValida = DateTime.Parse(fecha);
+                if (FechaValida.ToString("yyyy-MM-dd") == fecha)
+                    return true;
+                else
+                {
+                    FechaValida = new DateTime();
+                    return false;
+                }
+
+
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
+
         public void ActualizarEmpleado()
         {
             if (EmpleadoActual.IdEmpleado != 0)
@@ -130,7 +178,7 @@ namespace Proyecto_Restaurante.VistasModelo
                 {
                     servicioDialogo.MostrarMensajeError(response.Content, "ERROR - NO SE PUEDE ACTUALIZAR LOS DATOS DEL EMPLEADO");
                 }
-                if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
                     servicioDialogo.MostrarMensajeError(response.Content, "ERROR - NO SE PUEDE ACTUALIZAR LOS DATOS DEL EMPLEADO");
                 }
@@ -148,6 +196,8 @@ namespace Proyecto_Restaurante.VistasModelo
                     return true;
                 }
             }
+
+
             return false;
         }
     }

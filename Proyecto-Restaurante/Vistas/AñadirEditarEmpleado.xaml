@@ -107,7 +107,7 @@
                     <Image Source="../assets/DNIEmpleado.png" Width="30" Height="30"/>
                 </inputLayout:SfTextInputLayout.LeadingView>
             </inputLayout:SfTextInputLayout>
-            <inputLayout:SfTextInputLayout Hint="Fecha de nacimiento" HelperText="(aaaa-MM-dd)" Style="{StaticResource textInputLayout}">
+            <inputLayout:SfTextInputLayout Hint="Fecha de nacimiento" HelperText="yyyy-MM-dd" Style="{StaticResource textInputLayout}">
                 <TextBox Text="{Binding Path=EmpleadoActual.FechaNacimiento, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ConvertidorFechaEmpleado}}"/>
                 <inputLayout:SfTextInputLayout.LeadingView>
                     <Image Source="../assets/calendarEmpleado.png"/>

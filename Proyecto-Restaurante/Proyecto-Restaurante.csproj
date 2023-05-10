@@ -190,6 +190,7 @@
     </Compile>
     <Compile Include="Convertidores\ConvertidorFechaEmpleado.cs" />
     <Compile Include="Convertidores\ConvertidorProductoSinImagen.cs" />
+    <Compile Include="Convertidores\UTCDateTimeConverter.cs" />
     <Compile Include="Mensajes\EnviarEmpleadoMessage.cs" />
     <Compile Include="Mensajes\NuevoEmpleadoMessage.cs" />
     <Compile Include="Mensajes\NuevoProductoMessage.cs" />

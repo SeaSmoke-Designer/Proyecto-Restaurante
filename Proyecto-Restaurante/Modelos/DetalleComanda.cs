@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Proyecto_Restaurante.Modelos
     {
 
         private int cantidad;
-
+        [JsonProperty("cantidad")]
         public int Cantidad
         {
             get { return cantidad; }
@@ -19,7 +20,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private DetalleComandaPK _detallesComandaPK;
-
+        [JsonProperty("detallescomandaPK")]
         public DetalleComandaPK _DetallesComandaPK
         {
             get { return _detallesComandaPK; }
@@ -27,7 +28,7 @@ namespace Proyecto_Restaurante.Modelos
         }
 
         private Producto producto;
-
+        [JsonProperty("productos")]
         public Producto Producto
         {
             get { return producto; }
