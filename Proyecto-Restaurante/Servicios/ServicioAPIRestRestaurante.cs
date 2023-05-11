@@ -132,6 +132,15 @@ namespace Proyecto_Restaurante.Servicios
             return JsonConvert.DeserializeObject<Empleado>(response.Content);
         }
 
+        public Empleado GetEmpleadoByDni(string dni)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"empleados/dni/{dni}", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<Empleado>(response.Content);
+        }
+
         public IRestResponse PostEmpleado(Empleado nuevoEmpleado)
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);

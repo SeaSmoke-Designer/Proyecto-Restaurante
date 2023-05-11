@@ -35,5 +35,11 @@ namespace Proyecto_Restaurante.Servicios
             AñadirEditarEmpleado añadirEditarEmpleado = new AñadirEditarEmpleado();
             return añadirEditarEmpleado.ShowDialog();
         }
+
+        public bool? CargarValidacionAdmin()
+        {
+            VerificacionAdmin verificacionAdmin = new VerificacionAdmin();
+            return verificacionAdmin.ShowDialog();
+        }
     }
 }

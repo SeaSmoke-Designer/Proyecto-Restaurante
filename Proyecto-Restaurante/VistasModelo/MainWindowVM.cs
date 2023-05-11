@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Proyecto_Restaurante.Mensajes;
 using Proyecto_Restaurante.Servicios;
 using System;
 using System.Collections.Generic;
@@ -12,9 +14,20 @@ namespace Proyecto_Restaurante.VistasModelo
 {
     class MainWindowVM : ObservableObject
     {
+        private readonly ServicioDialogo servicioDialogo;
         private readonly ServicioNavegacion servicioNavegacion;
         public RelayCommand GestionarProductosCommand { get; }
         public RelayCommand GestionarEmpleadosCommand { get; }
+        public RelayCommand SalirAplicacionCommand { get; }
+
+        private bool validacionAdmin;
+
+        public bool ValidacionAdmin
+        {
+            get { return validacionAdmin; }
+            set { SetProperty(ref validacionAdmin, value); }
+        }
+
 
         private UserControl contenidoVentana;
         public UserControl ContenidoVentana
@@ -25,9 +38,16 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public MainWindowVM()
         {
+            servicioDialogo = new ServicioDialogo();
             servicioNavegacion = new ServicioNavegacion();
             GestionarProductosCommand = new RelayCommand(NavegarGestionarProductos);
             GestionarEmpleadosCommand = new RelayCommand(NavegarGestionEmpleados);
+            SalirAplicacionCommand = new RelayCommand(CerrarAplicacion);
+            WeakReferenceMessenger.Default.Register<EnviarValidacionAdminMessage>(this, (r, m) =>
+            {
+                ValidacionAdmin = m.Value;
+            });
+
         }
 
         public void NavegarGestionarProductos()
@@ -37,7 +57,24 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void NavegarGestionEmpleados()
         {
-            ContenidoVentana = servicioNavegacion.CargarGestionarEmpleados();
+            /*if(ContenidoVentana == servicioNavegacion.CargarGestionarEmpleados())
+            {
+                ContenidoVentana = new UserControl();
+            }*/
+            bool? reult = servicioNavegacion.CargarValidacionAdmin();
+            if ((bool)reult)
+            {
+                if (ValidacionAdmin)
+                {
+                    ContenidoVentana = servicioNavegacion.CargarGestionarEmpleados();
+                }
+                else servicioDialogo.MostrarMensajeError("Contraseña Incorrecta, por favor, vuelva a intentarlo", "ERROR - CONTRASEÑA INCORRECTA");
+            }
+        }
+
+        public void CerrarAplicacion()
+        {
+            App.Current.Shutdown();
         }
 
         

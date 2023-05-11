@@ -67,7 +67,7 @@
                 </syncfusion:NavigationItem>
             </syncfusion:NavigationItem>
             <syncfusion:SfNavigationDrawer.FooterItems>
-                <syncfusion:NavigationItem Header="Salir" IsExpanded="False" IsSelected="False">
+                <syncfusion:NavigationItem Header="Salir" IsExpanded="False" IsSelected="False" Command="{Binding Path=SalirAplicacionCommand}">
                     <syncfusion:NavigationItem.Icon>
                         <Image Source="./Assets/out2.png" Width="30" Height="28"/>
                     </syncfusion:NavigationItem.Icon>

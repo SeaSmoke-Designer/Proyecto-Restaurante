@@ -10,7 +10,7 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         
         mc:Ignorable="d"
-        Title="{Binding Path=ModoVentana}" Height="600" Width="700">
+        Title="{Binding Path=ModoVentana}" Height="600" Width="700" ResizeMode="NoResize" ShowInTaskbar="False">
     <Window.Resources>
         <convertidores:ConvertidorFechaEmpleado x:Key="ConvertidorFechaEmpleado"/>
 

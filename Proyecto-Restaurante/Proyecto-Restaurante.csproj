@@ -192,6 +192,7 @@
     <Compile Include="Convertidores\ConvertidorProductoSinImagen.cs" />
     <Compile Include="Convertidores\UTCDateTimeConverter.cs" />
     <Compile Include="Mensajes\EnviarEmpleadoMessage.cs" />
+    <Compile Include="Mensajes\EnviarValidacionAdminMessage.cs" />
     <Compile Include="Mensajes\NuevoEmpleadoMessage.cs" />
     <Compile Include="Mensajes\NuevoProductoMessage.cs" />
     <Compile Include="Mensajes\EnviarProductoMessage.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="VistasModelo\AñadirEditarProductoVM.cs" />
     <Compile Include="VistasModelo\GestionarEmpleadosVM.cs" />
     <Compile Include="VistasModelo\MainWindowVM.cs" />
+    <Compile Include="VistasModelo\VerificacionAdminVM.cs" />
     <Compile Include="Vistas\ArticulosUserControl.xaml.cs">
       <DependentUpon>ArticulosUserControl.xaml</DependentUpon>
     </Compile>
@@ -216,6 +218,9 @@
     </Compile>
     <Compile Include="Vistas\GestionarEmpleadosUserControl.xaml.cs">
       <DependentUpon>GestionarEmpleadosUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\VerificacionAdmin.xaml.cs">
+      <DependentUpon>VerificacionAdmin.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\BindablePasswordBox.xaml">
       <SubType>Designer</SubType>
@@ -246,6 +251,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\GestionarEmpleadosUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\VerificacionAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
