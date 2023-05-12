@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using Proyecto_Restaurante.Convertidores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -51,9 +52,10 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref pagada, value); }
         }
 
-        private string fecha;
+        private DateTime fecha;
         [JsonProperty("fecha")]
-        public string Fecha
+        [JsonConverter(typeof(UTCDateTimeConverter))]
+        public DateTime Fecha
         {
             get { return fecha; }
             set { SetProperty(ref fecha, value); }
@@ -71,7 +73,7 @@ namespace Proyecto_Restaurante.Modelos
         {
         }
 
-        public Comanda(int idComanda, Empleado empleado, Mesa mesa, int cantidadPersonas, bool pagada, string fecha, ObservableCollection<DetalleComanda> detallescomandaCollection)
+        public Comanda(int idComanda, Empleado empleado, Mesa mesa, int cantidadPersonas, bool pagada, DateTime fecha, ObservableCollection<DetalleComanda> detallescomandaCollection)
         {
             this.idComanda = idComanda;
             this.empleado = empleado;

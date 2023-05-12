@@ -171,5 +171,55 @@ namespace Proyecto_Restaurante.Servicios
             var response = cliente.Execute(request);
             return response;
         }
+
+        public ObservableCollection<Comanda> GetComandas()
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("comandas", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<ObservableCollection<Comanda>>(response.Content);
+        }
+
+        public Comanda GetComanda(int id)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"comandas/{id}", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<Comanda>(response.Content);
+        }
+
+
+        public IRestResponse PostComanda(Comanda nuevaComanda)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("comandas", Method.POST);
+            string data = JsonConvert.SerializeObject(nuevaComanda);
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public IRestResponse PutComanda(Comanda editarComanda)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("comandas", Method.PUT);
+            string data = JsonConvert.SerializeObject(editarComanda);
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public IRestResponse DeleteComanda(int id)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"comandas/{id}", Method.DELETE);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
     }
 }

@@ -41,5 +41,10 @@ namespace Proyecto_Restaurante.Servicios
             VerificacionAdmin verificacionAdmin = new VerificacionAdmin();
             return verificacionAdmin.ShowDialog();
         }
+
+        public UserControl CargarHistoricoComandas()
+        {
+            return new HistoricoComandasUserControl();
+        }
     }
 }

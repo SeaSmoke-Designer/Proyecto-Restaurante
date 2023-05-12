@@ -205,6 +205,7 @@
     <Compile Include="VistasModelo\AñadirEditarEmpleadoVM.cs" />
     <Compile Include="VistasModelo\AñadirEditarProductoVM.cs" />
     <Compile Include="VistasModelo\GestionarEmpleadosVM.cs" />
+    <Compile Include="VistasModelo\HistoricoComandasVM.cs" />
     <Compile Include="VistasModelo\MainWindowVM.cs" />
     <Compile Include="VistasModelo\VerificacionAdminVM.cs" />
     <Compile Include="Vistas\ArticulosUserControl.xaml.cs">
@@ -218,6 +219,12 @@
     </Compile>
     <Compile Include="Vistas\GestionarEmpleadosUserControl.xaml.cs">
       <DependentUpon>GestionarEmpleadosUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\HistoricoComandasUserControl.xaml.cs">
+      <DependentUpon>HistoricoComandasUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\VerDetallesComanda.xaml.cs">
+      <DependentUpon>VerDetallesComanda.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\VerificacionAdmin.xaml.cs">
       <DependentUpon>VerificacionAdmin.xaml</DependentUpon>
@@ -251,6 +258,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\GestionarEmpleadosUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\HistoricoComandasUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\VerDetallesComanda.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -354,7 +369,9 @@
   <ItemGroup>
     <Resource Include="Assets\Add_ImageEmpleado.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Ver.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('..\packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

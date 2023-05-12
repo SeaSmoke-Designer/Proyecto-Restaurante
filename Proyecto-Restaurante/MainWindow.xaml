@@ -60,7 +60,7 @@
                         <Image Source="./Assets/empleados.png"/>
                     </syncfusion:NavigationItem.Icon>
                 </syncfusion:NavigationItem>
-                <syncfusion:NavigationItem Header="Historico" ToolTip="Comandas en el tiempo">
+                <syncfusion:NavigationItem Header="Historico" ToolTip="Comandas en el tiempo" Command="{Binding Path=HistoricoComandasCommand}">
                     <syncfusion:NavigationItem.Icon>
                         <Image Source="./Assets/historico.png"/>
                     </syncfusion:NavigationItem.Icon>

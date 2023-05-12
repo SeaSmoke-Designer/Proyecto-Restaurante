@@ -19,6 +19,7 @@ namespace Proyecto_Restaurante.VistasModelo
         public RelayCommand GestionarProductosCommand { get; }
         public RelayCommand GestionarEmpleadosCommand { get; }
         public RelayCommand SalirAplicacionCommand { get; }
+        public RelayCommand HistoricoComandasCommand { get; }
 
         private bool validacionAdmin;
 
@@ -43,6 +44,7 @@ namespace Proyecto_Restaurante.VistasModelo
             GestionarProductosCommand = new RelayCommand(NavegarGestionarProductos);
             GestionarEmpleadosCommand = new RelayCommand(NavegarGestionEmpleados);
             SalirAplicacionCommand = new RelayCommand(CerrarAplicacion);
+            HistoricoComandasCommand = new RelayCommand(NavegarHistoricoComandas);
             WeakReferenceMessenger.Default.Register<EnviarValidacionAdminMessage>(this, (r, m) =>
             {
                 ValidacionAdmin = m.Value;
@@ -70,6 +72,11 @@ namespace Proyecto_Restaurante.VistasModelo
                 }
                 else servicioDialogo.MostrarMensajeError("Contraseña Incorrecta, por favor, vuelva a intentarlo", "ERROR - CONTRASEÑA INCORRECTA");
             }
+        }
+
+        public void NavegarHistoricoComandas()
+        {
+            ContenidoVentana = servicioNavegacion.CargarHistoricoComandas();
         }
 
         public void CerrarAplicacion()
