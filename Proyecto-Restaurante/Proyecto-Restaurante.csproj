@@ -56,6 +56,7 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="RestSharp, Version=106.15.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.15.0\lib\net452\RestSharp.dll</HintPath>
     </Reference>
@@ -190,7 +191,9 @@
     </Compile>
     <Compile Include="Convertidores\ConvertidorFechaEmpleado.cs" />
     <Compile Include="Convertidores\ConvertidorProductoSinImagen.cs" />
+    <Compile Include="Convertidores\DataGridVisibilityConverter.cs" />
     <Compile Include="Convertidores\UTCDateTimeConverter.cs" />
+    <Compile Include="Mensajes\EnviarComandaMessage.cs" />
     <Compile Include="Mensajes\EnviarEmpleadoMessage.cs" />
     <Compile Include="Mensajes\EnviarValidacionAdminMessage.cs" />
     <Compile Include="Mensajes\NuevoEmpleadoMessage.cs" />
@@ -207,6 +210,7 @@
     <Compile Include="VistasModelo\GestionarEmpleadosVM.cs" />
     <Compile Include="VistasModelo\HistoricoComandasVM.cs" />
     <Compile Include="VistasModelo\MainWindowVM.cs" />
+    <Compile Include="VistasModelo\VerDetallesComandaVM.cs" />
     <Compile Include="VistasModelo\VerificacionAdminVM.cs" />
     <Compile Include="Vistas\ArticulosUserControl.xaml.cs">
       <DependentUpon>ArticulosUserControl.xaml</DependentUpon>

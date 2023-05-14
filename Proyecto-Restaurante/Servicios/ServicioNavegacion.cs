@@ -46,5 +46,11 @@ namespace Proyecto_Restaurante.Servicios
         {
             return new HistoricoComandasUserControl();
         }
+
+        public bool? CargarVerDetallesComanda()
+        {
+            VerDetallesComanda verDetallesComanda = new VerDetallesComanda();
+            return verDetallesComanda.ShowDialog();
+        }
     }
 }

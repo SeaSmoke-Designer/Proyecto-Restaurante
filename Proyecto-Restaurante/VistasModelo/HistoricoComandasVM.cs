@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Proyecto_Restaurante.Mensajes;
 using Proyecto_Restaurante.Modelos;
 using Proyecto_Restaurante.Servicios;
 using RestSharp;
@@ -20,6 +22,7 @@ namespace Proyecto_Restaurante.VistasModelo
 
         private readonly ServicioAPIRestRestaurante servicioAPIRestRestaurante;
         private readonly ServicioDialogo servicioDialogo;
+        private readonly ServicioNavegacion servicioNavegacion;
 
         private ObservableCollection<Comanda> listaComandas;
 
@@ -43,8 +46,17 @@ namespace Proyecto_Restaurante.VistasModelo
         {
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
             servicioDialogo = new ServicioDialogo();
+            servicioNavegacion = new ServicioNavegacion();
             CargarComandas();
             EliminarComandaCommand = new RelayCommand(EliminarComanda);
+            VerComandaCommand = new RelayCommand(VerDetallesComanda);
+            WeakReferenceMessenger.Default.Register<HistoricoComandasVM, EnviarComandaMessage>(this, (r, m) =>
+            {
+                if (!m.HasReceivedResponse)
+                {
+                    m.Reply(r.ComandaSeleccionada);
+                }
+            });
         }
 
         public void CargarComandas()
@@ -70,6 +82,14 @@ namespace Proyecto_Restaurante.VistasModelo
                         servicioDialogo.MostrarMensajeError(response.Content, "Error al borrar la comanda");
                     }
                 }
+            }
+        }
+
+        public void VerDetallesComanda()
+        {
+            if (ComandaSeleccionada != null)
+            {
+                bool? result = servicioNavegacion.CargarVerDetallesComanda();
             }
         }
 

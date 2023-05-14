@@ -35,6 +35,22 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref producto, value); }
         }
 
+        private double importeTotalProductos;
+        [JsonIgnore]
+        public double ImporteTotalProductos
+        {
+            get { return Cantidad * Producto.PrecioUnitario; }
+            set
+            {
+                if (Producto.PrecioUnitario != null)
+                {
+                    importeTotalProductos = Cantidad * Producto.PrecioUnitario;
+                }
+
+            }
+        }
+
+
         public DetalleComanda(int cantidad, DetalleComandaPK detallesComandaPK, Producto producto)
         {
             this.cantidad = cantidad;

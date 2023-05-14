@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto_Restaurante.VistasModelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,12 @@ namespace Proyecto_Restaurante.Vistas
     /// </summary>
     public partial class VerDetallesComanda : Window
     {
+        private VerDetallesComandaVM vm;
         public VerDetallesComanda()
         {
             InitializeComponent();
+            vm = new VerDetallesComandaVM();
+            this.DataContext = vm;
         }
     }
 }
