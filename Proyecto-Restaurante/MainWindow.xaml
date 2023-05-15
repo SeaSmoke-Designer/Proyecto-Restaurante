@@ -35,7 +35,7 @@
             <syncfusion:NavigationItem Header="Gestionar mesas"
                                        IsExpanded="False"
                                        IsSelected="False"
-                                       >
+                                       Command="{Binding Path=GestionarMesasCommand}">
                 <syncfusion:NavigationItem.Icon>
                     <Image Source="./Assets/mesas.png" />
                 </syncfusion:NavigationItem.Icon>

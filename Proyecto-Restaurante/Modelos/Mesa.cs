@@ -18,12 +18,12 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref idMesa, value); }
         }
 
-        private string _mesa;
+        private string nombreMesa;
         [JsonProperty("mesa")]
-        public string _Mesa
+        public string NombreMesa
         {
-            get { return _mesa; }
-            set { SetProperty(ref _mesa, value); }
+            get { return nombreMesa; }
+            set { SetProperty(ref nombreMesa, value); }
         }
 
         private int capacidad;
@@ -41,7 +41,7 @@ namespace Proyecto_Restaurante.Modelos
         public Mesa(int idMesa, string mesa, int capacidad)
         {
             this.idMesa = idMesa;
-            this._mesa = mesa;
+            this.nombreMesa = mesa;
             this.capacidad = capacidad;
         }
     }

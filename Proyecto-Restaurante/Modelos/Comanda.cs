@@ -4,6 +4,7 @@ using Proyecto_Restaurante.Convertidores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +61,8 @@ namespace Proyecto_Restaurante.Modelos
             get { return fecha; }
             set { SetProperty(ref fecha, value); }
         }
+
+        
 
         private ObservableCollection<DetalleComanda> detallescomandaCollection;
         [JsonProperty("detallescomandaCollection")]

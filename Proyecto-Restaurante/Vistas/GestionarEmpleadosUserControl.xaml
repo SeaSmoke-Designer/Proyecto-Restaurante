@@ -172,7 +172,7 @@
                                Padding="5"
                                AllowEditing="True"
                                ColumnSizer="Star"
-                               AutoGenerateColumns="False">
+                               AutoGenerateColumns="False" >
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:GridTextColumn MappingName="Nombre"/>
                 <syncfusion:GridTextColumn MappingName="Apellido"/>

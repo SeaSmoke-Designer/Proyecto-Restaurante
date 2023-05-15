@@ -52,5 +52,12 @@ namespace Proyecto_Restaurante.Servicios
             VerDetallesComanda verDetallesComanda = new VerDetallesComanda();
             return verDetallesComanda.ShowDialog();
         }
+
+        public UserControl CargarGestionarMesas()
+        {
+            return new GestionarMesasUserControl();
+        }
+
+        
     }
 }

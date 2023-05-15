@@ -221,5 +221,55 @@ namespace Proyecto_Restaurante.Servicios
             var response = cliente.Execute(request);
             return response;
         }
+
+        public ObservableCollection<Mesa> GetMesas()
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("mesas", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<ObservableCollection<Mesa>>(response.Content);
+        }
+
+        public Mesa GetMesa(int id)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"mesas/{id}", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<Mesa>(response.Content);
+        }
+
+
+        public IRestResponse PostMesa(Mesa nuevaMesa)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("mesas", Method.POST);
+            string data = JsonConvert.SerializeObject(nuevaMesa);
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public IRestResponse PutMesa(Mesa editarMesa)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("mesas", Method.PUT);
+            string data = JsonConvert.SerializeObject(editarMesa);
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public IRestResponse DeleteMesa(int id)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"mesas/{id}", Method.DELETE);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
     }
 }

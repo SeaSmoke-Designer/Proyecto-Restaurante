@@ -40,14 +40,6 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref listaCategorias, value); }
         }
 
-        /*private Categoria categoriaSeleccionada;
-
-        public Categoria CategoriaSeleccionada
-        {
-            get { return categoriaSeleccionada; }
-            set { SetProperty(ref categoriaSeleccionada, value); }
-        }*/
-
         private string modoVentana;
 
         public string ModoVentana

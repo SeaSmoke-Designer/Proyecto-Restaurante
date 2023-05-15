@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Proyecto_Restaurante.Convertidores;
 using Proyecto_Restaurante.Mensajes;
 using Proyecto_Restaurante.Modelos;
 using Proyecto_Restaurante.Servicios;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -41,6 +43,9 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref comandaSeleccionada, value); }
         }
 
+        
+
+
 
         public HistoricoComandasVM()
         {
@@ -71,7 +76,7 @@ namespace Proyecto_Restaurante.VistasModelo
             {
                 if (ComandaSeleccionada != null)
                 {
-                    IRestResponse response = servicioAPIRestRestaurante.DeleteProducto(ComandaSeleccionada.IdComanda);
+                    IRestResponse response = servicioAPIRestRestaurante.DeleteComanda(ComandaSeleccionada.IdComanda);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         ListaComandas.Remove(ComandaSeleccionada);

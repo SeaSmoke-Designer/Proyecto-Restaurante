@@ -56,7 +56,7 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public string TituloComanda
         {
-            get { return "Comanda" + ComandaRecibida.IdComanda; }
+            get { return "Comanda " + ComandaRecibida.IdComanda; }
             set { SetProperty(ref tituloComanda, value); }
         }
 
