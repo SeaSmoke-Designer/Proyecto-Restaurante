@@ -16,7 +16,7 @@ namespace Proyecto_Restaurante.VistasModelo
     class GestionarMesasVM : ObservableObject
     {
 
-        //private readonly ServicioNavegacion servicioNavegacion;
+        
         private readonly ServicioAPIRestRestaurante servicioAPIRestRestaurante;
         private readonly ServicioDialogo servicioDialogo;
 
@@ -40,11 +40,28 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref listaMesas, value); }
         }
 
+        private ObservableCollection<Mesa> listaPOST;
+
+        public ObservableCollection<Mesa> ListaPOST
+        {
+            get { return listaPOST; }
+            set { SetProperty(ref listaPOST, value); }
+        }
+
+        private ObservableCollection<Mesa> listaPUT;
+
+        public ObservableCollection<Mesa> ListaPUT
+        {
+            get { return listaPUT; }
+            set { SetProperty(ref listaPUT, value); }
+        }
+
+
+
         public GestionarMesasVM()
         {
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
             servicioDialogo = new ServicioDialogo();
-            
             CargarMesas();
             EliminarMesaCommand = new RelayCommand(EliminarMesa);
             AñadirNuevaMesaCommand = new RelayCommand(AñadirNuevaMesa);
@@ -58,46 +75,119 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void GuardarCambios()
         {
-            //ObservableCollection<Mesa> listaAux = servicioAPIRestRestaurante.GetMesas();
-            if(ComprobarCambios())
+            ListaPOST = new ObservableCollection<Mesa>();
+            ListaPUT = new ObservableCollection<Mesa>();
+            IRestResponse responsePOST = null;
+            IRestResponse responsePUT = null;
+            StringBuilder sb = new StringBuilder();
+            if (ComprobarCambiosPOST())
             {
-                MessageBox.Show("Todo lindo");
+                if (ListaPOST.Count != 0)
+                {
+                    sb.Append("Mesas creadas: \n");
+                    foreach (Mesa item in ListaPOST)
+                    {
+                        if (item.Capacidad != 0)
+                        {
+                            responsePOST = servicioAPIRestRestaurante.PostMesa(item);
+                            if (responsePOST.StatusCode == System.Net.HttpStatusCode.Created)
+                                sb.Append($"- {item.NombreMesa}\n");
+                            else if (responsePOST.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                                sb.Append($"Error al crear la nueva {item.NombreMesa}\n");
+                        }
+                        else
+                        {
+                            servicioDialogo.MostrarMensajeAdvertencia($"La {item.NombreMesa} no puede tener la capacidad a 0", "ADVERTENCIA - MESA SIN CAPACIDAD");
+                        }
+                    }
+                }
             }
 
-            //ListaMesas.CollectionChanged
+            ComprobarCambiosPUT();
+
+            if (ListaPUT.Count != 0)
+            {
+                sb.Append("\nMesas editadas: \n");
+                foreach (Mesa item in ListaPUT)
+                {
+                    responsePUT = servicioAPIRestRestaurante.PutMesa(item);
+                    if (responsePUT.StatusCode == System.Net.HttpStatusCode.OK)
+                        sb.Append($"- {item.NombreMesa}\n");
+                    else if (responsePUT.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                        sb.Append($"Error al editar la {item.NombreMesa}\n");
+                }
+            }
+
+            servicioDialogo.MostrarMensajeInformacion(sb.ToString(), "");
+            CargarMesas();
+
+            
         }
 
-        public bool ComprobarCambios()
+        public bool ComprobarCambiosPOST()
         {
             ObservableCollection<Mesa> listaAux = servicioAPIRestRestaurante.GetMesas();
             if (listaAux.Count != ListaMesas.Count)
+            {
+                foreach (Mesa item in ListaMesas)
+                {
+                    if (item.IdMesa == 0)
+                        ListaPOST.Add(item);
+                }
                 return true;
 
+            }
+            return false;
+        }
 
-            //ObservableCollection<Mesa> listaAux = servicioAPIRestRestaurante.GetMesas();
+        public void ComprobarCambiosPUT()
+        {
+            ObservableCollection<Mesa> listaAux = servicioAPIRestRestaurante.GetMesas();
             for (int i = 0; i < listaAux.Count; i++)
             {
-                //listaAux.
+                if (listaAux[i].Capacidad != ListaMesas[i].Capacidad)
+                    ListaPUT.Add(ListaMesas[i]);
+                else if (listaAux[i].NombreMesa != ListaMesas[i].NombreMesa)
+                    ListaPUT.Add(ListaMesas[i]);
             }
+        }
 
-            foreach (Mesa item in listaAux)
+        /*public bool ComprobarCambios()
+        {
+            bool result = false;
+            ObservableCollection<Mesa> listaAux = servicioAPIRestRestaurante.GetMesas();
+            if (listaAux.Count != ListaMesas.Count)
             {
+                foreach (Mesa item in ListaMesas)
+                {
+                    if (item.IdMesa == 0)
+                        ListaPOST.Add(item);
+                }
+                result = true;
+            }
+             
 
+            for (int i = 0; i < listaAux.Count; i++)
+            {
+                if (listaAux[i].Capacidad != ListaMesas[i].Capacidad)
+                    ListaPUT.Add(listaAux[i]);
+                else if (listaAux[i].NombreMesa != ListaMesas[i].NombreMesa)
+                    ListaPUT.Add(listaAux[i]);
             }
 
             return false;
-        }
+        }*/
 
         public void AñadirNuevaMesa()
         {
             ListaMesas.Add(new Mesa());
         }
 
-        
+
 
         public void EliminarMesa()
         {
-            MessageBoxResult result = MessageBox.Show("¿Estas seguro de eliminar esta mesa?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show("¿Estas seguro de eliminar esta mesa?", "ADVERTENCIA", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
                 if (MesaSeleccionada != null)
@@ -145,16 +235,8 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public bool ExisteMesaBD()
         {
-            
             if (MesaSeleccionada.IdMesa == 0 || MesaSeleccionada.IdMesa == null)
                 return false;
-
-            /*ObservableCollection<Mesa> listaAux = servicioAPIRestRestaurante.GetMesas();
-            foreach (Mesa item in listaAux)
-            {
-                if (item.IdMesa == MesaSeleccionada.IdMesa)
-                    return true;
-            }*/
 
             return true;
         }

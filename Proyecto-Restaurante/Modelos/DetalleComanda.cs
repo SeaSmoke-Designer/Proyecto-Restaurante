@@ -42,7 +42,7 @@ namespace Proyecto_Restaurante.Modelos
             get { return Cantidad * Producto.PrecioUnitario; }
             set
             {
-                if (Producto.PrecioUnitario != null)
+                if (Producto.PrecioUnitario != 0)
                 {
                     importeTotalProductos = Cantidad * Producto.PrecioUnitario;
                 }

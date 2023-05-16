@@ -68,7 +68,7 @@
         </DataTemplate>
         
     </UserControl.Resources>
-    <DockPanel>
+    <DockPanel Background="White">
         <DockPanel LastChildFill="True" DockPanel.Dock="Top" Margin="10,5">
             
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=GuardarCambiosCommand}" ToolTip="Guardar cambios realizados">
