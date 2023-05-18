@@ -10,37 +10,7 @@
              d:DesignHeight="600" d:DesignWidth="1000" Background="White">
     <UserControl.Resources>
         <convertidores:ConvertidorFechaEmpleado x:Key="ConvertidorFechaEmpleado"/>
-        <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
-            <Border x:Name="border" BorderBrush="#98B8CA" BorderThickness="2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5" >
-                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="35" Height="35"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsDefaulted" Value="True">
-                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
-                </Trigger>
-                <Trigger Property="ToggleButton.IsChecked" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
-                    <Setter Property="Foreground" Value="#FF838383"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-        <Style TargetType="{x:Type Button}" x:Key="ButtonsDiseño">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
+        
         <Style TargetType="{x:Type Button}" x:Key="ButtonsTrigger" BasedOn="{StaticResource ButtonsDiseño}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=EmpleadoSeleccionado}" Value="{x:Null}">
@@ -141,7 +111,7 @@
         
     </UserControl.Resources>
     <DockPanel>
-        <DockPanel LastChildFill="False" DockPanel.Dock="Top">
+        <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10,5">
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=AñadirNuevoEmpleadoCommand}">
                 <Button.Content>
                     <Image Source="../assets/AddProduct.png" Width="24" />
@@ -158,6 +128,7 @@
                     <Image Source="../assets/DeleteProduct.png" Width="24" />
                 </Button.Content>
             </Button>
+            <TextBlock Text="Gestionar empleados" FontSize="35" FontWeight="Bold"  VerticalAlignment="Center" />
         </DockPanel>
         <!--<ListBox ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}" Margin="10" ItemTemplate="{StaticResource DataTemplateEmpleados}">
             <ListBox.ItemsPanel>
@@ -176,7 +147,7 @@
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:GridTextColumn MappingName="Nombre"/>
                 <syncfusion:GridTextColumn MappingName="Apellido"/>
-                <syncfusion:GridTextColumn MappingName="FechaNacimiento"/>
+                <syncfusion:GridTextColumn MappingName="FechaNacimiento" DisplayBinding="{Binding FechaNacimiento, Converter={StaticResource ConvertidorFechaEmpleado}}"/>
                 <syncfusion:GridTextColumn MappingName="TelefonoParticular"/>
                 <syncfusion:GridTextColumn MappingName="Cargo"/>
             </syncfusion:SfDataGrid.Columns>

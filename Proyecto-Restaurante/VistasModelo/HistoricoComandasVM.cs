@@ -66,7 +66,7 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void CargarComandas()
         {
-            ListaComandas = servicioAPIRestRestaurante.GetComandas();
+            ListaComandas = servicioAPIRestRestaurante.GetComandasPagadas(true);
         }
 
         public void EliminarComanda()

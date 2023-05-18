@@ -58,6 +58,9 @@ namespace Proyecto_Restaurante.Servicios
             return new GestionarMesasUserControl();
         }
 
-        
+        public UserControl CargarGestionarComandas()
+        {
+            return new GestionarComandasUserControl();
+        }
     }
 }

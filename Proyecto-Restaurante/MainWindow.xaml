@@ -6,10 +6,9 @@
         xmlns:local="clr-namespace:Proyecto_Restaurante"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1250" MinWidth="1200" MinHeight="650">
-    
+        Title="DishDash" Height="700" Width="1250" MinWidth="1200" MinHeight="650" Icon="./Assets/IconAppFinal3.ico">
+
     <DockPanel>
-        
         <syncfusion:SfNavigationDrawer x:Name="navigationDrawer" DisplayMode="Compact" AutoChangeDisplayMode="False">
             <syncfusion:NavigationItem
                 Header="Comandas"
@@ -24,7 +23,7 @@
                         <Image Source="./Assets/TomarComanda.png" />
                     </syncfusion:NavigationItem.Icon>
                 </syncfusion:NavigationItem>
-                <syncfusion:NavigationItem Header="Ver Comandas" >
+                <syncfusion:NavigationItem Header="Ver Comandas" Command="{Binding Path=GestionarComandasCommand}">
                     <syncfusion:NavigationItem.Icon>
                         <Image Source="./Assets/VerComandas.png" />
                     </syncfusion:NavigationItem.Icon>

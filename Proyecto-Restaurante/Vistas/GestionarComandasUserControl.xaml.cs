@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto_Restaurante.VistasModelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,14 @@ namespace Proyecto_Restaurante.Vistas
     /// <summary>
     /// Lógica de interacción para GestionarComandas.xaml
     /// </summary>
-    public partial class GestionarComandas : UserControl
+    public partial class GestionarComandasUserControl : UserControl
     {
-        public GestionarComandas()
+        private readonly GestionarComandasVM vm;
+        public GestionarComandasUserControl()
         {
             InitializeComponent();
+            vm = new GestionarComandasVM();
+            this.DataContext = vm;
         }
     }
 }

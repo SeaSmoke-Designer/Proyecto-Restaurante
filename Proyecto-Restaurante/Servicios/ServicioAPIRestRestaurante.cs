@@ -181,6 +181,15 @@ namespace Proyecto_Restaurante.Servicios
             return JsonConvert.DeserializeObject<ObservableCollection<Comanda>>(response.Content);
         }
 
+        public ObservableCollection<Comanda> GetComandasPagadas(bool pagada)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"comandas/pagadas/{pagada}", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<ObservableCollection<Comanda>>(response.Content);
+        }
+
         public Comanda GetComanda(int id)
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
