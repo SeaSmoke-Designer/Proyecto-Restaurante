@@ -15,8 +15,6 @@ namespace Proyecto_Restaurante.VistasModelo
 {
     class GestionarMesasVM : ObservableObject
     {
-
-        
         private readonly ServicioAPIRestRestaurante servicioAPIRestRestaurante;
         private readonly ServicioDialogo servicioDialogo;
 

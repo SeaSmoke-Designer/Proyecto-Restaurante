@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto_Restaurante.VistasModelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace Proyecto_Restaurante.Vistas
     /// </summary>
     public partial class TomarComandaUserControl : UserControl
     {
+        private TomarComandaVM vm;
         public TomarComandaUserControl()
         {
             InitializeComponent();
+            vm = new TomarComandaVM();
+            this.DataContext = vm;
         }
     }
 }
