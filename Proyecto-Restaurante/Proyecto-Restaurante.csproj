@@ -197,7 +197,9 @@
     <Compile Include="Convertidores\DataGridVisibilityConverter.cs" />
     <Compile Include="Convertidores\UTCDateTimeConverter.cs" />
     <Compile Include="Mensajes\EnviarComandaMessage.cs" />
+    <Compile Include="Mensajes\EnviarEmpleadoComandaMessage.cs" />
     <Compile Include="Mensajes\EnviarEmpleadoMessage.cs" />
+    <Compile Include="Mensajes\EnviarMesaMessage.cs" />
     <Compile Include="Mensajes\EnviarValidacionAdminMessage.cs" />
     <Compile Include="Mensajes\NuevoEmpleadoMessage.cs" />
     <Compile Include="Mensajes\NuevoProductoMessage.cs" />
@@ -210,6 +212,8 @@
     <Compile Include="VistasModelo\ArticulosVM.cs" />
     <Compile Include="VistasModelo\AñadirEditarEmpleadoVM.cs" />
     <Compile Include="VistasModelo\AñadirEditarProductoVM.cs" />
+    <Compile Include="VistasModelo\ElegirEmpleadoVM.cs" />
+    <Compile Include="VistasModelo\ElegirMesaVM.cs" />
     <Compile Include="VistasModelo\GestionarComandasVM.cs" />
     <Compile Include="VistasModelo\GestionarEmpleadosVM.cs" />
     <Compile Include="VistasModelo\GestionarMesasVM.cs" />
@@ -226,6 +230,12 @@
     </Compile>
     <Compile Include="Vistas\AñadirEditarProducto.xaml.cs">
       <DependentUpon>AñadirEditarProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ElegirEmpleadoUserControl.xaml.cs">
+      <DependentUpon>ElegirEmpleadoUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ElegirMesaUserControl.xaml.cs">
+      <DependentUpon>ElegirMesaUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\GestionarComandasUserControl.xaml.cs">
       <DependentUpon>GestionarComandasUserControl.xaml</DependentUpon>
@@ -273,6 +283,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\AñadirEditarProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\ElegirEmpleadoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\ElegirMesaUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

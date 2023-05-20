@@ -9,7 +9,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        
+        <DataTemplate x:Key="DataTemplateListBoxProductos">
+            
+            <StackPanel Orientation="Vertical">
+                <Image Source="{Binding Path=URLFotoProducto}" Margin="5" Width="80"/>
+                <TextBlock Text="{Binding Path=NombreProducto}" HorizontalAlignment="Center" FontSize="15" FontWeight="SemiBold"/>
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -18,19 +24,37 @@
         </Grid.ColumnDefinitions>
         <Grid Background="AliceBlue" Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="2*"/>
-                <RowDefinition/>
+                
             </Grid.RowDefinitions>
-            <ListBox Grid.Row="0" ItemsSource="{Binding Path=ListaProductos}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Empleados" Grid.Column="0" Command="{Binding Path=ElegirEmpleadoCommand}"/>
+                <Button Content="Mesas" Grid.Column="1" Command="{Binding Path=ElegirMesaCommand}"/>
+                <Button Content="Productos" Grid.Column="2"/>
+            </Grid>
+                <!--<ListBox Grid.Row="1" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado}" ItemTemplate="{StaticResource DataTemplateListBoxProductos}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>-->
+            <Border Grid.Row="1">
+                <ContentControl Content="{Binding Path=ContenidoVentana}"/>
+            </Border>
+            <!--<ListBox Grid.Row="2" ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}">
                 
-            </ListBox>
-            <ListBox Grid.Row="1" ItemsSource="{Binding Path=ListaCategorias}">
-                
-            </ListBox>
+            </ListBox>-->
         </Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="120"/>
                 <RowDefinition Height="1.8*"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
@@ -41,6 +65,10 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
                 <Button Grid.Column="0" Margin="5">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
@@ -73,7 +101,6 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-
                 <Button Grid.Column="3" Margin="5">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
@@ -85,8 +112,12 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
+                <DockPanel LastChildFill="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"  Margin="5">
+                    <TextBlock Text="Cantidad de personas: " FontSize="15" FontWeight="SemiBold" DockPanel.Dock="Left"/>
+                    <syncfusion:IntegerTextBox x:Name="integerTextBox" Width="100" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Value="{Binding Path=ComandaTomada.CantidadPersonas}"/>
+                </DockPanel>
             </Grid>
-            <DataGrid ItemsSource="{Binding Path=DetalleComandaProductos}" AutoGenerateColumns="False" Grid.Row="1">
+            <DataGrid ItemsSource="{Binding Path=ComandaTomada.DetallescomandaCollection}" AutoGenerateColumns="False" Grid.Row="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Producto" Binding="{Binding Producto.NombreProducto}" Width="2*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="60"/>

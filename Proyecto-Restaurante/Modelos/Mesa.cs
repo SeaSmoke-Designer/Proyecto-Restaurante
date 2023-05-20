@@ -34,6 +34,15 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref capacidad, value); }
         }
 
+        private bool mesaOcupada;
+        [JsonIgnore]
+        public bool MesaOcupada
+        {
+            get { return mesaOcupada; }
+            set { SetProperty(ref mesaOcupada, value); }
+        }
+
+
         public Mesa()
         {
         }

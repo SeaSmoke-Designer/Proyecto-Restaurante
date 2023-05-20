@@ -62,5 +62,20 @@ namespace Proyecto_Restaurante.Servicios
         {
             return new GestionarComandasUserControl();
         }
+
+        public UserControl CargarTomarComanda()
+        {
+            return new TomarComandaUserControl();
+        }
+
+        public UserControl CargarListaEmpleados()
+        {
+            return new ElegirEmpleadoUserControl();
+        }
+
+        public UserControl CargarListaMesas()
+        {
+            return new ElegirMesaUserControl();
+        }
     }
 }

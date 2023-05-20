@@ -21,8 +21,8 @@ namespace Proyecto_Restaurante.VistasModelo
         public RelayCommand SalirAplicacionCommand { get; }
         public RelayCommand HistoricoComandasCommand { get; }
         public RelayCommand GestionarMesasCommand { get; }
-
         public RelayCommand GestionarComandasCommand { get; }
+        public RelayCommand TomarComandaCommand { get; }
 
         private bool validacionAdmin;
 
@@ -50,6 +50,7 @@ namespace Proyecto_Restaurante.VistasModelo
             HistoricoComandasCommand = new RelayCommand(NavegarHistoricoComandas);
             GestionarMesasCommand = new RelayCommand(NavegarGestionarMesas);
             GestionarComandasCommand = new RelayCommand(NavegarGestionarComandas);
+            TomarComandaCommand = new RelayCommand(NavegarTomarComanda);
             WeakReferenceMessenger.Default.Register<EnviarValidacionAdminMessage>(this, (r, m) =>
             {
                 ValidacionAdmin = m.Value;
@@ -92,6 +93,10 @@ namespace Proyecto_Restaurante.VistasModelo
         public void NavegarGestionarComandas()
         {
             ContenidoVentana = servicioNavegacion.CargarGestionarComandas();
+        }
+        public void NavegarTomarComanda()
+        {
+            ContenidoVentana = servicioNavegacion.CargarTomarComanda();
         }
 
         public void CerrarAplicacion()
