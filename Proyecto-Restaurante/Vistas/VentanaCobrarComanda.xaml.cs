@@ -11,29 +11,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Proyecto_Restaurante.Vistas
 {
     /// <summary>
-    /// Lógica de interacción para TomarComandaUserControl.xaml
+    /// Lógica de interacción para VentanaCobrarComanda.xaml
     /// </summary>
-    public partial class TomarComandaUserControl : UserControl
+    public partial class VentanaCobrarComanda : Window
     {
-        private TomarComandaVM vm;
-        public TomarComandaUserControl()
+        private VentanaCobrarComandaVM vm;
+        public VentanaCobrarComanda()
         {
-            
             InitializeComponent();
-            vm = new TomarComandaVM();
+            vm = new VentanaCobrarComandaVM();
             this.DataContext = vm;
         }
 
-        private void dataGrid_CurrentCellEndEdit(object sender, Syncfusion.UI.Xaml.Grid.CurrentCellEndEditEventArgs e)
+        private void aceptarButton_Click(object sender, RoutedEventArgs e)
         {
-            vm.CalcularImporteTotalComanda();
-            vm.DetalleComandaSeleccionada.ActualizarImporteTotal();
+            DialogResult = true;
         }
     }
 }

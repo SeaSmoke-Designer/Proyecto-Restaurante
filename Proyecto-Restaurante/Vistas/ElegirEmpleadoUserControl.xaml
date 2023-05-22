@@ -19,13 +19,16 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid Background="AliceBlue">
-        <ListBox Margin="10" ItemsSource="{Binding Path=ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}" ItemTemplate="{StaticResource PlantillaEmpleados}">
+    <DockPanel Background="#FFE8FFF0">
+        <StackPanel DockPanel.Dock="Top" Margin="10" Background="#FFADD4BC">
+            <TextBlock Text="Selecciona un empleado" FontSize="20" FontWeight="Bold" Margin="5"/>
+        </StackPanel>
+        <ListBox Margin="10,5,10,10" ItemsSource="{Binding Path=ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}" ItemTemplate="{StaticResource PlantillaEmpleados}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-    </Grid>
+    </DockPanel>
 </UserControl>

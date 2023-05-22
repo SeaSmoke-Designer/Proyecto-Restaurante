@@ -247,6 +247,16 @@ namespace Proyecto_Restaurante.Servicios
             return JsonConvert.DeserializeObject<ObservableCollection<DetalleComanda>>(response.Content);
         }
 
+        public IRestResponse GetDetalleComanda(int id, int id2)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"detallescomanda/{id}/{id2}", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+            //return JsonConvert.DeserializeObject<DetalleComanda>(response.Content);
+        }
+
         public IRestResponse PostDetallesComanda(DetalleComanda detalleComandaNuevo)
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);

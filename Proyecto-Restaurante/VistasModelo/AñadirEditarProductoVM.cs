@@ -61,6 +61,10 @@ namespace Proyecto_Restaurante.VistasModelo
                 ProductoActual = new Producto();
                 ProductoActual.URLFotoProducto = imagenDefault;
             }
+            else
+            {
+                ProductoActual.IdCategoria = ListaCategorias.First(n => n.IdCategoria == ProductoActual.IdCategoria.IdCategoria);
+            }
             ModoVentana = ProductoActual.IdProducto == 0 ? "Crear Producto" : "Editar Producto";
             NuevaImagenProductoCommand = new RelayCommand(SeleccionImagen);
             GuardarProductoCommand = new RelayCommand(GuardarProducto);

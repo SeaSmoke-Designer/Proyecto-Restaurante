@@ -3,13 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Proyecto_Restaurante"
              xmlns:convertidores="clr-namespace:Proyecto_Restaurante.Convertidores"
-             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:Components="clr-namespace:Proyecto_Restaurante.Components" x:Class="Proyecto_Restaurante.App"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:Components="clr-namespace:Proyecto_Restaurante.Components" xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="Proyecto_Restaurante.App"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <Style TargetType="{x:Type Button}" x:Key="ButtonsDiseño">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="{x:Type Button}" x:Key="BotonesAceptarCancelar">
+            <Setter Property="Margin" Value="7"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="BorderBrush" Value="#a4e4d9"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <ControlTemplate x:Key="ButtonControlTemplate1" TargetType="{x:Type Button}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
         <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
             <Border x:Name="border" BorderBrush="#98B8CA" BorderThickness="2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5" >
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="35" Height="35"/>
@@ -240,7 +273,368 @@
             </Style.Triggers>
         </Style>
 
-        
+
+
+        <Style x:Key="SfDataGridStyle" TargetType="{x:Type syncfusion:SfDataGrid}">
+            <Setter Property="RowDragDropTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border x:Name="border" BorderBrush="#FFC8C8C8" BorderThickness="1.2" Background="#FFECECEC" Height="60" Width="205" CornerRadius="5">
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="#FF333333" FontWeight="SemiBold" FontSize="14" FontFamily="Segoe UI" Padding="12,0,0,0" Text="Dragging rows count : "><Run Text="Dragging rows count : "/></TextBlock>
+                                <TextBlock Grid.Column="1" Foreground="#FF333333" FontWeight="Normal" FontSize="14" FontFamily="Segoe UI" Margin="-100,0,0,0" Text="{Binding DraggingRecords.Count}"/>
+                                <Separator BorderBrush="#FFC8C8C8" BorderThickness="1" HorizontalAlignment="Stretch" Height="2" Grid.Row="1" VerticalAlignment="Stretch" Width="250"/>
+                                <TextBlock Foreground="#FF333333" FontWeight="SemiBold" FontSize="14" FontFamily="Segoe UI" Padding="12,0,0,0" Grid.Row="2" Text="Drop status : "><Run Text="Drop status : "/></TextBlock>
+                                <TextBlock Grid.Column="1" Foreground="#FF333333" FontWeight="Normal" FontSize="14" FontFamily="Segoe UI" Margin="-158,0,0,0" Grid.Row="2" Text="{Binding DragStatus}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#FFADD4BC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+            <Setter Property="ScrollViewer.PanningRatio" Value="1"/>
+            <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type syncfusion:SfDataGrid}">
+                        <Grid SnapsToDevicePixels="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Busy">
+                                        <Storyboard>
+                                            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsBusyIndicatorShowing" Storyboard.TargetName="PART_BusyDecorator">
+                                                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                                            </BooleanAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border Grid.Row="0" SnapsToDevicePixels="True">
+                                <Border.Visibility>
+                                    <Binding Path="ShowGroupDropArea" RelativeSource="{RelativeSource TemplatedParent}">
+                                        <Binding.Converter>
+                                            <syncfusion:BoolToVisiblityConverter/>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </Border.Visibility>
+                                <syncfusion:GroupDropArea x:Name="PART_GroupDropArea" SnapsToDevicePixels="True"/>
+                            </Border>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Row="1" SnapsToDevicePixels="True">
+                                <ScrollViewer x:Name="PART_ScrollViewer" CanContentScroll="True" FlowDirection="{TemplateBinding FlowDirection}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsTabStop="False" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" PanningMode="{TemplateBinding ScrollViewer.PanningMode}" PanningRatio="{TemplateBinding ScrollViewer.PanningRatio}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                    <syncfusion:VisualContainer x:Name="PART_VisualContainer" AllowFixedGroupCaptions="False" Background="Transparent" CanHorizontallyScroll="True" ColumnCount="0" CanVerticallyScroll="True" FrozenRows="0" FrozenColumns="0" FooterColumns="0" FooterRows="0" HorizontalPixelScroll="True" HorizontalPadding="0" RowsGenerator="{x:Null}" RowCount="0" ScrollOwner="{x:Null}" ScrollableOwner="{x:Null}" VerticalPixelScroll="True" VerticalPadding="0">
+                                        <syncfusion:VisualContainer.RowHeightManager>
+                                            <syncfusion:RowHeightManager/>
+                                        </syncfusion:VisualContainer.RowHeightManager>
+                                        <Line x:Name="PART_HorizontalLine"/>
+                                        <Line x:Name="PART_VerticalLine"/>
+                                    </syncfusion:VisualContainer>
+                                </ScrollViewer>
+                            </Border>
+                            <syncfusion:BusyDecorator x:Name="PART_BusyDecorator" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GridHeaderCellControlStyle" TargetType="{x:Type syncfusion:GridHeaderCellControl}">
+            <Setter Property="Background" Value="#FFADD4BC"/>
+            <Setter Property="BorderBrush" Value="#FF558969"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5,3"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="syncfusion:VisualContainer.WantsMouseInput" Value="True"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type syncfusion:GridHeaderCellControl}">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="HiddenColumnsResizingStates">
+                                    <VisualState x:Name="PreviousColumnHidden">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames BeginTime="0" Duration="1.0:0:0" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="3,0,1,1"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="HorizontalPreviousColumnHidden">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,0,1"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="VerticalPreviousColumnHidden">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="3,0,1,0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="NonePreviousColumnHidden">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="HiddenState">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames BeginTime="0" Duration="1.0:0:0" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="3,0,3,1"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="HorizontalHiddenState">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,0,1"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="VerticalHiddenState">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="3,0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="NoneHiddenState">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="NormalState"/>
+                                    <VisualState x:Name="LastColumnHidden">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames BeginTime="0" Duration="1.0:0:0" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,3,1"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="HorizontalLastColumnHidden">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,0,1"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="VerticalLastColumnHidden">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,3,0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="NoneLastColumnHidden">
+                                        <Storyboard>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_HeaderCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Normal"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="BorderStates">
+                                    <VisualState x:Name="NormalCell"/>
+                                    <VisualState x:Name="FrozenColumnCell">
+                                        <Storyboard BeginTime="0">
+                                            <ThicknessAnimationUsingKeyFrames BeginTime="0" Duration="1.0:0:0" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_FrozenCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,1,0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="FooterColumnCell">
+                                        <Storyboard BeginTime="0">
+                                            <ThicknessAnimationUsingKeyFrames BeginTime="0" Duration="1.0:0:0" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_FooterCellBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="1,0,0,0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="PART_FrozenCellBorder" BorderBrush="{TemplateBinding BorderBrush}" Background="Transparent"/>
+                            <Border x:Name="PART_FooterCellBorder" BorderBrush="{TemplateBinding BorderBrush}" Background="Transparent"/>
+                            <Border x:Name="PART_HeaderCellBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                <Grid Margin="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    <Border x:Name="PART_FilterPopUpPresenter"/>
+                                    <Grid x:Name="PART_SortButtonPresenter" Grid.Column="1" SnapsToDevicePixels="True">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0">
+                                                <ColumnDefinition.MinWidth>
+                                                    <Binding Mode="OneWay" Path="SortDirection" RelativeSource="{RelativeSource TemplatedParent}">
+                                                        <Binding.Converter>
+                                                            <syncfusion:SortDirectionToWidthConverter/>
+                                                        </Binding.Converter>
+                                                    </Binding>
+                                                </ColumnDefinition.MinWidth>
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Path Data="F1M753.644,-13.0589L753.736,-12.9639 753.557,-12.7816 732.137,8.63641 732.137,29.7119 756.445,5.40851 764.094,-2.24384 764.275,-2.42352 771.834,5.1286 796.137,29.4372 796.137,8.36163 774.722,-13.0589 764.181,-23.5967 753.644,-13.0589z" Fill="Gray" HorizontalAlignment="Center" Height="8.138" Stretch="Fill" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="8.938">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="0"/>
+                                                    <ScaleTransform ScaleY="1" ScaleX="1"/>
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                            <Path.Visibility>
+                                                <Binding ConverterParameter="Ascending" Path="SortDirection" RelativeSource="{RelativeSource TemplatedParent}">
+                                                    <Binding.Converter>
+                                                        <syncfusion:SortDirectionToVisibilityConverter/>
+                                                    </Binding.Converter>
+                                                </Binding>
+                                            </Path.Visibility>
+                                        </Path>
+                                        <Path Data="F1M181.297,177.841L181.205,177.746 181.385,177.563 202.804,156.146 202.804,135.07 178.497,159.373 170.847,167.026 170.666,167.205 163.107,159.653 138.804,135.345 138.804,156.42 160.219,177.841 170.76,188.379 181.297,177.841z" Fill="Gray" HorizontalAlignment="Center" Height="8.138" Stretch="Fill" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="8.938">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="0"/>
+                                                    <ScaleTransform ScaleY="1" ScaleX="1"/>
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                            <Path.Visibility>
+                                                <Binding ConverterParameter="Decending" Path="SortDirection" RelativeSource="{RelativeSource TemplatedParent}">
+                                                    <Binding.Converter>
+                                                        <syncfusion:SortDirectionToVisibilityConverter/>
+                                                    </Binding.Converter>
+                                                </Binding>
+                                            </Path.Visibility>
+                                        </Path>
+                                        <TextBlock Grid.Column="1" Foreground="{TemplateBinding Foreground}" FontSize="10" Margin="0,-4,0,0" SnapsToDevicePixels="True" Text="{TemplateBinding SortNumber}" Visibility="{TemplateBinding SortNumberVisibility}" VerticalAlignment="Center"/>
+                                    </Grid>
+                                    <syncfusion:FilterToggleButton x:Name="PART_FilterToggleButton" Grid.Column="2" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" Visibility="{TemplateBinding FilterIconVisiblity}" VerticalAlignment="Stretch"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="VirtualizingCellsControlStyle" TargetType="{x:Type syncfusion:VirtualizingCellsControl}">
+            <Setter Property="Background" Value="#FFD2E0D7"/>
+            <Setter Property="BorderBrush" Value="#FFADD4BC"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type syncfusion:VirtualizingCellsControl}">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="BorderStates">
+                                    <VisualState x:Name="NormalRow"/>
+                                    <VisualState x:Name="FrozenRow">
+                                        <Storyboard BeginTime="0">
+                                            <ThicknessAnimationUsingKeyFrames BeginTime="0" Duration="1.0:0:0" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_RowBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,0,1"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="FooterRow">
+                                        <Storyboard BeginTime="0">
+                                            <ThicknessAnimationUsingKeyFrames BeginTime="0" Duration="1.0:0:0" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="PART_RowBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0,1,0,0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                            <ThicknessAnimationUsingKeyFrames BeginTime="0" Duration="1.0:0:0" Storyboard.TargetProperty="Margin" Storyboard.TargetName="PART_RowBorder">
+                                                <EasingThicknessKeyFrame KeyTime="0" Value="0,-1,0,0"/>
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="PART_RowBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <Rectangle Clip="{TemplateBinding RowBackgroundClip}" Fill="{TemplateBinding Background}"/>
+                            <Border Background="{TemplateBinding RowSelectionBrush}" Clip="{TemplateBinding SelectionBorderClipRect}" Visibility="{TemplateBinding SelectionBorderVisiblity}"/>
+                            <Border BorderBrush="{TemplateBinding RowHoverBackgroundBrush}" BorderThickness="{TemplateBinding RowHighlightBorderThickness}" Background="{TemplateBinding RowHoverBackgroundBrush}" Clip="{TemplateBinding HighlightBorderClipRect}" SnapsToDevicePixels="True" Visibility="{TemplateBinding HighlightSelectionBorderVisiblity}"/>
+                            <Rectangle x:Name="PART_CurrentFocusRow" Margin="{TemplateBinding CurrentFocusBorderMargin}" Stroke="#FF666666" StrokeThickness="1" StrokeDashArray="2 2" Visibility="{TemplateBinding CurrentFocusRowVisibility}"/>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}"/>
+                            </Border>
+                            <Border x:Name="PART_DragLineIndicator" BorderBrush="#FF2B579A" BorderThickness="0,0,0,2" Visibility="Collapsed"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="ButtonControlTemplateTomarComanda" TargetType="{x:Type Button}">
+            <Border x:Name="border" BorderBrush="#FF7BA48A" BorderThickness="{TemplateBinding BorderThickness}" Background="#FFADD4BC" SnapsToDevicePixels="True" CornerRadius="5">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFA2C5AF"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF619373"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFA2C5AF"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF619373"/>
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="TextBoxControlTemplateTomarComanda" TargetType="{x:Type TextBox}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF619373"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF619373"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
     </Application.Resources>
 </Application>

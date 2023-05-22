@@ -43,10 +43,6 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref comandaSeleccionada, value); }
         }
 
-        
-
-
-
         public HistoricoComandasVM()
         {
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();

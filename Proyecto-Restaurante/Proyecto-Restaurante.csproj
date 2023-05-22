@@ -199,6 +199,7 @@
     <Compile Include="Mensajes\EnviarComandaMessage.cs" />
     <Compile Include="Mensajes\EnviarEmpleadoComandaMessage.cs" />
     <Compile Include="Mensajes\EnviarEmpleadoMessage.cs" />
+    <Compile Include="Mensajes\EnviarImporteCobrar.cs" />
     <Compile Include="Mensajes\EnviarMesaComandaMessage.cs" />
     <Compile Include="Mensajes\EnviarProductoComandaMessage.cs" />
     <Compile Include="Mensajes\EnviarValidacionAdminMessage.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="VistasModelo\ArticulosVM.cs" />
     <Compile Include="VistasModelo\AñadirEditarEmpleadoVM.cs" />
     <Compile Include="VistasModelo\AñadirEditarProductoVM.cs" />
+    <Compile Include="VistasModelo\EditarComandaVM.cs" />
     <Compile Include="VistasModelo\ElegirEmpleadoVM.cs" />
     <Compile Include="VistasModelo\ElegirMesaVM.cs" />
     <Compile Include="VistasModelo\ElegirProductoVM.cs" />
@@ -222,6 +224,7 @@
     <Compile Include="VistasModelo\HistoricoComandasVM.cs" />
     <Compile Include="VistasModelo\MainWindowVM.cs" />
     <Compile Include="VistasModelo\TomarComandaVM.cs" />
+    <Compile Include="VistasModelo\VentanaCobrarComandaVM.cs" />
     <Compile Include="VistasModelo\VerDetallesComandaVM.cs" />
     <Compile Include="VistasModelo\VerificacionAdminVM.cs" />
     <Compile Include="Vistas\ArticulosUserControl.xaml.cs">
@@ -232,6 +235,9 @@
     </Compile>
     <Compile Include="Vistas\AñadirEditarProducto.xaml.cs">
       <DependentUpon>AñadirEditarProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\EditarComanda.xaml.cs">
+      <DependentUpon>EditarComanda.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\ElegirEmpleadoUserControl.xaml.cs">
       <DependentUpon>ElegirEmpleadoUserControl.xaml</DependentUpon>
@@ -256,6 +262,9 @@
     </Compile>
     <Compile Include="Vistas\TomarComandaUserControl.xaml.cs">
       <DependentUpon>TomarComandaUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\VentanaCobrarComanda.xaml.cs">
+      <DependentUpon>VentanaCobrarComanda.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\VerDetallesComanda.xaml.cs">
       <DependentUpon>VerDetallesComanda.xaml</DependentUpon>
@@ -291,6 +300,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\EditarComanda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\ElegirEmpleadoUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -320,6 +333,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\TomarComandaUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\VentanaCobrarComanda.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

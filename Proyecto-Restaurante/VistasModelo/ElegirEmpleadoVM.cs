@@ -15,8 +15,6 @@ namespace Proyecto_Restaurante.VistasModelo
     class ElegirEmpleadoVM : ObservableObject
     {
         private readonly ServicioAPIRestRestaurante servicioAPIRestRestaurante;
-        //private readonly ServicioDialogo servicioDialogo;
-        //private readonly ServicioNavegacion servicioNavegacion;
 
         private ObservableCollection<Empleado> listaEmpleados;
         public ObservableCollection<Empleado> ListaEmpleados

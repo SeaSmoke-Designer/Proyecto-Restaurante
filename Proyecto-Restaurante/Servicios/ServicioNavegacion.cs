@@ -82,5 +82,17 @@ namespace Proyecto_Restaurante.Servicios
         {
             return new ElegirProductoUserControl();
         }
+
+        public bool? CargarEditarComanda()
+        {
+            EditarComanda editarComanda = new EditarComanda();
+            return editarComanda.ShowDialog();
+        }
+
+        public bool? CargarVentanaCobrarComanda()
+        {
+            VentanaCobrarComanda ventanaCobrarComanda = new VentanaCobrarComanda();
+            return ventanaCobrarComanda.ShowDialog();
+        }
     }
 }

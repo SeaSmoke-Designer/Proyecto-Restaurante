@@ -1,0 +1,33 @@
+﻿<Window x:Class="Proyecto_Restaurante.Vistas.VentanaCobrarComanda"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
+        mc:Ignorable="d"
+        Title="VentanaCobrarComanda" Height="200" Width="450" ResizeMode="NoResize" ShowInTaskbar="False">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" >
+            <Setter Property="Margin" Value="7"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="BorderBrush" Value="#a4e4d9"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="Total a pagar: "  FontSize="35" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding Path=PrecioCobrar}" FontSize="35" FontWeight="SemiBold"/>
+            <TextBlock Text="€" FontSize="35" FontWeight="SemiBold"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+            <Button Content="Cancelar" Background="Transparent" IsCancel="True"/>
+            <Button x:Name="aceptarButton" Content="Cobrar" Background="#a4e4d9" Click="aceptarButton_Click" IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

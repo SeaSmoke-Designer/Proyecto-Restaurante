@@ -1,0 +1,239 @@
+﻿<Window x:Class="Proyecto_Restaurante.Vistas.EditarComanda"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:Syncfusion="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+        mc:Ignorable="d"
+        Title="EditarComanda"  Height="750" Width="1250" MinWidth="1200" MinHeight="650" ShowInTaskbar="False">
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
+            <Border x:Name="border">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="{x:Type StackPanel}" x:Key="ProductosSinUnidades">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=UnidadesEnAlmacen}" Value="0">
+                    <Setter Property="Background" Value="#FFFB5959"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <DataTemplate x:Key="PlantillaCategorias">
+            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Margin="10" Background="White" Width="130" Height="130" >
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+                <DockPanel LastChildFill="True">
+                    <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom">
+                        <Separator BorderBrush="#D1D1D1" BorderThickness="1" Width="120" Margin="0,5,0,5"/>
+                        <TextBlock Text="{Binding Path=NombreCategoria}" FontSize="13" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="5"/>
+                    </StackPanel>
+                    <Image Source="{Binding Path=URLFotoCategoria}" DockPanel.Dock="Top" Margin="5"/>
+                </DockPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="PlantillaProductos">
+            <Border BorderBrush="#FF70B98D" BorderThickness="1" Margin="5" Background="#FFCFE6D7" Padding="5" Width="150" Height="150" CornerRadius="10">
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="{Binding Path=URLFotoProducto}" Width="90" HorizontalAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="0" Margin="5"/>
+                    <Separator BorderBrush="#FF28CB68" BorderThickness="1" Width="95" Margin="0,5,0,5" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="1"/>
+                    <StackPanel Grid.Row="2" Style="{StaticResource ProductosSinUnidades}">
+                        <TextBlock Text="{Binding Path=NombreProducto}"  Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="15" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <Style TargetType="{x:Type Button}" x:Key="BotonBorrarLiena">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=DetalleComandaSeleccionada}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="BotonBorrarComanda">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=ListaDetallesComanda.Count}" Value="0">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <DataTemplate x:Key="DataTemplateListBoxProductos">
+            <StackPanel Orientation="Vertical">
+                <Image Source="{Binding Path=URLFotoProducto}" Margin="5" Width="80"/>
+                <TextBlock Text="{Binding Path=NombreProducto}" HorizontalAlignment="Center" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" TextAlignment="Center"/>
+            </StackPanel>
+        </DataTemplate>
+        
+        
+    </Window.Resources>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Center" Grid.Row="1">
+            <Button Content="Cancelar" Background="Transparent" IsCancel="True" Style="{StaticResource BotonesAceptarCancelar}" Template="{StaticResource ButtonControlTemplate1}"/>
+            <Button x:Name="aceptarButton" Content="Aceptar" Background="#a4e4d9" Click="aceptarButton_Click" IsDefault="True" Command="{Binding Path=GuardarComandaCommand}" Style="{StaticResource BotonesAceptarCancelar}"
+                    Template="{StaticResource ButtonControlTemplate1}"/>
+        </StackPanel>
+        <Grid Background="AliceBlue" Grid.Column="1">
+            <DockPanel Background="White" LastChildFill="True">
+                <StackPanel  DockPanel.Dock="Top" Margin="10">
+                    <DockPanel Background="#FFADD4BC">
+                        <Button Width="30" Height="30" Template="{DynamicResource ButtonControlTemplate}" DockPanel.Dock="Right" Command="{Binding Path=RefrescarListaProductosCommand}" ToolTip="Quitar filtros">
+                            <Button.Content>
+                                <Image Source="../Assets/refresh.png" />
+                            </Button.Content>
+                        </Button>
+                        <TextBlock Text="Categorias" FontSize="20" FontWeight="Bold" DockPanel.Dock="Left" Margin="5"/>
+
+                    </DockPanel>
+
+                    <ListBox DockPanel.Dock="Top" Margin="0,5,0,0" Height="180" ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" ItemTemplate="{StaticResource PlantillaCategorias}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                </StackPanel>
+                <DockPanel  DockPanel.Dock="Top" Margin="10">
+                    <StackPanel Background="#FFADD4BC" DockPanel.Dock="Top">
+                        <TextBlock Text="Selecciona un Producto" FontSize="20" FontWeight="Bold"  Background="#FFADD4BC"  Margin="5"/>
+                    </StackPanel>
+
+                    <ListBox DockPanel.Dock="Top" Margin="0,5,0,0" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado, UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{StaticResource PlantillaProductos}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                </DockPanel>
+            </DockPanel>
+
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="1.8*"/>
+                <RowDefinition Height="55"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Column="0" Margin="5" Command="{Binding Path=BorrarLineaCommand}" Style="{StaticResource BotonBorrarLiena}" Template="{StaticResource ButtonControlTemplateTomarComanda}">
+                    <Button.Content>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Image Source="../assets/BorrarLinea.png" Width="35" />
+                            <TextBlock Text="Borrar Linea" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="2" Margin="5" Command="{Binding Path=CobrarComandaCommand}" Style="{StaticResource BotonBorrarComanda}" Template="{DynamicResource ButtonControlTemplateTomarComanda}">
+                    <Button.Content>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Image Source="../Assets/CajaRegistradora.png" Width="35" Margin="5,5,5,0"/>
+                            <TextBlock Text="Cobrar comanda" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"/>
+
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="1" Margin="5" Command="{Binding Path=BorrarComandaCommand}" Style="{StaticResource BotonBorrarComanda}" Template="{StaticResource ButtonControlTemplateTomarComanda}">
+                    <Button.Content>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Image Source="../assets/BorrarComanda.png" Width="35" Margin="5,5,5,0"/>
+
+                            <TextBlock Text="Borrar comanda" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"/>
+
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <DockPanel LastChildFill="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"  Margin="5">
+                    <TextBlock Text="Cantidad de personas: " FontSize="15" FontWeight="SemiBold" DockPanel.Dock="Left"/>
+                    <syncfusion:IntegerTextBox x:Name="integerTextBox" Width="100" Height="25" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" BorderBrush="Black" BorderThickness="1" CornerRadius="3" TextAlignment="Right" ToolTip="Cantidad Personas" Value="{Binding Path=ComandaRecibida.CantidadPersonas}" IsReadOnly="True"/>
+                </DockPanel>
+                <DockPanel LastChildFill="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"  Margin="5">
+                    <TextBlock Text="Camarero: " FontSize="15" FontWeight="SemiBold" DockPanel.Dock="Left"/>
+                    <TextBox DockPanel.Dock="Right" Width="150" Text="{Binding Path=ComandaRecibida.Empleado.Nombre}" IsReadOnly="True" Template="{DynamicResource TextBoxControlTemplateTomarComanda}" FontWeight="SemiBold" VerticalContentAlignment="Center" FontSize="14" HorizontalContentAlignment="Right"/>
+                </DockPanel>
+                <DockPanel LastChildFill="False" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"  Margin="5">
+                    <TextBlock Text="Mesa: " FontSize="15" FontWeight="SemiBold" DockPanel.Dock="Left"/>
+                    <TextBox DockPanel.Dock="Right" Width="150" Text="{Binding Path=ComandaRecibida.Mesa.NombreMesa}" IsReadOnly="True" Template="{DynamicResource TextBoxControlTemplateTomarComanda}" FontWeight="SemiBold" VerticalContentAlignment="Center" FontSize="14" HorizontalContentAlignment="Right"/>
+                </DockPanel>
+            </Grid>
+
+            <syncfusion:SfDataGrid x:Name="dataGrid" 
+                                   ItemsSource="{Binding ListaDetallesComanda}" 
+                                   SelectedItem="{Binding Path=DetalleComandaSeleccionada}"
+                                   AllowFiltering="False" 
+                                   Padding="5"
+                                   AllowEditing="True"
+                                   ColumnSizer="Star"
+                                   AutoGenerateColumns="False"
+                                   Grid.Row="1" 
+                                   FontWeight="SemiBold" 
+                                   CurrentCellEndEdit="dataGrid_CurrentCellEndEdit" Margin="10,5" Style="{DynamicResource SfDataGridStyle}" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}" RowStyle="{DynamicResource VirtualizingCellsControlStyle}">
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn MappingName="Cantidad" Width="75"/>
+                    <syncfusion:GridTextColumn HeaderText="Producto" DisplayBinding="{Binding Path=Producto.NombreProducto}" AllowEditing="False"/>
+                    <syncfusion:GridTextColumn HeaderText="Precio" AllowEditing="False" HorizontalHeaderContentAlignment="Center" DisplayBinding="{Binding Path=Producto.PrecioUnitario}" Width="60" />
+                    <syncfusion:GridTextColumn HeaderText="Total" DisplayBinding="{Binding Path=ImporteTotalProducto, UpdateSourceTrigger=PropertyChanged}" Width="60" AllowEditing="False"/>
+
+                </syncfusion:SfDataGrid.Columns>
+
+            </syncfusion:SfDataGrid>
+            <DockPanel Grid.Row="2" LastChildFill="False" Background="#FFADD4BC" Margin="10,5">
+                <StackPanel  Orientation="Vertical" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <Separator Margin="5,5,9,5" Width="100" BorderThickness="1" BorderBrush="#FF70957E" HorizontalAlignment="Right"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=TotalImporteComanda, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="€" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <TextBlock Text="Total: " DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10,10,10,5" FontSize="18" FontWeight="Bold"/>
+            </DockPanel>
+        </Grid>
+    </Grid>
+
+</Window>

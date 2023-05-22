@@ -49,6 +49,8 @@ namespace Proyecto_Restaurante.VistasModelo
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
             VerComandaCommand = new RelayCommand(VerDetallesComanda);
             EliminarComandaCommand = new RelayCommand(EliminarComanda);
+            EditarComandaCommand = new RelayCommand(EditarComanda);
+            
             WeakReferenceMessenger.Default.Register<GestionarComandasVM, EnviarComandaMessage>(this, (r, m) =>
             {
                 if (!m.HasReceivedResponse)
@@ -56,6 +58,10 @@ namespace Proyecto_Restaurante.VistasModelo
                     m.Reply(r.ComandaSeleccionada);
                 }
             });
+
+            
+
+
             CargarComandas();
         }
 
@@ -69,8 +75,19 @@ namespace Proyecto_Restaurante.VistasModelo
             if (ComandaSeleccionada != null)
             {
                 bool? result = servicioNavegacion.CargarVerDetallesComanda();
+                ComandaSeleccionada = null;
             }
         }
+
+        public void EditarComanda()
+        {
+            if (ComandaSeleccionada != null)
+            {
+                bool? result = servicioNavegacion.CargarEditarComanda();
+                ComandaSeleccionada = null; 
+            }
+        }
+
 
         public void EliminarComanda()
         {
@@ -90,8 +107,6 @@ namespace Proyecto_Restaurante.VistasModelo
                         }
                     }
 
-                    
-                    
                     IRestResponse response = servicioAPIRestRestaurante.DeleteComanda(ComandaSeleccionada.IdComanda);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
@@ -106,6 +121,7 @@ namespace Proyecto_Restaurante.VistasModelo
             }
         }
 
+        
 
     }
 }

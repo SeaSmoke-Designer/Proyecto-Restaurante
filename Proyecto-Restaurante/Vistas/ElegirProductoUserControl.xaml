@@ -64,15 +64,15 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <DockPanel Background="White" LastChildFill="True">
+    <DockPanel Background="#FFE8FFF0" LastChildFill="True">
         <StackPanel  DockPanel.Dock="Top" Margin="10">
-            <DockPanel Background="Azure">
+            <DockPanel Background="#FFADD4BC">
                 <Button Width="30" Height="30" Template="{DynamicResource ButtonControlTemplate}" DockPanel.Dock="Right" Command="{Binding Path=RefrescarListaProductosCommand}" ToolTip="Quitar filtros">
                     <Button.Content>
                         <Image Source="../Assets/refresh.png" />
                     </Button.Content>
                 </Button>
-                <TextBlock Text="Categorias" FontSize="20" FontWeight="Bold" DockPanel.Dock="Left" />
+                <TextBlock Text="Categorias" FontSize="20" FontWeight="Bold" DockPanel.Dock="Left" Margin="5"/>
                 
             </DockPanel>
             
@@ -85,7 +85,10 @@
             </ListBox>
         </StackPanel>
         <DockPanel  DockPanel.Dock="Top" Margin="10">
-            <TextBlock Text="Selecciona un Producto" FontSize="20" FontWeight="Bold"  Background="AliceBlue" DockPanel.Dock="Top"/>
+            <StackPanel Background="#FFADD4BC" DockPanel.Dock="Top">
+                <TextBlock Text="Selecciona un Producto" FontSize="20" FontWeight="Bold" DockPanel.Dock="Top" Margin="5"/>
+            </StackPanel>
+            
             <ListBox DockPanel.Dock="Top" Margin="0,5,0,0" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado, UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{StaticResource PlantillaProductos}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -94,7 +97,5 @@
                 </ListBox.ItemsPanel>
             </ListBox>
         </DockPanel>
-        
-        
     </DockPanel>
 </UserControl>

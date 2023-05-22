@@ -103,7 +103,7 @@
                 <TextBlock Text="{Binding Path=TotalComanda}" Grid.Column="4" Grid.Row="0" Style="{StaticResource TitulosComanda}"/>
             </Grid>
         </Border>
-        <DataGrid ItemsSource="{Binding ComandaRecibida.DetallescomandaCollection}" AutoGenerateColumns="False" IsReadOnly="True" Margin="10" Style="{DynamicResource DataGridStyle}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle}" RowStyle="{DynamicResource DataGridRowStyle}" >
+        <DataGrid ItemsSource="{Binding ListaDetallesComanda}" AutoGenerateColumns="False" IsReadOnly="True" Margin="10" Style="{DynamicResource DataGridStyle}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle}" RowStyle="{DynamicResource DataGridRowStyle}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="100"/>
                 <DataGridTextColumn Header="Producto" Binding="{Binding Producto.NombreProducto}" Width="2*"/>

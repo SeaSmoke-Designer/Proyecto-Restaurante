@@ -56,15 +56,8 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public double TotalImporteComanda
         {
-            get
-            {
-                return totalImporteComanda;
-            }
-            set
-            {
-                SetProperty(ref totalImporteComanda, value);
-
-            }
+            get { return totalImporteComanda; }
+            set { SetProperty(ref totalImporteComanda, value); }
         }
 
 
@@ -76,10 +69,17 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref comandaActual, value); }
         }
 
+        private string modo;
+        public string Modo
+        {
+            get { return modo; }
+            set { SetProperty(ref modo, value); }
+        }
 
 
         public TomarComandaVM()
         {
+
             ComandaActual = new Comanda();
 
             WeakReferenceMessenger.Default.Register<TomarComandaVM, EnviarComandaMessage>(this, (r, m) =>
@@ -103,6 +103,13 @@ namespace Proyecto_Restaurante.VistasModelo
                 ComandaActual.Mesa = m.Value;
                 NavegarListaProductos();
             });
+            WeakReferenceMessenger.Default.Register<TomarComandaVM, EnviarImporteCobrar>(this, (r, m) =>
+            {
+                if (!m.HasReceivedResponse)
+                {
+                    m.Reply(r.TotalImporteComanda);
+                }
+            });
 
             servicioNavegacion = new ServicioNavegacion();
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
@@ -113,20 +120,10 @@ namespace Proyecto_Restaurante.VistasModelo
             BorrarLineaCommand = new RelayCommand(BorrarLinea);
             BorrarComandaCommand = new RelayCommand(BorrarComanda);
             PasarAMesaCommand = new RelayCommand(PasarAMesa);
+            CobrarComandaCommand = new RelayCommand(CobrarComanda);
             NavegarListaProductos();
             DetallesComandaProductos = new ObservableCollection<DetalleComanda>();
         }
-
-        /*public void CargarProductos()
-        {
-            //ListaProductos = servicioAPIRestRestaurante.GetProductos();
-        }
-
-        public void CargarCategorias()
-        {
-            //ListaCategorias = servicioAPIRestRestaurante.GetCategorias();
-        }*/
-
         public void NavegarListaEmpleados()
         {
             ContenidoVentana = servicioNavegacion.CargarListaEmpleados();
@@ -209,49 +206,47 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void PasarAMesa()
         {
-            if (DetallesComandaProductos.Count != 0)
+
+            if (ComandaActual.Empleado != null)
             {
-                if (ComandaActual.Empleado != null)
+                if (ComandaActual.Mesa != null)
                 {
-                    if (ComandaActual.Mesa != null)
+
+                    if (ComandaActual.CantidadPersonas != 0)
                     {
-                        if (ComandaActual.CantidadPersonas != 0)
+                        ComandaActual.Fecha = DateTime.Now;
+                        IRestResponse response = servicioAPIRestRestaurante.PostComanda(ComandaActual);
+                        InsertarDetallesComanda(Int32.Parse(response.Content.Substring(4).Replace("\"", "").Replace("}", "")));
+                        //servicioAPIRestRestaurante.PutMesa(ComandaActual.Mesa);
+
+                        if (response.StatusCode == System.Net.HttpStatusCode.Created)
                         {
-                            ComandaActual.Fecha = DateTime.Now;     
-                            IRestResponse response = servicioAPIRestRestaurante.PostComanda(ComandaActual);
-                            
-                            InsertarDetallesComanda(Int32.Parse(response.Content.Substring(4).Replace("\"", "").Replace("}", "")));
-                            servicioAPIRestRestaurante.PutMesa(ComandaActual.Mesa);
-                            
-                            if (response.StatusCode == System.Net.HttpStatusCode.Created)
-                            {
-                                ComandaActual = new Comanda();
-                            }
-                            else if (response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
-                            {
-                                servicioDialogo.MostrarMensajeError(response.Content, "ERROR - AL INSERTAR LA COMANDA");
-                            }
+                            ComandaActual = new Comanda();
+                            DetallesComandaProductos = new ObservableCollection<DetalleComanda>();
                         }
-                        else
+                        else if (response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
                         {
-                            servicioDialogo.MostrarMensajeAdvertencia("No hay ninguna mesa asignada", "FALTA ASIGNAR UNA MESA");
+                            servicioDialogo.MostrarMensajeError(response.Content, "ERROR - AL INSERTAR LA COMANDA");
                         }
                     }
                     else
                     {
                         servicioDialogo.MostrarMensajeAdvertencia("Falta la cantidad de personas", "FALTA CANTIDAD DE PERSONAS");
                     }
+
                 }
                 else
                 {
-                    servicioDialogo.MostrarMensajeAdvertencia("No hay ningun empleado asignado para esta comanda", "FALTA ASIGNAR UN EMPLEADO");
+                    servicioDialogo.MostrarMensajeAdvertencia("No hay ninguna mesa asignada", "FALTA ASIGNAR UNA MESA");
                 }
             }
             else
             {
-                servicioDialogo.MostrarMensajeAdvertencia("No hay ningun producto en la comanda", "NO HAY PRODUCTOS");
+                servicioDialogo.MostrarMensajeAdvertencia("No hay ningun empleado asignado para esta comanda", "FALTA ASIGNAR UN EMPLEADO");
             }
         }
+
+
 
         public void InsertarDetallesComanda(int idComanda)
         {
@@ -272,7 +267,31 @@ namespace Proyecto_Restaurante.VistasModelo
                 }
             }
         }
-    }
 
-    
+        public void CobrarComanda()
+        {
+            ComandaActual.Fecha = DateTime.Now;
+            bool? resultado = servicioNavegacion.CargarVentanaCobrarComanda();
+            if ((bool)resultado)
+            {
+                ComandaActual.Pagada = true;
+                IRestResponse response = servicioAPIRestRestaurante.PostComanda(ComandaActual);
+
+                InsertarDetallesComanda(Int32.Parse(response.Content.Substring(4).Replace("\"", "").Replace("}", "")));
+                //servicioAPIRestRestaurante.PutMesa(ComandaActual.Mesa);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                {
+                    ComandaActual = new Comanda();
+                    DetallesComandaProductos = new ObservableCollection<DetalleComanda>();
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                {
+                    servicioDialogo.MostrarMensajeError(response.Content, "ERROR - AL INSERTAR LA COMANDA");
+                }
+            }
+
+        }
+    }
 }
+

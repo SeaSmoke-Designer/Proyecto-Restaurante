@@ -14,42 +14,11 @@
     <Window.Resources>
         <convertidores:ConvertidorFechaEmpleado x:Key="ConvertidorFechaEmpleado"/>
 
-        <Style TargetType="{x:Type Button}" >
-            <Setter Property="Margin" Value="7"/>
-            <Setter Property="Padding" Value="4"/>
-            <Setter Property="BorderBrush" Value="#a4e4d9"/>
-            <Setter Property="BorderThickness" Value="2"/>
-        </Style>
+        
         <Style TargetType="{x:Type inputLayout:SfTextInputLayout}" x:Key="textInputLayout">
             <Setter Property="Margin" Value="7"/>
         </Style>
-        <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
-            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="70">
-                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsDefaulted" Value="True">
-                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#98B8CA"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
-                </Trigger>
-                <Trigger Property="ToggleButton.IsChecked" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
-                    <Setter Property="Foreground" Value="#FF838383"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
+        
         <ControlTemplate x:Key="BindablePasswordBoxControlTemplate" TargetType="{x:Type components:BindablePasswordBox}">
             <Border x:Name="border" BorderBrush="#FFAEAEAE" BorderThickness="2" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True" CornerRadius="3">
                 <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Height="30"/>
@@ -77,7 +46,7 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE1F0FF" Template="{DynamicResource ButtonControlTemplate}" Command="{Binding Path=NuevaImagenEmpleadoCommand}" HorizontalAlignment="Center" Height="100" Width="100">
+        <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE1F0FF" Template="{DynamicResource ButtonControlTemplate1}" Command="{Binding Path=NuevaImagenEmpleadoCommand}" HorizontalAlignment="Center" Height="100" Width="100" Style="{StaticResource BotonesAceptarCancelar}">
             <Button.Content>
                 <Ellipse Stretch="Uniform" Height="90" Width="90" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Ellipse.Fill>
@@ -116,7 +85,6 @@
 
         </StackPanel>
         <StackPanel Margin="15" Grid.Column="1" Grid.Row="1">
-            <!--int id, string nombre, string imagen, string nickname, string social-->
             <inputLayout:SfTextInputLayout Hint="Cargo" HelperText="Cargo del empleado" Style="{StaticResource textInputLayout}">
                 <TextBox Text="{Binding Path=EmpleadoActual.Cargo, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <inputLayout:SfTextInputLayout.LeadingView>
@@ -141,20 +109,11 @@
                     <TextBlock Text="Contraseña" Margin="5,2" Foreground="#FF616161"/>
                     <components:BindablePasswordBox Password="{Binding Path=EmpleadoActual.ContraseñaEmpleado}" Margin="5" Template="{DynamicResource BindablePasswordBoxControlTemplate}" />
                 </StackPanel>
-                
             </DockPanel>
-            
-
-            <!--<inputLayout:SfTextInputLayout Hint="Contraseña" HelperText="Contraseña empleado" Style="{StaticResource textInputLayout}">
-                <components:BindablePasswordBox Password="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                <inputLayout:SfTextInputLayout.LeadingView>
-                    <Image Source="../assets/password.png"/>
-                </inputLayout:SfTextInputLayout.LeadingView>
-            </inputLayout:SfTextInputLayout>-->
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
-            <Button Content="Cancelar" Background="Transparent" IsCancel="True"/>
-            <Button x:Name="aceptarButton" Content="{Binding Path=ModoVentana}" Background="#a4e4d9" Click="aceptarButton_Click" IsDefault="True" Command="{Binding Path=GuardarEmpleadoCommand}"/>
+            <Button Content="Cancelar" Background="Transparent" IsCancel="True" Template="{StaticResource ButtonControlTemplate1}" Style="{StaticResource BotonesAceptarCancelar}"/>
+            <Button x:Name="aceptarButton" Content="{Binding Path=ModoVentana}" Background="#a4e4d9" Click="aceptarButton_Click" IsDefault="True" Command="{Binding Path=GuardarEmpleadoCommand}" Template="{StaticResource ButtonControlTemplate1}" Style="{StaticResource BotonesAceptarCancelar}"/>
         </StackPanel>
     </Grid>
 

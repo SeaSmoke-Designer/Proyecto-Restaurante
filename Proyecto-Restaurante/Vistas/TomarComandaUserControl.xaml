@@ -7,11 +7,19 @@
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
             xmlns:Syncfusion="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" >
     <UserControl.Resources>
         <Style TargetType="{x:Type Button}" x:Key="BotonBorrarLiena">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=DetalleComandaSeleccionada}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="BotonBorrarComanda">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=DetallesComandaProductos.Count}" Value="0">
                     <Setter Property="IsEnabled" Value="False"/>
                     <Setter Property="Opacity" Value="0.5"/>
                 </DataTrigger>
@@ -25,16 +33,15 @@
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid Background="White">
+    <Grid Background="White" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
-        <Grid Background="AliceBlue" Grid.Column="1">
+        <Grid Grid.Column="1" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="2*"/>
-
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -42,9 +49,9 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Empleados" Grid.Column="0" Command="{Binding Path=ElegirEmpleadoCommand}"/>
-                <Button Content="Mesas" Grid.Column="1" Command="{Binding Path=ElegirMesaCommand}"/>
-                <Button Content="Productos" Grid.Column="2" Command="{Binding Path=ElegirProductoCommand}"/>
+                <Button Content="Empleados" Grid.Column="0" Command="{Binding Path=ElegirEmpleadoCommand}" Template="{StaticResource ButtonControlTemplateTomarComanda}" Margin="5,2"/>
+                <Button Content="Mesas" Grid.Column="1" Command="{Binding Path=ElegirMesaCommand}" Template="{StaticResource ButtonControlTemplateTomarComanda}" Margin="5,2"/>
+                <Button Content="Productos" Grid.Column="2" Command="{Binding Path=ElegirProductoCommand}" Template="{StaticResource ButtonControlTemplateTomarComanda}" Margin="5,2"/>
             </Grid>
             <!--<ListBox Grid.Row="1" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado}" ItemTemplate="{StaticResource DataTemplateListBoxProductos}">
                 <ListBox.ItemsPanel>
@@ -53,7 +60,7 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>-->
-            <Border Grid.Row="1">
+            <Border Grid.Row="1" Margin="5">
                 <ContentControl Content="{Binding Path=ContenidoVentana}"/>
             </Border>
             <!--<ListBox Grid.Row="2" ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}">
@@ -62,11 +69,11 @@
         </Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="120"/>
+                <RowDefinition Height="200"/>
                 <RowDefinition Height="1.8*"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="55"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Margin="10,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -76,19 +83,18 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Column="0" Margin="5" Command="{Binding Path=BorrarLineaCommand}" Style="{StaticResource BotonBorrarLiena}">
+                <Button Grid.Column="0" Margin="5" Command="{Binding Path=BorrarLineaCommand}" Style="{StaticResource BotonBorrarLiena}" Template="{StaticResource ButtonControlTemplateTomarComanda}">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image Source="../assets/BorrarLinea.png" Width="35" />
-
                             <TextBlock Text="Borrar Linea" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"/>
-
-
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Grid.Column="1" Margin="5" Command="{Binding Path=BorrarComandaCommand}">
+                <Button Grid.Column="1" Margin="5" Command="{Binding Path=BorrarComandaCommand}" Style="{StaticResource BotonBorrarComanda}" Template="{StaticResource ButtonControlTemplateTomarComanda}">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image Source="../assets/BorrarComanda.png" Width="35" Margin="5,5,5,0"/>
@@ -98,7 +104,7 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Grid.Column="2" Margin="5" Command="{Binding Path=PasarAMesaCommand}">
+                <Button Grid.Column="2" Margin="5" Command="{Binding Path=PasarAMesaCommand}" Style="{StaticResource BotonBorrarComanda}" Template="{StaticResource ButtonControlTemplateTomarComanda}">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image Source="../assets/PasarAMesa.png" Width="35" Margin="5,5,5,0"/>
@@ -107,7 +113,7 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Grid.Column="3" Margin="5">
+                <Button Grid.Column="3" Margin="5" Command="{Binding Path=CobrarComandaCommand}" Style="{StaticResource BotonBorrarComanda}" Template="{StaticResource ButtonControlTemplateTomarComanda}">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image Source="../Assets/CajaRegistradora.png" Width="35" Margin="5,5,5,0"/>
@@ -119,6 +125,14 @@
                 <DockPanel LastChildFill="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"  Margin="5">
                     <TextBlock Text="Cantidad de personas: " FontSize="15" FontWeight="SemiBold" DockPanel.Dock="Left"/>
                     <syncfusion:IntegerTextBox x:Name="integerTextBox" Width="100" Height="25" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" BorderBrush="Black" BorderThickness="1" CornerRadius="3" TextAlignment="Right" ToolTip="Cantidad Personas" Value="{Binding Path=ComandaActual.CantidadPersonas}"/>
+                </DockPanel>
+                <DockPanel LastChildFill="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"  Margin="5">
+                    <TextBlock Text="Camarero: " FontSize="15" FontWeight="SemiBold" DockPanel.Dock="Left"/>
+                    <TextBox DockPanel.Dock="Right" Width="150" Text="{Binding Path=ComandaActual.Empleado.Nombre}" IsReadOnly="True" Template="{DynamicResource TextBoxControlTemplateTomarComanda}" FontWeight="SemiBold" VerticalContentAlignment="Center" FontSize="14" HorizontalContentAlignment="Right"/>
+                </DockPanel>
+                <DockPanel LastChildFill="False" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"  Margin="5">
+                    <TextBlock Text="Mesa: " FontSize="15" FontWeight="SemiBold" DockPanel.Dock="Left"/>
+                    <TextBox DockPanel.Dock="Right" Width="150" Text="{Binding Path=ComandaActual.Mesa.NombreMesa}" IsReadOnly="True" Template="{DynamicResource TextBoxControlTemplateTomarComanda}" FontWeight="SemiBold" VerticalContentAlignment="Center" FontSize="14" HorizontalContentAlignment="Right"/>
                 </DockPanel>
             </Grid>
             <!--<DataGrid ItemsSource="{Binding Path=ComandaActual.DetallescomandaCollection}" AutoGenerateColumns="False" Grid.Row="1" SelectedItem="{Binding Path=DetalleComandaSeleccionada}" SelectedValue="{Binding Path=DetalleComandaSeleccionada}">
@@ -139,9 +153,10 @@
                                    ColumnSizer="Star"
                                    AutoGenerateColumns="False"
                                    Grid.Row="1" 
-                                   FontWeight="SemiBold" >
+                                   FontWeight="SemiBold" 
+                                   CurrentCellEndEdit="dataGrid_CurrentCellEndEdit" Margin="10,5" Style="{DynamicResource SfDataGridStyle}" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}" RowStyle="{DynamicResource VirtualizingCellsControlStyle}">
                 <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:GridTextColumn MappingName="Cantidad" Width="65"/>
+                    <syncfusion:GridTextColumn MappingName="Cantidad" Width="65" />
                     <syncfusion:GridTextColumn HeaderText="Producto" DisplayBinding="{Binding Path=Producto.NombreProducto}" AllowEditing="False"/>
                     <syncfusion:GridTextColumn HeaderText="Precio" AllowEditing="False" HorizontalHeaderContentAlignment="Center" DisplayBinding="{Binding Path=Producto.PrecioUnitario}" Width="60" />
                     <syncfusion:GridTextColumn HeaderText="Total" DisplayBinding="{Binding Path=ImporteTotalProducto, UpdateSourceTrigger=PropertyChanged}" Width="60" AllowEditing="False"/>
@@ -149,16 +164,16 @@
                 </syncfusion:SfDataGrid.Columns>
 
             </syncfusion:SfDataGrid>
-            <DockPanel Grid.Row="2" LastChildFill="False">
-                <StackPanel  Orientation="Vertical" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                    <Separator Margin="5,5,9,5" Width="80" BorderThickness="1" BorderBrush="Aqua" HorizontalAlignment="Right"/>
+            <DockPanel Grid.Row="2" LastChildFill="False" Background="#FFADD4BC" Margin="10,5">
+                <StackPanel  Orientation="Vertical" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <Separator Margin="5,5,9,5" Width="80" BorderThickness="1" BorderBrush="#FF70957E" HorizontalAlignment="Right"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Path=TotalImporteComanda, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
                         <TextBlock Text="€" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
 
                 </StackPanel>
-                <TextBlock Text="Total: " DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="10,10,10,5" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Total: " DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10,10,10,5" FontSize="18" FontWeight="Bold"/>
             </DockPanel>
 
 

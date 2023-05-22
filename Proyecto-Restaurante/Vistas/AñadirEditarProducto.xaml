@@ -10,7 +10,7 @@
         Title="AñadirEditarProducto" Height="270" Width="600" ResizeMode="NoResize">
     <Window.Resources>
         <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
-            <Border x:Name="border" BorderBrush="#98B8CA" BorderThickness="2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" Margin="10">
+            <Border x:Name="border" BorderBrush="#a4e4d9" BorderThickness="2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" Margin="10" CornerRadius="5">
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="168" Height="100"/>
             </Border>
             <ControlTemplate.Triggers>
@@ -18,12 +18,12 @@
                     <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                    <Setter Property="Background" TargetName="border" Value="#9dfbc0"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#78d59c"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                    <Setter Property="Background" TargetName="border" Value="#9dfbc0"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#65c28a"/>
                 </Trigger>
                 <Trigger Property="ToggleButton.IsChecked" Value="True">
                     <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
@@ -93,8 +93,8 @@
                
             </DockPanel>
             <DockPanel LastChildFill="False" Margin="10,15">
-                <Button Content="Aceptar" Click="ButtonClick_Aceptar" IsDefault="True" Template="{DynamicResource ButtonControlTemplate2}" DockPanel.Dock="Right" Margin="10" Command="{Binding Path=GuardarProductoCommand}"/>
-                <Button Content="Cancelar" IsCancel="True" Template="{DynamicResource ButtonControlTemplate2}" DockPanel.Dock="Right" Margin="10"/>
+                <Button Content="Aceptar" Click="ButtonClick_Aceptar" IsDefault="True" Template="{DynamicResource ButtonControlTemplate1}" DockPanel.Dock="Right" Margin="10" Command="{Binding Path=GuardarProductoCommand}" Style="{StaticResource BotonesAceptarCancelar}" Background="#a4e4d9"/>
+                <Button Content="Cancelar" IsCancel="True" Template="{DynamicResource ButtonControlTemplate1}" DockPanel.Dock="Right" Margin="10" Style="{StaticResource BotonesAceptarCancelar}" Background="Transparent"/>
             </DockPanel>
             
         </StackPanel>

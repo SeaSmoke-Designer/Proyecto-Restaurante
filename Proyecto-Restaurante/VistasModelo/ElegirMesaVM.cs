@@ -44,7 +44,7 @@ namespace Proyecto_Restaurante.VistasModelo
             get { return comandaActual; }
             set { SetProperty(ref comandaActual, value); }
         }
-        
+
 
         public ElegirMesaVM()
         {
@@ -64,10 +64,14 @@ namespace Proyecto_Restaurante.VistasModelo
             {
                 foreach (Mesa mesa in ListaMesas)
                 {
-                    if (comanda.Mesa.IdMesa == mesa.IdMesa)
+                    if (!comanda.Pagada)
                     {
-                        mesa.MesaOcupada = true;
+                        if (comanda.Mesa.IdMesa == mesa.IdMesa)
+                        {
+                            mesa.MesaOcupada = true;
+                        }
                     }
+
 
                 }
             }

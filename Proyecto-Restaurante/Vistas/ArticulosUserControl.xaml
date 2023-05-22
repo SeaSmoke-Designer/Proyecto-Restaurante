@@ -10,14 +10,14 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <convertidores:ConvertidorProductoSinImagen x:Key="ConvertidorProductoSinImagen"/>
-        
+
         <Style TargetType="{x:Type Button}" x:Key="ButtonsTrigger" BasedOn="{StaticResource ButtonsDiseño}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=ProductoSeleccionado}" Value="{x:Null}">
                     <Setter Property="IsEnabled" Value="False"/>
                     <Setter Property="Opacity" Value="0.5"/>
                 </DataTrigger>
-                
+
             </Style.Triggers>
         </Style>
         <Style TargetType="{x:Type Image}" x:Key="ProductosSinImagen">
@@ -27,9 +27,13 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="TextoTarjetas">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
 
         <DataTemplate x:Key="PlantillaProductos">
-            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Background="AliceBlue" Padding="5" Width="200" Height="230" CornerRadius="10">
+            <Border BorderBrush="#FF70B98D" BorderThickness="1" Margin="5" Background="#FFB1CDBB" Padding="5" Width="200" Height="230" CornerRadius="10">
                 <Border.Effect>
                     <DropShadowEffect/>
                 </Border.Effect>
@@ -39,27 +43,47 @@
                     </Viewbox>
                     <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Margin="5">
                         <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
-                            <TextBlock Text="Categoria: " DockPanel.Dock="Left" Margin="3"/>
-                            <TextBlock Text="{Binding Path=IdCategoria.NombreCategoria}" DockPanel.Dock="Right" Margin="3"/>
+                            <TextBlock Text="Categoria: " DockPanel.Dock="Left" Style="{StaticResource TextoTarjetas}"/>
+                            <TextBlock Text="{Binding Path=IdCategoria.NombreCategoria}" DockPanel.Dock="Right" Style="{StaticResource TextoTarjetas}"/>
                         </DockPanel>
-                        <Separator BorderBrush="#D1D1D1" BorderThickness="1" DockPanel.Dock="Top" Width="100"/>
-                        <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
-                            <TextBlock Text="Precio Unitario: " DockPanel.Dock="Left" Margin="3"/>
-                            <TextBlock Text="{Binding Path=PrecioUnitario}" DockPanel.Dock="Right" Margin="3"/>
+                        <Separator BorderBrush="#FF28CB68" BorderThickness="1" DockPanel.Dock="Top" Width="120"/>
+                        <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center" >
+                            <TextBlock Text="Precio Unitario: " DockPanel.Dock="Left" Style="{StaticResource TextoTarjetas}"/>
+                            <TextBlock Text="{Binding Path=PrecioUnitario}" DockPanel.Dock="Right" Style="{StaticResource TextoTarjetas}"/>
                         </DockPanel>
-                        <Separator BorderBrush="#D1D1D1" BorderThickness="1" DockPanel.Dock="Top" Width="100"/>
+                        <Separator BorderBrush="#FF28CB68" BorderThickness="1" DockPanel.Dock="Top" Width="120"/>
                         <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
-                            <TextBlock Text="Unidades en Almacen: " DockPanel.Dock="Left" Margin="3"/>
-                            <TextBlock Text="{Binding Path=UnidadesEnAlmacen}" DockPanel.Dock="Right" Margin="3"/>
+                            <TextBlock Text="Unidades en Almacen: " DockPanel.Dock="Left"  Style="{StaticResource TextoTarjetas}"/>
+                            <TextBlock Text="{Binding Path=UnidadesEnAlmacen}" DockPanel.Dock="Right"  Style="{StaticResource TextoTarjetas}"/>
                         </DockPanel>
                     </DockPanel>
                     <Image Source="{Binding Path=URLFotoProducto}" Margin="5"/>
                 </DockPanel>
             </Border>
         </DataTemplate>
+        <ControlTemplate x:Key="ListBoxControlTemplate" TargetType="{x:Type ListBox}">
+            <Border x:Name="Bd" BorderBrush="#65c28a" BorderThickness="2" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="True">
+                <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
+                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                </ScrollViewer>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="Bd" Value="White"/>
+                    <Setter Property="BorderBrush" TargetName="Bd" Value="#FFD9D9D9"/>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsGrouping" Value="True"/>
+                        <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                </MultiTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </UserControl.Resources>
     <DockPanel Background="White">
-        <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="10">
+        <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="10" Background="#FFADD4BC">
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=AñadirNuevoProductoCommand}">
                 <Button.Content>
                     <Image Source="../assets/AddProduct.png" Width="24" />
@@ -76,8 +100,8 @@
                     <Image Source="../assets/DeleteProduct.png" Width="24" />
                 </Button.Content>
             </Button>
-            <inputLayout:SfTextInputLayout Hint="Categorias" Margin="5" Width="170" Height="60" DockPanel.Dock="Left" Foreground="Black">
-                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria"  SelectionChanged="ComboBox_SelectionChanged" />
+            <inputLayout:SfTextInputLayout Hint="Categorias" Margin="5" Width="170" Height="60" DockPanel.Dock="Left" Foreground="Black" >
+                <ComboBox ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}" DisplayMemberPath="NombreCategoria"  SelectionChanged="ComboBox_SelectionChanged"/>
             </inputLayout:SfTextInputLayout>
             <Button DockPanel.Dock="Left" Background="#FFA4C1E4" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=RefrescarListaProductosCommand}">
                 <Button.Content>
@@ -86,7 +110,7 @@
             </Button>
 
         </DockPanel>
-        <ListBox Margin="10,5,10,10" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado}" ItemTemplate="{StaticResource PlantillaProductos}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <ListBox Margin="10,5,10,10" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado}" ItemTemplate="{StaticResource PlantillaProductos}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Template="{DynamicResource ListBoxControlTemplate}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>

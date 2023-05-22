@@ -49,11 +49,7 @@ namespace Proyecto_Restaurante.VistasModelo
             set { SetProperty(ref passwordEncriptada, value); }
         }
 
-
-
-
         private string modoVentana;
-
         public string ModoVentana
         {
             get { return modoVentana; }
@@ -146,8 +142,6 @@ namespace Proyecto_Restaurante.VistasModelo
             string fecha = EmpleadoActual.FechaNacimiento.Split('T')[0];
             //bool FechaError = false;
             DateTime FechaValida = new DateTime();
-            
-
             try
             {
                 FechaValida = DateTime.Parse(fecha);
@@ -159,14 +153,11 @@ namespace Proyecto_Restaurante.VistasModelo
                     return false;
                 }
 
-
             }
             catch
             {
                 return false;
             }
-
-
         }
 
         public void ActualizarEmpleado()
