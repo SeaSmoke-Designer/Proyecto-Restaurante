@@ -62,14 +62,40 @@ namespace Proyecto_Restaurante.Modelos
             set { SetProperty(ref fecha, value); }
         }
 
-        
-
         private ObservableCollection<DetalleComanda> detallescomandaCollection;
         [JsonProperty("detallescomandaCollection")]
+        [JsonIgnore]
         public ObservableCollection<DetalleComanda> DetallescomandaCollection
         {
             get { return detallescomandaCollection; }
-            set { SetProperty(ref detallescomandaCollection, value); }
+            set { SetProperty(ref detallescomandaCollection, value);
+                //OnPropertyChanging(nameof(TotalImporteComanda));
+                //CalcularTotalImporte();
+            }
+        }
+
+        private double totalImporteComanda;
+        [JsonIgnore]
+        public double TotalImporteComanda
+        {
+            get { return totalImporteComanda; }
+            set {SetProperty(ref totalImporteComanda, value);
+                //OnPropertyChanged(nameof(TotalImporteComanda));
+                //CalcularTotalImporte();
+            }
+        }
+
+        public void CalcularTotalImporte()
+        {
+            double result = 0;
+            if (DetallescomandaCollection != null)
+            {
+                foreach (DetalleComanda item in DetallescomandaCollection)
+                {
+                    result += item.ImporteTotalProducto;
+                }
+                TotalImporteComanda = result;
+            }
         }
 
         public Comanda()

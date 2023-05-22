@@ -107,7 +107,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="100"/>
                 <DataGridTextColumn Header="Producto" Binding="{Binding Producto.NombreProducto}" Width="2*"/>
-                <DataGridTextColumn Header="Importe" Binding="{Binding ImporteTotalProductos}" Width="100"/>
+                <DataGridTextColumn Header="Importe" Binding="{Binding ImporteTotalProducto}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>

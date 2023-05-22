@@ -55,7 +55,7 @@ namespace Proyecto_Restaurante.VistasModelo
             {
                 ValidacionAdmin = m.Value;
             });
-
+            NavegarTomarComanda();
         }
 
         public void NavegarGestionarProductos()

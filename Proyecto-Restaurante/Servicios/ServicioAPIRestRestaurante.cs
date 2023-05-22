@@ -41,48 +41,6 @@ namespace Proyecto_Restaurante.Servicios
             return JsonConvert.DeserializeObject<ObservableCollection<Producto>>(response.Content);
         }
 
-        /// <summary>
-        /// Este metodo simplemete se utiliza para cambiar el nombre de las propiedades para que la API lo acepte sin ningun problema
-        /// </summary>
-        /// <param name="producto"></param>
-        /// <returns></returns>
-        
-        private object CambiarPropiedadesProducto(Producto producto)
-        {
-            return new
-            {
-                idProducto = producto.IdProducto,
-                nombreProducto = producto.NombreProducto,
-                precioUnitario = producto.PrecioUnitario,
-                unidadesEnAlmacen = producto.UnidadesEnAlmacen,
-                URLFotoProducto = producto.URLFotoProducto,
-                idCategoria = new
-                {
-                    descripcion = producto.IdCategoria.Descripcion,
-                    idCategoria = producto.IdCategoria.IdCategoria,
-                    nombreCategoria = producto.IdCategoria.NombreCategoria,
-                    uRLFotoCategoria = producto.IdCategoria.URLFotoCategoria
-                }
-            };
-        }
-
-        private object CambiarPropiedadesEmpleado(Empleado empleado)
-        {
-            return new
-            {
-                idEmpleado = empleado.IdEmpleado,
-                dni = empleado.Dni,
-                nombre = empleado.Nombre,
-                apellido = empleado.Apellido,
-                cargo = empleado.Cargo,
-                URLFoto = empleado.URLFoto,
-                fechaNacimiento = empleado.FechaNacimiento,
-                direccion = empleado.Direccion,
-                telefonoParticular = empleado.TelefonoParticular,
-                contraseñaEmpleado = empleado.ContraseñaEmpleado
-            };
-        }
-
         public IRestResponse PostProducto(Producto nuevoProducto)
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
@@ -249,7 +207,6 @@ namespace Proyecto_Restaurante.Servicios
             return JsonConvert.DeserializeObject<Mesa>(response.Content);
         }
 
-
         public IRestResponse PostMesa(Mesa nuevaMesa)
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
@@ -276,6 +233,46 @@ namespace Proyecto_Restaurante.Servicios
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
             RestRequest request = new RestRequest($"mesas/{id}", Method.DELETE);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public ObservableCollection<DetalleComanda> GetDetallesComanda()
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("detallescomanda", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<ObservableCollection<DetalleComanda>>(response.Content);
+        }
+
+        public IRestResponse PostDetallesComanda(DetalleComanda detalleComandaNuevo)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("detallescomanda", Method.POST);
+            string data = JsonConvert.SerializeObject(detalleComandaNuevo);
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public IRestResponse PutDetallesComanda(DetalleComanda editarDetalleComanda)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest("detallescomanda", Method.PUT);
+            string data = JsonConvert.SerializeObject(editarDetalleComanda);
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return response;
+        }
+
+        public IRestResponse DeleteDetallesComanda(int id, int id2)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"detallescomanda/{id}/{id2}", Method.DELETE);
             request.AddHeader("Root", clave);
             var response = cliente.Execute(request);
             return response;

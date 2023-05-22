@@ -77,5 +77,10 @@ namespace Proyecto_Restaurante.Servicios
         {
             return new ElegirMesaUserControl();
         }
+
+        public UserControl CargarListaProductos()
+        {
+            return new ElegirProductoUserControl();
+        }
     }
 }

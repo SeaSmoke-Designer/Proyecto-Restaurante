@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Proyecto_Restaurante.Mensajes;
 using Proyecto_Restaurante.Modelos;
 using Proyecto_Restaurante.Servicios;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +27,7 @@ namespace Proyecto_Restaurante.VistasModelo
         public RelayCommand CobrarComandaCommand { get; }
         public RelayCommand ElegirEmpleadoCommand { get; }
         public RelayCommand ElegirMesaCommand { get; }
+        public RelayCommand ElegirProductoCommand { get; }
 
         private UserControl contenidoVentana;
         public UserControl ContenidoVentana
@@ -41,76 +43,81 @@ namespace Proyecto_Restaurante.VistasModelo
             get { return detallesComandaProductos; }
             set { SetProperty(ref detallesComandaProductos, value); }
         }
-        
-        /*private ObservableCollection<Producto> listaProductos;
 
-       public ObservableCollection<Producto> ListaProductos
-       {
-           get { return listaProductos; }
-           set { SetProperty(ref listaProductos, value); }
-       }
+        private DetalleComanda detalleComandaSeleccionada;
 
-       private ObservableCollection<Categoria> listaCategorias;
-
-       public ObservableCollection<Categoria> ListaCategorias
-       {
-           get { return listaCategorias; }
-           set { SetProperty(ref listaCategorias, value); }
-       }
-        private Producto productoSeleccionado;
-
-        public Producto ProductoSeleccionado
+        public DetalleComanda DetalleComandaSeleccionada
         {
-            get { return productoSeleccionado; }
+            get { return detalleComandaSeleccionada; }
+            set { SetProperty(ref detalleComandaSeleccionada, value); }
+        }
+
+        private double totalImporteComanda;
+
+        public double TotalImporteComanda
+        {
+            get
+            {
+                return totalImporteComanda;
+            }
             set
             {
-                SetProperty(ref productoSeleccionado, value);
-                OnPropertyChanged(nameof(ProductoSeleccionado));
+                SetProperty(ref totalImporteComanda, value);
+
             }
         }
 
-        private Categoria categoriaSeleccionada;
 
-        public Categoria CategoriaSeleccionada
+        private Comanda comandaActual;
+
+        public Comanda ComandaActual
         {
-            get { return categoriaSeleccionada; }
-            set
-            {
-                SetProperty(ref categoriaSeleccionada, value);
-                OnPropertyChanged(nameof(CategoriaSeleccionada));
-            }
-        }*/
-
-        private Comanda comandaTomada;
-
-        public Comanda ComandaTomada
-        {
-            get { return comandaTomada; }
-            set { SetProperty(ref comandaTomada, value); }
+            get { return comandaActual; }
+            set { SetProperty(ref comandaActual, value); }
         }
 
 
 
         public TomarComandaVM()
         {
-            ComandaTomada = new Comanda();
-            servicioNavegacion = new ServicioNavegacion();
-            servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
-            servicioDialogo = new ServicioDialogo();
-            //CargarProductos();
-            //CargarCategorias();
-            ElegirEmpleadoCommand = new RelayCommand(NavegarListaEmpleados);
-            ElegirMesaCommand = new RelayCommand(NavegarListaMesas);
+            ComandaActual = new Comanda();
+
             WeakReferenceMessenger.Default.Register<TomarComandaVM, EnviarComandaMessage>(this, (r, m) =>
             {
                 if (!m.HasReceivedResponse)
                 {
-                    m.Reply(r.ComandaTomada);
+                    m.Reply(r.ComandaActual);
                 }
             });
+            WeakReferenceMessenger.Default.Register<EnviarEmpleadoComandaMessage>(this, (r, m) =>
+            {
+                ComandaActual.Empleado = m.Value;
+                NavegarListaProductos();
+            });
+            WeakReferenceMessenger.Default.Register<EnviarProductoComandaMessage>(this, (r, m) =>
+            {
+                AgregarProducto(m.Value);
+            });
+            WeakReferenceMessenger.Default.Register<EnviarMesaComandaMessage>(this, (r, m) =>
+            {
+                ComandaActual.Mesa = m.Value;
+                NavegarListaProductos();
+            });
+
+            servicioNavegacion = new ServicioNavegacion();
+            servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
+            servicioDialogo = new ServicioDialogo();
+            ElegirEmpleadoCommand = new RelayCommand(NavegarListaEmpleados);
+            ElegirMesaCommand = new RelayCommand(NavegarListaMesas);
+            ElegirProductoCommand = new RelayCommand(NavegarListaProductos);
+            BorrarLineaCommand = new RelayCommand(BorrarLinea);
+            BorrarComandaCommand = new RelayCommand(BorrarComanda);
+            PasarAMesaCommand = new RelayCommand(PasarAMesa);
+            NavegarListaProductos();
+            DetallesComandaProductos = new ObservableCollection<DetalleComanda>();
         }
 
-        public void CargarProductos()
+        /*public void CargarProductos()
         {
             //ListaProductos = servicioAPIRestRestaurante.GetProductos();
         }
@@ -118,7 +125,7 @@ namespace Proyecto_Restaurante.VistasModelo
         public void CargarCategorias()
         {
             //ListaCategorias = servicioAPIRestRestaurante.GetCategorias();
-        }
+        }*/
 
         public void NavegarListaEmpleados()
         {
@@ -127,7 +134,7 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void NavegarListaMesas()
         {
-            if (ComandaTomada.CantidadPersonas != 0)
+            if (ComandaActual.CantidadPersonas != 0)
             {
                 ContenidoVentana = servicioNavegacion.CargarListaMesas();
             }
@@ -135,9 +142,137 @@ namespace Proyecto_Restaurante.VistasModelo
             {
                 servicioDialogo.MostrarMensajeAdvertencia("Faltan las cantidad de personas", "FALTA CANTIDAD PERSONAS");
             }
-            
+
         }
 
+        public void NavegarListaProductos()
+        {
+            ContenidoVentana = servicioNavegacion.CargarListaProductos();
+        }
 
+        public void AgregarProducto(Producto p)
+        {
+            if (DetallesComandaProductos.Count != 0)
+            {
+                if (!ContieneProducto(p))
+                {
+                    DetallesComandaProductos.Add(new DetalleComanda(1, p));
+                }
+            }
+            else
+            {
+                DetallesComandaProductos.Add(new DetalleComanda(1, p));
+            }
+            CalcularImporteTotalComanda();
+
+        }
+
+        public bool ContieneProducto(Producto p)
+        {
+            for (int i = 0; i < DetallesComandaProductos.Count; i++)
+            {
+                if (DetallesComandaProductos[i].Producto.IdProducto == p.IdProducto)
+                {
+                    DetallesComandaProductos[i].Cantidad += 1;
+                    DetallesComandaProductos[i].ActualizarImporteTotal();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void BorrarLinea()
+        {
+            DetallesComandaProductos.Remove(DetalleComandaSeleccionada);
+            CalcularImporteTotalComanda();
+        }
+
+        public void BorrarComanda()
+        {
+            DetallesComandaProductos = new ObservableCollection<DetalleComanda>();
+            CalcularImporteTotalComanda();
+        }
+
+        public void CalcularImporteTotalComanda()
+        {
+            double result = 0;
+            if (DetallesComandaProductos != null)
+            {
+                foreach (DetalleComanda item in DetallesComandaProductos)
+                {
+                    result += item.ImporteTotalProducto;
+                }
+                TotalImporteComanda = result;
+            }
+        }
+
+        public void PasarAMesa()
+        {
+            if (DetallesComandaProductos.Count != 0)
+            {
+                if (ComandaActual.Empleado != null)
+                {
+                    if (ComandaActual.Mesa != null)
+                    {
+                        if (ComandaActual.CantidadPersonas != 0)
+                        {
+                            ComandaActual.Fecha = DateTime.Now;     
+                            IRestResponse response = servicioAPIRestRestaurante.PostComanda(ComandaActual);
+                            
+                            InsertarDetallesComanda(Int32.Parse(response.Content.Substring(4).Replace("\"", "").Replace("}", "")));
+                            servicioAPIRestRestaurante.PutMesa(ComandaActual.Mesa);
+                            
+                            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                            {
+                                ComandaActual = new Comanda();
+                            }
+                            else if (response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                            {
+                                servicioDialogo.MostrarMensajeError(response.Content, "ERROR - AL INSERTAR LA COMANDA");
+                            }
+                        }
+                        else
+                        {
+                            servicioDialogo.MostrarMensajeAdvertencia("No hay ninguna mesa asignada", "FALTA ASIGNAR UNA MESA");
+                        }
+                    }
+                    else
+                    {
+                        servicioDialogo.MostrarMensajeAdvertencia("Falta la cantidad de personas", "FALTA CANTIDAD DE PERSONAS");
+                    }
+                }
+                else
+                {
+                    servicioDialogo.MostrarMensajeAdvertencia("No hay ningun empleado asignado para esta comanda", "FALTA ASIGNAR UN EMPLEADO");
+                }
+            }
+            else
+            {
+                servicioDialogo.MostrarMensajeAdvertencia("No hay ningun producto en la comanda", "NO HAY PRODUCTOS");
+            }
+        }
+
+        public void InsertarDetallesComanda(int idComanda)
+        {
+            IRestResponse responseDetallesComanda;
+            //IRestResponse responseProductos;
+            foreach (DetalleComanda item in DetallesComandaProductos)
+            {
+                item._DetallesComandaPK = new DetalleComandaPK(idComanda, item.Producto.IdProducto);
+                responseDetallesComanda = servicioAPIRestRestaurante.PostDetallesComanda(item);
+                servicioAPIRestRestaurante.PutProducto(item.Producto);
+                if (responseDetallesComanda.StatusCode == System.Net.HttpStatusCode.Created)
+                {
+                    Console.WriteLine("OK");
+                }
+                else if (responseDetallesComanda.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                {
+                    servicioDialogo.MostrarMensajeError(responseDetallesComanda.Content, "ERROR - AL INSERTAR EL DETALLE COMANDA");
+                }
+            }
+        }
     }
+
+    
 }

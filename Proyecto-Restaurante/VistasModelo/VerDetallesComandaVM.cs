@@ -32,20 +32,21 @@ namespace Proyecto_Restaurante.VistasModelo
                 {
                     foreach (DetalleComanda item in ComandaRecibida.DetallescomandaCollection)
                     {
-                        totalComanda += item.ImporteTotalProductos;
+                        totalComanda += item.ImporteTotalProducto;
 
                     }
                 }
 
                 return totalComanda;
             }
-            set {
+            set
+            {
 
                 if (ComandaRecibida.DetallescomandaCollection != null)
                 {
                     foreach (DetalleComanda item in ComandaRecibida.DetallescomandaCollection)
                     {
-                        totalComanda += item.ImporteTotalProductos;
+                        totalComanda += item.ImporteTotalProducto;
                         
                     }
                 }

@@ -34,7 +34,7 @@ namespace Proyecto_Restaurante.VistasModelo
             {
                 SetProperty(ref empleadoSeleccionado, value);
                 OnPropertyChanged(nameof(EmpleadoSeleccionado));
-
+                EnviarEmpleadoSeleccionado();
             }
         }
 

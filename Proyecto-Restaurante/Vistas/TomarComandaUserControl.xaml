@@ -9,8 +9,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="BotonBorrarLiena">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=DetalleComandaSeleccionada}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <DataTemplate x:Key="DataTemplateListBoxProductos">
-            
+
             <StackPanel Orientation="Vertical">
                 <Image Source="{Binding Path=URLFotoProducto}" Margin="5" Width="80"/>
                 <TextBlock Text="{Binding Path=NombreProducto}" HorizontalAlignment="Center" FontSize="15" FontWeight="SemiBold"/>
@@ -20,13 +28,13 @@
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="1.6*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Grid Background="AliceBlue" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="2*"/>
-                
+
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -36,9 +44,9 @@
                 </Grid.ColumnDefinitions>
                 <Button Content="Empleados" Grid.Column="0" Command="{Binding Path=ElegirEmpleadoCommand}"/>
                 <Button Content="Mesas" Grid.Column="1" Command="{Binding Path=ElegirMesaCommand}"/>
-                <Button Content="Productos" Grid.Column="2"/>
+                <Button Content="Productos" Grid.Column="2" Command="{Binding Path=ElegirProductoCommand}"/>
             </Grid>
-                <!--<ListBox Grid.Row="1" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado}" ItemTemplate="{StaticResource DataTemplateListBoxProductos}">
+            <!--<ListBox Grid.Row="1" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado}" ItemTemplate="{StaticResource DataTemplateListBoxProductos}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
@@ -69,35 +77,33 @@
                     <RowDefinition/>
                     <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Column="0" Margin="5">
+                <Button Grid.Column="0" Margin="5" Command="{Binding Path=BorrarLineaCommand}" Style="{StaticResource BotonBorrarLiena}">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image Source="../assets/BorrarLinea.png" Width="35" />
-                            <Viewbox Margin="3">
-                                <TextBlock Text="Borrar Linea"/>
-                            </Viewbox>
-                            
+
+                            <TextBlock Text="Borrar Linea" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"/>
+
+
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Grid.Column="1" Margin="5">
+                <Button Grid.Column="1" Margin="5" Command="{Binding Path=BorrarComandaCommand}">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image Source="../assets/BorrarComanda.png" Width="35" Margin="5,5,5,0"/>
-                            <Viewbox Margin="3" DockPanel.Dock="Bottom">
-                                <TextBlock Text="Borrar comanda"/>
-                            </Viewbox>
+
+                            <TextBlock Text="Borrar comanda" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"/>
+
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Grid.Column="2" Margin="5">
+                <Button Grid.Column="2" Margin="5" Command="{Binding Path=PasarAMesaCommand}">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image Source="../assets/PasarAMesa.png" Width="35" Margin="5,5,5,0"/>
-                            <Viewbox Margin="3">
-                                <TextBlock Text="Pasar a mesa"/>
-                            </Viewbox>
 
+                            <TextBlock Text="Pasar a mesa" FontSize="13" TextAlignment="Center" TextWrapping="Wrap" Margin="3"/>
                         </StackPanel>
                     </Button.Content>
                 </Button>
@@ -105,34 +111,57 @@
                     <Button.Content>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image Source="../Assets/CajaRegistradora.png" Width="35" Margin="5,5,5,0"/>
-                            <Viewbox Margin="3">
-                                <TextBlock Text="Cobrar comanda"/>
-                            </Viewbox>
+                            <TextBlock Text="Cobrar comanda" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"/>
 
                         </StackPanel>
                     </Button.Content>
                 </Button>
                 <DockPanel LastChildFill="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"  Margin="5">
                     <TextBlock Text="Cantidad de personas: " FontSize="15" FontWeight="SemiBold" DockPanel.Dock="Left"/>
-                    <syncfusion:IntegerTextBox x:Name="integerTextBox" Width="100" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Value="{Binding Path=ComandaTomada.CantidadPersonas}"/>
+                    <syncfusion:IntegerTextBox x:Name="integerTextBox" Width="100" Height="25" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" BorderBrush="Black" BorderThickness="1" CornerRadius="3" TextAlignment="Right" ToolTip="Cantidad Personas" Value="{Binding Path=ComandaActual.CantidadPersonas}"/>
                 </DockPanel>
             </Grid>
-            <DataGrid ItemsSource="{Binding Path=ComandaTomada.DetallescomandaCollection}" AutoGenerateColumns="False" Grid.Row="1">
+            <!--<DataGrid ItemsSource="{Binding Path=ComandaActual.DetallescomandaCollection}" AutoGenerateColumns="False" Grid.Row="1" SelectedItem="{Binding Path=DetalleComandaSeleccionada}" SelectedValue="{Binding Path=DetalleComandaSeleccionada}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Producto" Binding="{Binding Producto.NombreProducto}" Width="2*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="60"/>
-                    <DataGridTextColumn Header="Importe" Binding="{Binding Producto.PrecioUnitario}" Width="60"/>
+                    <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="60" FontWeight="SemiBold" />
+                    <DataGridTextColumn Header="Producto" Binding="{Binding Producto.NombreProducto}" Width="2*" IsReadOnly="True" FontWeight="SemiBold"/>
+                    <DataGridTextColumn Header="Precio" Binding="{Binding Producto.PrecioUnitario}" Width="60" FontWeight="SemiBold"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding ImporteTotalProducto, UpdateSourceTrigger=PropertyChanged}" Width="60" FontWeight="SemiBold" CanUserResize="False"/>
                 </DataGrid.Columns>
-            </DataGrid>
+            </DataGrid>-->
+
+            <syncfusion:SfDataGrid x:Name="dataGrid" 
+                                   ItemsSource="{Binding DetallesComandaProductos}" 
+                                   SelectedItem="{Binding Path=DetalleComandaSeleccionada}"
+                                   AllowFiltering="False" 
+                                   Padding="5"
+                                   AllowEditing="True"
+                                   ColumnSizer="Star"
+                                   AutoGenerateColumns="False"
+                                   Grid.Row="1" 
+                                   FontWeight="SemiBold" >
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn MappingName="Cantidad" Width="65"/>
+                    <syncfusion:GridTextColumn HeaderText="Producto" DisplayBinding="{Binding Path=Producto.NombreProducto}" AllowEditing="False"/>
+                    <syncfusion:GridTextColumn HeaderText="Precio" AllowEditing="False" HorizontalHeaderContentAlignment="Center" DisplayBinding="{Binding Path=Producto.PrecioUnitario}" Width="60" />
+                    <syncfusion:GridTextColumn HeaderText="Total" DisplayBinding="{Binding Path=ImporteTotalProducto, UpdateSourceTrigger=PropertyChanged}" Width="60" AllowEditing="False"/>
+
+                </syncfusion:SfDataGrid.Columns>
+
+            </syncfusion:SfDataGrid>
             <DockPanel Grid.Row="2" LastChildFill="False">
                 <StackPanel  Orientation="Vertical" HorizontalAlignment="Right" DockPanel.Dock="Right">
                     <Separator Margin="5,5,9,5" Width="80" BorderThickness="1" BorderBrush="Aqua" HorizontalAlignment="Right"/>
-                    <TextBlock Text="500.00€" HorizontalAlignment="Right" Margin="5,0,10,5" FontSize="18" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=TotalImporteComanda, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="€" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
+                    </StackPanel>
+
                 </StackPanel>
                 <TextBlock Text="Total: " DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="10,10,10,5" FontSize="18" FontWeight="Bold"/>
             </DockPanel>
-            
-            
+
+
         </Grid>
     </Grid>
 </UserControl>

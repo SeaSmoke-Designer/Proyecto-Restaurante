@@ -4,9 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        
+        <Style TargetType="{x:Type Border}" x:Key="BorderCapacidadIsOk">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=CapacidadIsOk}" Value="false">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=MesaOcupada}" Value="true">
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="{x:Type StackPanel}" x:Key="BackgroundStackPanel">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=MesaOcupada}" Value="true">
@@ -18,7 +30,7 @@
             </Style.Triggers>
         </Style>
         <DataTemplate x:Key="PlantillaMesas">
-            <Border BorderBrush="Black" BorderThickness="1"  Margin="10" Background="White" Width="110" Height="110">
+            <Border BorderBrush="Black" BorderThickness="1"  Margin="10" Background="White" Width="110" Height="110" Style="{StaticResource BorderCapacidadIsOk}">
                 <Border.Effect>
                     <DropShadowEffect/>
                 </Border.Effect>
@@ -42,13 +54,14 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid Background="AliceBlue">
-        <ListBox Margin="10" ItemsSource="{Binding Path=ListaMesas}" SelectedItem="{Binding Path=MesaSeleccionada}" ItemTemplate="{StaticResource PlantillaMesas}">
+    <DockPanel Background="AliceBlue">
+        <TextBlock Text="Selecciona una mesa" FontSize="25" FontWeight="Bold" DockPanel.Dock="Top" Margin="10,5,10,0"/>
+        <ListBox Margin="10" ItemsSource="{Binding Path=ListaMesas}" SelectedItem="{Binding Path=MesaSeleccionada}" ItemTemplate="{StaticResource PlantillaMesas}" >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-    </Grid>
+    </DockPanel>
 </UserControl>
