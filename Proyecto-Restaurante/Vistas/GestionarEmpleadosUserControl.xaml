@@ -110,8 +110,8 @@
         </DataTemplate>
         
     </UserControl.Resources>
-    <DockPanel>
-        <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10,5">
+    <DockPanel Background="#FFF3FFF7">
+        <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10,5" Background="#FFADD4BC">
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=AñadirNuevoEmpleadoCommand}">
                 <Button.Content>
                     <Image Source="../assets/AddProduct.png" Width="24" />
@@ -128,7 +128,7 @@
                     <Image Source="../assets/DeleteProduct.png" Width="24" />
                 </Button.Content>
             </Button>
-            <TextBlock Text="Gestionar empleados" FontSize="35" FontWeight="Bold"  VerticalAlignment="Center" />
+            <TextBlock Text="Gestionar empleados" FontSize="35" FontWeight="Bold"  VerticalAlignment="Center" Margin="5"/>
         </DockPanel>
         <!--<ListBox ItemsSource="{Binding ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSeleccionado}" Margin="10" ItemTemplate="{StaticResource DataTemplateEmpleados}">
             <ListBox.ItemsPanel>
@@ -143,12 +143,12 @@
                                Padding="5"
                                AllowEditing="True"
                                ColumnSizer="Star"
-                               AutoGenerateColumns="False" >
+                               AutoGenerateColumns="False" Background="White" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}">
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:GridTextColumn MappingName="Nombre"/>
                 <syncfusion:GridTextColumn MappingName="Apellido"/>
-                <syncfusion:GridTextColumn MappingName="FechaNacimiento" DisplayBinding="{Binding FechaNacimiento, Converter={StaticResource ConvertidorFechaEmpleado}}"/>
-                <syncfusion:GridTextColumn MappingName="TelefonoParticular"/>
+                <syncfusion:GridTextColumn HeaderText="Fecha de Nacimiento" DisplayBinding="{Binding FechaNacimiento, Converter={StaticResource ConvertidorFechaEmpleado}}"/>
+                <syncfusion:GridTextColumn HeaderText="Telefono Particular" DisplayBinding="{Binding TelefonoParticular}"/>
                 <syncfusion:GridTextColumn MappingName="Cargo"/>
             </syncfusion:SfDataGrid.Columns>
             <syncfusion:SfDataGrid.DetailsViewDefinition>

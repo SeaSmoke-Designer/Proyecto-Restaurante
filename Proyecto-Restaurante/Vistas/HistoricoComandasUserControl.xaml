@@ -19,8 +19,8 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <DockPanel>
-        <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10">
+    <DockPanel Background="#FFF3FFF7">
+        <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10" Background="#FFADD4BC">
 
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}" Command="{Binding Path=VerComandaCommand}">
                 <Button.Content>
@@ -33,19 +33,19 @@
                     <Image Source="../assets/DeleteProduct.png" Width="24" />
                 </Button.Content>
             </Button>
-            <TextBlock Text="Historico comandas" FontSize="35" FontWeight="Bold"  VerticalAlignment="Center" />
+            <TextBlock Text="Historico comandas" FontSize="35" FontWeight="Bold"  VerticalAlignment="Center" Margin="5"/>
         </DockPanel>
        
         <syncfusion:SfDataGrid x:Name="dataGrid" ItemsSource="{Binding ListaComandas}" SelectedItem="{Binding Path=ComandaSeleccionada}"
                                AllowFiltering="True" 
                                Margin="10" 
                                Padding="5"
-                               AllowEditing="True"
-                               ColumnSizer="Star"
-                               AutoGenerateColumns="False">
+                               AllowEditing="False"
+                               ColumnSizer="Star" 
+                               AutoGenerateColumns="False" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}" Background="White">
             <syncfusion:SfDataGrid.Columns>
-                <syncfusion:GridTextColumn MappingName="IdComanda"/>
-                <syncfusion:GridTextColumn MappingName="CantidadPersonas"/>
+                <syncfusion:GridTextColumn HeaderText="Id Comanda" DisplayBinding="{Binding Path=IdComanda}" />
+                <syncfusion:GridTextColumn HeaderText="Cantidad de personas" DisplayBinding="{Binding Path=CantidadPersonas}"/>
                 <syncfusion:GridTextColumn MappingName="Pagada" AllowEditing="False" HorizontalHeaderContentAlignment="Center"/>
                 <syncfusion:GridTextColumn MappingName="Fecha"/>
                 

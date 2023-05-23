@@ -85,7 +85,7 @@
         </Style>
         <Style x:Key="DataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#CEBEFF"/>
+            <Setter Property="Background" Value="#FFADD4BC"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Padding" Value="5,0"/>
             <Setter Property="Height" Value="32"/>
@@ -93,10 +93,11 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
                         <Grid>
-                            <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                            <Border BorderBrush="#FF7BA48A" 
                                     BorderThickness="{TemplateBinding BorderThickness}" 
                                     Background="{TemplateBinding Background}"
-                                    Padding="{TemplateBinding Padding}" CornerRadius="7">
+                                    Padding="{TemplateBinding Padding}" 
+                                    CornerRadius="7">
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 
                             </Border>

@@ -38,8 +38,8 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <DockPanel Background="White">
-        <DockPanel LastChildFill="True" DockPanel.Dock="Top" Margin="10,5">
+    <DockPanel Background="#FFF3FFF7">
+        <DockPanel LastChildFill="True" DockPanel.Dock="Top" Margin="10,5" Background="#FFADD4BC">
 
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}" Command="{Binding Path=VerComandaCommand}">
                 <Button.Content>
@@ -58,7 +58,7 @@
                     <Image Source="../assets/DeleteProduct.png" Width="24" />
                 </Button.Content>
             </Button>
-            <TextBlock Text="Gestionar comandas" FontSize="35" FontWeight="Bold"  VerticalAlignment="Center" />
+            <TextBlock Text="Gestionar comandas" FontSize="35" FontWeight="Bold"  VerticalAlignment="Center" Margin="5"/>
         </DockPanel>
         <ListBox Margin="10" ItemsSource="{Binding Path=ListaComandas}" SelectedItem="{Binding Path=ComandaSeleccionada}" ItemTemplate="{StaticResource PlantillaComandas}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemsPanel>

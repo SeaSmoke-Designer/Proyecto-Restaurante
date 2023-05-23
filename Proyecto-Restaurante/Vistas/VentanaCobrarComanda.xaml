@@ -14,7 +14,7 @@
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition/>
@@ -26,8 +26,8 @@
             <TextBlock Text="€" FontSize="35" FontWeight="SemiBold"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
-            <Button Content="Cancelar" Background="Transparent" IsCancel="True"/>
-            <Button x:Name="aceptarButton" Content="Cobrar" Background="#a4e4d9" Click="aceptarButton_Click" IsDefault="True"/>
+            <Button Content="Cancelar" Background="Transparent" IsCancel="True" Template="{StaticResource ButtonControlTemplate1}"/>
+            <Button x:Name="aceptarButton" Content="Cobrar" Background="#a4e4d9" Click="aceptarButton_Click" IsDefault="True" Template="{StaticResource ButtonControlTemplate1}"/>
         </StackPanel>
     </Grid>
 </Window>

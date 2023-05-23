@@ -33,7 +33,7 @@
         </Style>
 
         <DataTemplate x:Key="PlantillaProductos">
-            <Border BorderBrush="#FF70B98D" BorderThickness="1" Margin="5" Background="#FFB1CDBB" Padding="5" Width="200" Height="230" CornerRadius="10">
+            <Border BorderBrush="#FF70B98D" BorderThickness="1" Margin="5" Background="#FFCFE6D7" Padding="5" Width="200" Height="210" CornerRadius="10">
                 <Border.Effect>
                     <DropShadowEffect/>
                 </Border.Effect>
@@ -49,7 +49,7 @@
                         <Separator BorderBrush="#FF28CB68" BorderThickness="1" DockPanel.Dock="Top" Width="120"/>
                         <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center" >
                             <TextBlock Text="Precio Unitario: " DockPanel.Dock="Left" Style="{StaticResource TextoTarjetas}"/>
-                            <TextBlock Text="{Binding Path=PrecioUnitario}" DockPanel.Dock="Right" Style="{StaticResource TextoTarjetas}"/>
+                            <TextBlock Text="{Binding Path=PrecioUnitario, StringFormat={}{0:0.00}}" DockPanel.Dock="Right" Style="{StaticResource TextoTarjetas}"/>
                         </DockPanel>
                         <Separator BorderBrush="#FF28CB68" BorderThickness="1" DockPanel.Dock="Top" Width="120"/>
                         <DockPanel  DockPanel.Dock="Top" HorizontalAlignment="Center">
@@ -62,7 +62,7 @@
             </Border>
         </DataTemplate>
         <ControlTemplate x:Key="ListBoxControlTemplate" TargetType="{x:Type ListBox}">
-            <Border x:Name="Bd" BorderBrush="#65c28a" BorderThickness="2" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="True">
+            <Border x:Name="Bd" BorderBrush="#FF7BA48A" BorderThickness="2" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="True">
                 <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
                     <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                 </ScrollViewer>
@@ -82,7 +82,7 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </UserControl.Resources>
-    <DockPanel Background="White">
+    <DockPanel Background="#FFF3FFF7">
         <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="10" Background="#FFADD4BC">
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=AñadirNuevoProductoCommand}">
                 <Button.Content>

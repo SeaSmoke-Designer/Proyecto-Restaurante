@@ -13,8 +13,8 @@
             <syncfusion:NavigationItem
                 Header="Comandas"
                 IsExpanded="False"
-                IsSelected="False"
-                Margin="0,5,0,0">
+                IsSelected="True"
+                Margin="0,5,0,0" >
                 <syncfusion:NavigationItem.Icon>
                     <Image Source="./Assets/Comandas.png" Width="40" Height="25"/>
                 </syncfusion:NavigationItem.Icon>
@@ -45,7 +45,7 @@
          
             <syncfusion:NavigationItem Header="Configuracion"
                                        IsExpanded="False"
-                                       IsSelected="True">
+                                       IsSelected="False">
                  <syncfusion:NavigationItem.Icon>
                      <Image Source="./Assets/Configuration.png" Width="25" Height="28"/>
                 </syncfusion:NavigationItem.Icon>

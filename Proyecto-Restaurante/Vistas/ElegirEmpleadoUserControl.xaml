@@ -19,7 +19,7 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <DockPanel Background="#FFE8FFF0">
+    <DockPanel Background="#FFF3FFF7">
         <StackPanel DockPanel.Dock="Top" Margin="10" Background="#FFADD4BC">
             <TextBlock Text="Selecciona un empleado" FontSize="20" FontWeight="Bold" Margin="5"/>
         </StackPanel>

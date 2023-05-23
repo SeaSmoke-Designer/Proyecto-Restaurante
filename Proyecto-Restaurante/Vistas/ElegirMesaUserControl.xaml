@@ -54,7 +54,7 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <DockPanel Background="#FFE8FFF0">
+    <DockPanel Background="#FFF3FFF7">
         <StackPanel DockPanel.Dock="Top" Margin="10" Background="#FFADD4BC">
             <TextBlock Text="Selecciona una mesa" FontSize="25" FontWeight="Bold" DockPanel.Dock="Top" Margin="5"/>
         </StackPanel>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
         xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF" xmlns:components="clr-namespace:Proyecto_Restaurante.Components"
         mc:Ignorable="d"
-        Title="VerificacionAdmin" Height="250" Width="380" ResizeMode="NoResize" ShowInTaskbar="False">
+        Title="VerificacionAdmin" Height="330" Width="380" ResizeMode="NoResize" ShowInTaskbar="False">
     <Window.Resources>
         <Style TargetType="{x:Type StackPanel}">
             <Setter Property="Margin" Value="10,5"/>
@@ -48,23 +48,23 @@
         </ControlTemplate>
 
         <ControlTemplate x:Key="BindablePasswordBoxControlTemplate" TargetType="{x:Type components:BindablePasswordBox}">
-            <Border x:Name="border" BorderBrush="#FFAEAEAE" BorderThickness="1" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True" CornerRadius="3">
-                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Height="25" />
+            <Border x:Name="border" BorderBrush="#FF70B98D" BorderThickness="1" Background="#FF70B98D" Padding="1" SnapsToDevicePixels="True" CornerRadius="3" >
+                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Height="25"/>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Opacity" TargetName="border" Value="0.56"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFA2C5AF"/>
                 </Trigger>
                 <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF619373"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="TextBoxControlTemplate" TargetType="{x:Type TextBox}">
-            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="3" Height="30">
+            <Border x:Name="border" BorderBrush="#FF70B98D" BorderThickness="2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="3" Height="30" Padding="2">
                 <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
             </Border>
             <ControlTemplate.Triggers>
@@ -72,26 +72,28 @@
                     <Setter Property="Opacity" TargetName="border" Value="0.56"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFA2C5AF"/>
                 </Trigger>
                 <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF619373"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
     <DockPanel LastChildFill="False">
+        <StackPanel DockPanel.Dock="Top" Background="#FFADD4BC">
+            <TextBlock Text="Iniciar Sesion" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+        </StackPanel>
         <StackPanel DockPanel.Dock="Top">
-            <!--<TextBlock Text="Seccion"/>
-            <TextBox Text="{Binding Path=NuevaSeccion.NombreSeccion,UpdateSourceTrigger=PropertyChanged}" Height="22" Template="{DynamicResource TextBoxControlTemplate}"/>-->
+            
             <StackPanel>
-                <TextBlock Text="DNI del Administrador:" DockPanel.Dock="Top" Margin="5" FontWeight="Bold"/>
-                <TextBox Text="{Binding Path=DniIntroducido ,UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Top" Margin="5" Template="{DynamicResource TextBoxControlTemplate}" />
+                <TextBlock Text="DNI del Administrador:" DockPanel.Dock="Top" Margin="5" FontWeight="Bold" FontSize="14"/>
+                <TextBox Text="{Binding Path=DniIntroducido, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Top" Margin="5" Template="{DynamicResource TextBoxControlTemplate}" FontSize="14"/>
             </StackPanel>
 
             <StackPanel>
-                <TextBlock Text="Contraseña Administrado: " Margin="5" FontWeight="Bold"/>
-                <components:BindablePasswordBox Password="{Binding Path=ContraseñaIntroducida}" Margin="5" Template="{DynamicResource BindablePasswordBoxControlTemplate}" />
+                <TextBlock Text="Contraseña Administrado: " Margin="5" FontWeight="Bold" FontSize="14"/>
+                <components:BindablePasswordBox Password="{Binding Path=ContraseñaIntroducida}" Margin="5" Template="{DynamicResource BindablePasswordBoxControlTemplate}" FontSize="14"/>
             </StackPanel>
 
         </StackPanel>

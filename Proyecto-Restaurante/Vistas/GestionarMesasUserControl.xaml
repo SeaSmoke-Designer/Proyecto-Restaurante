@@ -38,8 +38,8 @@
         </DataTemplate>
         
     </UserControl.Resources>
-    <DockPanel Background="White">
-        <DockPanel LastChildFill="True" DockPanel.Dock="Top" Margin="10,5">
+    <DockPanel Background="#FFF3FFF7">
+        <DockPanel LastChildFill="True" DockPanel.Dock="Top" Margin="10,5" Background="#FFADD4BC">
             
             <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsDiseño}" Command="{Binding Path=GuardarCambiosCommand}" ToolTip="Guardar cambios realizados">
                 <Button.Content>
@@ -65,9 +65,10 @@
                                Padding="5"
                                AllowEditing="True"
                                ColumnSizer="Star"
-                               AutoGenerateColumns="False">
+                               AutoGenerateColumns="False"
+                               Background="White" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}">
             <syncfusion:SfDataGrid.Columns>
-                <syncfusion:GridTextColumn MappingName="NombreMesa" HorizontalHeaderContentAlignment="Center"/>
+                <syncfusion:GridTextColumn HeaderText="Nombre Mesa" HorizontalHeaderContentAlignment="Center" DisplayBinding="{Binding Path=NombreMesa}"/>
                 <syncfusion:GridTextColumn MappingName="Capacidad"/>
             </syncfusion:SfDataGrid.Columns>
 

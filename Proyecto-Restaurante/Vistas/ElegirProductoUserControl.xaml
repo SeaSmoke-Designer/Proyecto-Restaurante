@@ -45,7 +45,7 @@
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="PlantillaProductos">
-            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Background="AliceBlue" Padding="5" Width="150" Height="150" CornerRadius="10">
+            <Border BorderBrush="#FF70B98D" BorderThickness="1" Margin="5" Background="#FFCFE6D7" Padding="5" Width="150" Height="150" CornerRadius="10">
                 <Border.Effect>
                     <DropShadowEffect/>
                 </Border.Effect>
@@ -56,7 +56,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="{Binding Path=URLFotoProducto}" Width="90" HorizontalAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="0" Margin="5"/>
-                    <Separator BorderBrush="#D1D1D1" BorderThickness="1" Width="95" Margin="0,5,0,5" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="1"/>
+                    <Separator BorderBrush="#FF28CB68" BorderThickness="1" Width="95" Margin="0,5,0,5" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="1"/>
                     <StackPanel Grid.Row="2" Style="{StaticResource ProductosSinUnidades}">
                         <TextBlock Text="{Binding Path=NombreProducto}"  Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="15"/>
                     </StackPanel>
@@ -64,7 +64,7 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <DockPanel Background="#FFE8FFF0" LastChildFill="True">
+    <DockPanel Background="#FFF3FFF7" LastChildFill="True">
         <StackPanel  DockPanel.Dock="Top" Margin="10">
             <DockPanel Background="#FFADD4BC">
                 <Button Width="30" Height="30" Template="{DynamicResource ButtonControlTemplate}" DockPanel.Dock="Right" Command="{Binding Path=RefrescarListaProductosCommand}" ToolTip="Quitar filtros">

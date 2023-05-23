@@ -25,13 +25,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <DataTemplate x:Key="DataTemplateListBoxProductos">
-
-            <StackPanel Orientation="Vertical">
-                <Image Source="{Binding Path=URLFotoProducto}" Margin="5" Width="80"/>
-                <TextBlock Text="{Binding Path=NombreProducto}" HorizontalAlignment="Center" FontSize="15" FontWeight="SemiBold"/>
-            </StackPanel>
-        </DataTemplate>
+        
     </UserControl.Resources>
     <Grid Background="White" >
         <Grid.ColumnDefinitions>
@@ -53,19 +47,11 @@
                 <Button Content="Mesas" Grid.Column="1" Command="{Binding Path=ElegirMesaCommand}" Template="{StaticResource ButtonControlTemplateTomarComanda}" Margin="5,2"/>
                 <Button Content="Productos" Grid.Column="2" Command="{Binding Path=ElegirProductoCommand}" Template="{StaticResource ButtonControlTemplateTomarComanda}" Margin="5,2"/>
             </Grid>
-            <!--<ListBox Grid.Row="1" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSeleccionado}" ItemTemplate="{StaticResource DataTemplateListBoxProductos}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>-->
+           
             <Border Grid.Row="1" Margin="5">
                 <ContentControl Content="{Binding Path=ContenidoVentana}"/>
             </Border>
-            <!--<ListBox Grid.Row="2" ItemsSource="{Binding Path=ListaCategorias}" SelectedItem="{Binding Path=CategoriaSeleccionada}">
-                
-            </ListBox>-->
+           
         </Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -135,15 +121,7 @@
                     <TextBox DockPanel.Dock="Right" Width="150" Text="{Binding Path=ComandaActual.Mesa.NombreMesa}" IsReadOnly="True" Template="{DynamicResource TextBoxControlTemplateTomarComanda}" FontWeight="SemiBold" VerticalContentAlignment="Center" FontSize="14" HorizontalContentAlignment="Right"/>
                 </DockPanel>
             </Grid>
-            <!--<DataGrid ItemsSource="{Binding Path=ComandaActual.DetallescomandaCollection}" AutoGenerateColumns="False" Grid.Row="1" SelectedItem="{Binding Path=DetalleComandaSeleccionada}" SelectedValue="{Binding Path=DetalleComandaSeleccionada}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="60" FontWeight="SemiBold" />
-                    <DataGridTextColumn Header="Producto" Binding="{Binding Producto.NombreProducto}" Width="2*" IsReadOnly="True" FontWeight="SemiBold"/>
-                    <DataGridTextColumn Header="Precio" Binding="{Binding Producto.PrecioUnitario}" Width="60" FontWeight="SemiBold"/>
-                    <DataGridTextColumn Header="Total" Binding="{Binding ImporteTotalProducto, UpdateSourceTrigger=PropertyChanged}" Width="60" FontWeight="SemiBold" CanUserResize="False"/>
-                </DataGrid.Columns>
-            </DataGrid>-->
-
+            
             <syncfusion:SfDataGrid x:Name="dataGrid" 
                                    ItemsSource="{Binding DetallesComandaProductos}" 
                                    SelectedItem="{Binding Path=DetalleComandaSeleccionada}"
@@ -167,16 +145,14 @@
             <DockPanel Grid.Row="2" LastChildFill="False" Background="#FFADD4BC" Margin="10,5">
                 <StackPanel  Orientation="Vertical" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center">
                     <Separator Margin="5,5,9,5" Width="80" BorderThickness="1" BorderBrush="#FF70957E" HorizontalAlignment="Right"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=TotalImporteComanda, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
-                        <TextBlock Text="€" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding Path=TotalImporteComanda, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:0.00}}" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold" />
+                        <TextBlock Text="€" HorizontalAlignment="Right" Margin="5,0,10,5" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
 
                 </StackPanel>
                 <TextBlock Text="Total: " DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10,10,10,5" FontSize="18" FontWeight="Bold"/>
             </DockPanel>
-
-
         </Grid>
     </Grid>
 </UserControl>

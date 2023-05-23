@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:Proyecto_Restaurante.Vistas"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="Proyecto_Restaurante.Vistas.VerDetallesComanda"
         mc:Ignorable="d"
-        Title="VerDetallesComanda" Height="550" Width="500">
+        Title="Ver los detalles de la comanda" Height="550" Width="500" MinHeight="400" MinWidth="400" ShowInTaskbar="False">
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="TitulosComanda">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
         <ControlTemplate x:Key="ListBoxControlTemplate" TargetType="{x:Type ListBox}">
             <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="True">
@@ -35,9 +37,12 @@
         
     </Window.Resources>
     <DockPanel >
-        <TextBlock Text="{Binding Path=TituloComanda}" FontSize="18" FontWeight="Bold" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
-        <Border BorderBrush="Blue" BorderThickness="1" CornerRadius="3" DockPanel.Dock="Top" Margin="10">
-            <Grid Height="80" VerticalAlignment="Top">
+        <StackPanel DockPanel.Dock="Top" Margin="10" Background="#FFADD4BC">
+            <TextBlock Text="{Binding Path=TituloComanda}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
+        </StackPanel>
+        
+        <Border BorderBrush="#FF7BA48A" BorderThickness="1" CornerRadius="3" DockPanel.Dock="Top" Margin="10">
+            <Grid Height="70" VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="1"/>
@@ -46,16 +51,22 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25" />
                     <RowDefinition Height="1"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Camarero" Grid.Column="0" Grid.Row="0" Style="{StaticResource TitulosComanda}"/>
-                <Border BorderBrush="Blue" BorderThickness="1" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"/>
-                <TextBlock Text="Mesa" Grid.Column="2" Grid.Row="0" Style="{StaticResource TitulosComanda}"/>
-                <Border BorderBrush="Blue" BorderThickness="1" Grid.Column="3" Grid.Row="0" Grid.RowSpan="3"/>
-                <TextBlock Text="No. Personas" Grid.Column="4" Grid.Row="0" Style="{StaticResource TitulosComanda}"/>
-                <Border BorderBrush="Blue" BorderThickness="1" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5"/>
+                <DockPanel Grid.Column="0" Grid.Row="0" Background="#FFADD4BC" >
+                    <TextBlock Text="Camarero"  Style="{StaticResource TitulosComanda}"/>
+                </DockPanel>
+                <Border BorderBrush="#FF7BA48A" BorderThickness="1" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"/>
+                <DockPanel Grid.Column="2" Grid.Row="0" Background="#FFADD4BC">
+                    <TextBlock Text="Mesa"  Style="{StaticResource TitulosComanda}"/>
+                </DockPanel>
+                <Border BorderBrush="#FF7BA48A" BorderThickness="1" Grid.Column="3" Grid.Row="0" Grid.RowSpan="3"/>
+                <DockPanel Background="#FFADD4BC"  Grid.Column="4" Grid.Row="0">
+                    <TextBlock Text="No. Personas" Style="{StaticResource TitulosComanda}"/>
+                </DockPanel>
+                <Border BorderBrush="#FF7BA48A" BorderThickness="1" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5"/>
                 <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource TitulosComanda}" Text="{Binding Path=ComandaRecibida.Empleado.Nombre}"/>
                 <TextBlock Grid.Column="2" Grid.Row="2" Style="{StaticResource TitulosComanda}" Text="{Binding Path=ComandaRecibida.Mesa.NombreMesa}"/>
                 <TextBlock Grid.Column="4" Grid.Row="2" Style="{StaticResource TitulosComanda}" Text="{Binding Path=ComandaRecibida.CantidadPersonas}"/>
@@ -87,27 +98,24 @@
                 <TextBlock Grid.Column="4" Grid.Row="2" Style="{StaticResource TitulosComanda}"/>
             </Grid>
         </Border>-->
-        <Border BorderBrush="Blue" BorderThickness="1" CornerRadius="3" DockPanel.Dock="Bottom" Margin="10,0,10,5">
-            <Grid VerticalAlignment="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="1"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Total:" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <Border BorderBrush="Blue" BorderThickness="1" Grid.Row="0" Grid.Column="2"/>
-                <TextBlock Text="{Binding Path=TotalComanda}" Grid.Column="4" Grid.Row="0" Style="{StaticResource TitulosComanda}"/>
-            </Grid>
+        <Border BorderBrush="#FF7BA48A" BorderThickness="1" CornerRadius="3" DockPanel.Dock="Bottom" Margin="10,0,10,5">
+            <DockPanel Grid.Row="2" LastChildFill="False" Background="#FFADD4BC" >
+                <StackPanel  Orientation="Vertical" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <Separator Margin="5,5,9,5" Width="80" BorderThickness="1" BorderBrush="#FF70957E" HorizontalAlignment="Right"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <TextBlock Text="{Binding Path=TotalComanda, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:0.00}}" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="€" HorizontalAlignment="Right" Margin="5,0,0,5" FontSize="18" FontWeight="Bold"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <TextBlock Text="Total: " DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10,10,10,5" FontSize="18" FontWeight="Bold"/>
+            </DockPanel>
         </Border>
-        <DataGrid ItemsSource="{Binding ListaDetallesComanda}" AutoGenerateColumns="False" IsReadOnly="True" Margin="10" Style="{DynamicResource DataGridStyle}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle}" RowStyle="{DynamicResource DataGridRowStyle}" >
+        <DataGrid ItemsSource="{Binding ListaDetallesComanda}" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,5" Style="{DynamicResource DataGridStyle}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle}" RowStyle="{DynamicResource DataGridRowStyle}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="100"/>
                 <DataGridTextColumn Header="Producto" Binding="{Binding Producto.NombreProducto}" Width="2*"/>
-                <DataGridTextColumn Header="Importe" Binding="{Binding ImporteTotalProducto}" Width="100"/>
+                <DataGridTextColumn Header="Importe" Binding="{Binding ImporteTotalProducto, StringFormat={}{0:0.00}}" Width="100" CanUserResize="False"/>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
