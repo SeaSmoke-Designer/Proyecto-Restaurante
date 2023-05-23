@@ -141,7 +141,7 @@
                                AllowFiltering="True" 
                                Margin="10" 
                                Padding="5"
-                               AllowEditing="True"
+                               AllowEditing="False"
                                ColumnSizer="Star"
                                AutoGenerateColumns="False" Background="White" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}">
             <syncfusion:SfDataGrid.Columns>

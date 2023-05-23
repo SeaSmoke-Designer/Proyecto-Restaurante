@@ -41,7 +41,7 @@
     <DockPanel Background="#FFF3FFF7">
         <DockPanel LastChildFill="True" DockPanel.Dock="Top" Margin="10,5" Background="#FFADD4BC">
 
-            <Button DockPanel.Dock="Right" Background="#a4e4d9" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}" Command="{Binding Path=VerComandaCommand}">
+            <Button DockPanel.Dock="Right" Background="#FFBED5E6" Template="{DynamicResource ButtonControlTemplate}" Style="{StaticResource ButtonsTrigger}" Command="{Binding Path=VerComandaCommand}">
                 <Button.Content>
                     <Image Source="../assets/Ver.png" Width="24" />
                 </Button.Content>

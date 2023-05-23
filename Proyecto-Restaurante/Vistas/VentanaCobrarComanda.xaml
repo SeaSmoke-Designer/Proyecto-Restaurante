@@ -22,7 +22,7 @@
         
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
             <TextBlock Text="Total a pagar: "  FontSize="35" FontWeight="SemiBold"/>
-            <TextBlock Text="{Binding Path=PrecioCobrar}" FontSize="35" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding Path=PrecioCobrar, StringFormat={}{0:0.00}}" FontSize="35" FontWeight="SemiBold"/>
             <TextBlock Text="€" FontSize="35" FontWeight="SemiBold"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">

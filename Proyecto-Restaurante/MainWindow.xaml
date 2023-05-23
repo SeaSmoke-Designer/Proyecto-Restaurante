@@ -41,8 +41,6 @@
                 
             </syncfusion:NavigationItem>
             <syncfusion:NavigationItem ItemType="Separator" />
-            
-         
             <syncfusion:NavigationItem Header="Configuracion"
                                        IsExpanded="False"
                                        IsSelected="False">
@@ -65,7 +63,19 @@
                     </syncfusion:NavigationItem.Icon>
                 </syncfusion:NavigationItem>
             </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem ItemType="Separator" />
+            <syncfusion:NavigationItem Header="Manual de usuario"
+                                       IsExpanded="False"
+                                       IsSelected="False"
+                                       Command="{Binding Path=ManualUsuarioCommand}">
+                <syncfusion:NavigationItem.Icon>
+                    <Image Source="./Assets/ayuda.png" />
+                </syncfusion:NavigationItem.Icon>
+
+            </syncfusion:NavigationItem>
+
             <syncfusion:SfNavigationDrawer.FooterItems>
+                
                 <syncfusion:NavigationItem Header="Salir" IsExpanded="False" IsSelected="False" Command="{Binding Path=SalirAplicacionCommand}">
                     <syncfusion:NavigationItem.Icon>
                         <Image Source="./Assets/out2.png" Width="30" Height="28"/>

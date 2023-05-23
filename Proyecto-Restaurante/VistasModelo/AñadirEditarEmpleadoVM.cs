@@ -103,7 +103,7 @@ namespace Proyecto_Restaurante.VistasModelo
         {
             if (!ExisteEmpleado())
             {
-                if (EmpleadoActual.Dni.Length == 9 || EmpleadoActual.Dni is null)
+                if (EmpleadoActual.Dni.Length == 9 || EmpleadoActual.Dni != null)
                 {
                     if (ComprobarFecha())
                     {

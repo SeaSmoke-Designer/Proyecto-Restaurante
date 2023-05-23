@@ -23,6 +23,7 @@ namespace Proyecto_Restaurante.VistasModelo
         public RelayCommand GestionarMesasCommand { get; }
         public RelayCommand GestionarComandasCommand { get; }
         public RelayCommand TomarComandaCommand { get; }
+        public RelayCommand ManualUsuarioCommand { get; }
 
         private bool validacionAdmin;
 
@@ -51,6 +52,7 @@ namespace Proyecto_Restaurante.VistasModelo
             GestionarMesasCommand = new RelayCommand(NavegarGestionarMesas);
             GestionarComandasCommand = new RelayCommand(NavegarGestionarComandas);
             TomarComandaCommand = new RelayCommand(NavegarTomarComanda);
+            ManualUsuarioCommand = new RelayCommand(AbrirManualUsuario);
             WeakReferenceMessenger.Default.Register<EnviarValidacionAdminMessage>(this, (r, m) =>
             {
                 ValidacionAdmin = m.Value;
@@ -97,6 +99,12 @@ namespace Proyecto_Restaurante.VistasModelo
         public void NavegarTomarComanda()
         {
             ContenidoVentana = servicioNavegacion.CargarTomarComanda();
+        }
+
+        public void AbrirManualUsuario()
+        {
+            string rutaAyuda = System.IO.Directory.GetCurrentDirectory() + "\\Ayuda\\Manual de usuario - DishDash.chm";
+            System.Diagnostics.Process.Start(rutaAyuda);
         }
 
         public void CerrarAplicacion()

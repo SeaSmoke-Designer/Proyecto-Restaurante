@@ -39,7 +39,7 @@
                 </Border.Effect>
                 <DockPanel LastChildFill="True">
                     <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom">
-                        <Separator BorderBrush="#D1D1D1" BorderThickness="1" Width="120" Margin="0,5,0,5"/>
+                        <Separator BorderBrush="#D1D1D1" BorderThickness="1" Width="120" Margin="0,5,0,0"/>
                         <TextBlock Text="{Binding Path=NombreCategoria}" FontSize="13" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="5"/>
                     </StackPanel>
                     <Image Source="{Binding Path=URLFotoCategoria}" DockPanel.Dock="Top" Margin="5"/>
@@ -58,9 +58,9 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="{Binding Path=URLFotoProducto}" Width="90" HorizontalAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="0" Margin="5"/>
-                    <Separator BorderBrush="#FF28CB68" BorderThickness="1" Width="95" Margin="0,5,0,5" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="1"/>
+                    <Separator BorderBrush="#FF28CB68" BorderThickness="1" Width="95" Margin="0,5,0,0" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="1"/>
                     <StackPanel Grid.Row="2" Style="{StaticResource ProductosSinUnidades}">
-                        <TextBlock Text="{Binding Path=NombreProducto}"  Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="15" TextWrapping="Wrap" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=NombreProducto}"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="15" TextWrapping="Wrap" TextAlignment="Center"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -106,7 +106,7 @@
                     Template="{StaticResource ButtonControlTemplate1}"/>
         </StackPanel>
         <Grid Background="AliceBlue" Grid.Column="1">
-            <DockPanel Background="White" LastChildFill="True">
+            <DockPanel Background="#FFF3FFF7" LastChildFill="True">
                 <StackPanel  DockPanel.Dock="Top" Margin="10">
                     <DockPanel Background="#FFADD4BC">
                         <Button Width="30" Height="30" Template="{DynamicResource ButtonControlTemplate}" DockPanel.Dock="Right" Command="{Binding Path=RefrescarListaProductosCommand}" ToolTip="Quitar filtros">
