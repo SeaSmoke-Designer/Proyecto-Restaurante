@@ -41,6 +41,15 @@ namespace Proyecto_Restaurante.Servicios
             return JsonConvert.DeserializeObject<ObservableCollection<Producto>>(response.Content);
         }
 
+        public Producto GetProducto(int id)
+        {
+            var cliente = new RestClient(Properties.Settings.Default.endpointAzure);
+            RestRequest request = new RestRequest($"productos/{id}", Method.GET);
+            request.AddHeader("Root", clave);
+            var response = cliente.Execute(request);
+            return JsonConvert.DeserializeObject<Producto>(response.Content);
+        }
+
         public IRestResponse PostProducto(Producto nuevoProducto)
         {
             var cliente = new RestClient(Properties.Settings.Default.endpointAzure);

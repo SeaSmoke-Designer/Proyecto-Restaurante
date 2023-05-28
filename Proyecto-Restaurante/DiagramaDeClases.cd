@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Proyecto_Restaurante.Modelos.Categoria">
+    <Position X="3.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAUBAAAFAQAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Modelos\Categoria.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Proyecto_Restaurante.Modelos.Comanda">
+    <Position X="11.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAABAAQAAQAEAQCAIAAAAkAAAAJAEAAAAAAAIAAA=</HashCode>
+      <FileName>Modelos\Comanda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Proyecto_Restaurante.Modelos.DetalleComanda">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAEAAABAAAAAQAgAAAAAAAgAAAAAAggAAAAAAAg=</HashCode>
+      <FileName>Modelos\DetalleComanda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Proyecto_Restaurante.Modelos.DetalleComandaPK">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Modelos\DetalleComandaPK.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Proyecto_Restaurante.Modelos.Empleado">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAEAACIBAAQioACEACACgAAAAAAAAAABAAAACRAAAAA=</HashCode>
+      <FileName>Modelos\Empleado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Proyecto_Restaurante.Modelos.Encrypt">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Modelos\Encrypt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Proyecto_Restaurante.Modelos.Mesa">
+    <Position X="5.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAQAAAAEQAAAAEAAAAQAAIAEAACAAAAAAAAIA=</HashCode>
+      <FileName>Modelos\Mesa.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Proyecto_Restaurante.Modelos.Producto">
+    <Position X="2" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAQACAAAAAgAAAAAAQAAAAEAAAAAFACACAAAgAAAAA=</HashCode>
+      <FileName>Modelos\Producto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

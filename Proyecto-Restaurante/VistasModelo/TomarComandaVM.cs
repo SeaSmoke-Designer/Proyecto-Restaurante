@@ -181,14 +181,17 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void BorrarLinea()
         {
+            WeakReferenceMessenger.Default.Send(new AvisarResetProductoMessage(DetalleComandaSeleccionada.Producto.IdProducto));
             DetallesComandaProductos.Remove(DetalleComandaSeleccionada);
             CalcularImporteTotalComanda();
+            
         }
 
         public void BorrarComanda()
         {
             DetallesComandaProductos = new ObservableCollection<DetalleComanda>();
             CalcularImporteTotalComanda();
+            WeakReferenceMessenger.Default.Send(new AvisarResetProductosMessage(true));
         }
 
         public void CalcularImporteTotalComanda()

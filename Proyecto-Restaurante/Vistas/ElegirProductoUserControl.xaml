@@ -23,10 +23,14 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        <Style TargetType="{x:Type StackPanel}" x:Key="ProductosSinUnidades">
+        <Style TargetType="{x:Type Border}" x:Key="ProductosSinUnidades">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=UnidadesEnAlmacen}" Value="0">
                     <Setter Property="Background" Value="#FFFB5959"/>
+                    <Setter Property="BorderBrush" Value="#FFFB5959"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="CornerRadius" Value="5"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -57,9 +61,12 @@
                     </Grid.RowDefinitions>
                     <Image Source="{Binding Path=URLFotoProducto}" Width="90" HorizontalAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="0" Margin="5"/>
                     <Separator BorderBrush="#FF28CB68" BorderThickness="1" Width="95" Margin="0,5,0,0" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="1"/>
-                    <StackPanel Grid.Row="2" Style="{StaticResource ProductosSinUnidades}">
+                    <Border Grid.Row="2" Style="{StaticResource ProductosSinUnidades}">
                         <TextBlock Text="{Binding Path=NombreProducto}"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="15" TextWrapping="Wrap" TextAlignment="Center"/>
-                    </StackPanel>
+                    </Border>
+                    <!--<StackPanel Grid.Row="2" Style="{StaticResource ProductosSinUnidades}" >
+                        <TextBlock Text="{Binding Path=NombreProducto}"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="15" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </StackPanel>-->
                 </Grid>
             </Border>
         </DataTemplate>

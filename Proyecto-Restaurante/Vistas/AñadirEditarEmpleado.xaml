@@ -21,7 +21,7 @@
         
         <ControlTemplate x:Key="BindablePasswordBoxControlTemplate" TargetType="{x:Type components:BindablePasswordBox}">
             <Border x:Name="border" BorderBrush="#FFAEAEAE" BorderThickness="2" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True" CornerRadius="3">
-                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Height="30"/>
+                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Height="25"/>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
@@ -48,11 +48,12 @@
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFE1F0FF" Template="{DynamicResource ButtonControlTemplate1}" Command="{Binding Path=NuevaImagenEmpleadoCommand}" HorizontalAlignment="Center" Height="100" Width="100" Style="{StaticResource BotonesAceptarCancelar}">
             <Button.Content>
-                <Ellipse Stretch="Uniform" Height="90" Width="90" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image Source="{Binding Path=EmpleadoActual.URLFoto, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" Stretch="Fill"/>
+               <!-- <Ellipse Stretch="Uniform" Height="90" Width="90" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding Path=EmpleadoActual.URLFoto, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill"/>
                     </Ellipse.Fill>
-                </Ellipse>
+                </Ellipse>-->
             </Button.Content>
         </Button>
 
@@ -107,7 +108,7 @@
                 <Image Source="../assets/password.png" Width="25" DockPanel.Dock="Left" Margin="9,7" VerticalAlignment="Bottom"/>
                 <StackPanel  Orientation="Vertical">
                     <TextBlock Text="Contraseña" Margin="5,2" Foreground="#FF616161"/>
-                    <components:BindablePasswordBox Password="{Binding Path=EmpleadoActual.ContraseñaEmpleado}" Margin="5" Template="{DynamicResource BindablePasswordBoxControlTemplate}" />
+                    <components:BindablePasswordBox Password="{Binding Path=EmpleadoActual.ContraseñaEmpleado}" Margin="5" Template="{DynamicResource BindablePasswordBoxControlTemplate}" FontSize="14"/>
                 </StackPanel>
             </DockPanel>
         </StackPanel>

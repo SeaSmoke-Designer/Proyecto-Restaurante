@@ -72,7 +72,14 @@ namespace Proyecto_Restaurante.VistasModelo
             RefrescarListaProductosCommand = new RelayCommand(RefrescarListaProductos);
             CargarProductos();
             CargarCategorias();
-            
+            WeakReferenceMessenger.Default.Register<AvisarResetProductosMessage>(this, (r, m) =>
+            {
+                CargarProductos();
+            });
+            WeakReferenceMessenger.Default.Register<AvisarResetProductoMessage>(this, (r, m) =>
+            {
+                ResetearUnidadesProducto(m.Value);
+            });
         }
 
         public void CargarProductos()
@@ -121,7 +128,15 @@ namespace Proyecto_Restaurante.VistasModelo
                     servicioDialogo.MostrarMensajeAdvertencia($"No quedan unidades del producto {ProductoSeleccionado.NombreProducto}", "NO QUEDAN UNIDADES");
                 }
             }
-           
+        }
+
+        public void ResetearUnidadesProducto(int id)
+        {
+            for (int i = 0; i < ListaProductos.Count; i++)
+            {
+                if (ListaProductos[i].IdProducto == id)
+                    ListaProductos[i] = servicioAPIRestRestaurante.GetProducto(id);
+            }
         }
 
         

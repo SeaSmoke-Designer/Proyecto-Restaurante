@@ -196,6 +196,8 @@
     <Compile Include="Convertidores\ConvertidorProductoSinImagen.cs" />
     <Compile Include="Convertidores\DataGridVisibilityConverter.cs" />
     <Compile Include="Convertidores\UTCDateTimeConverter.cs" />
+    <Compile Include="Mensajes\AvisarResetProductoMessage.cs" />
+    <Compile Include="Mensajes\AvisarResetProductosMessage.cs" />
     <Compile Include="Mensajes\EnviarComandaMessage.cs" />
     <Compile Include="Mensajes\EnviarEmpleadoComandaMessage.cs" />
     <Compile Include="Mensajes\EnviarEmpleadoMessage.cs" />
@@ -377,6 +379,7 @@
     <Content Include="Ayuda\Manual de usuario - DishDash.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="DiagramaDeClases.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

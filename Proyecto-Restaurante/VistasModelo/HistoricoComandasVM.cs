@@ -72,15 +72,26 @@ namespace Proyecto_Restaurante.VistasModelo
             {
                 if (ComandaSeleccionada != null)
                 {
+                    DetalleComanda d = new DetalleComanda();
+                    ObservableCollection<DetalleComanda> aux = servicioAPIRestRestaurante.GetDetallesComanda();
+                    foreach (DetalleComanda item in aux)
+                    {
+                        if (item._DetallesComandaPK.IdComanda == ComandaSeleccionada.IdComanda)
+                        {
+                            d = item;
+                            servicioAPIRestRestaurante.DeleteDetallesComanda(d._DetallesComandaPK.IdComanda, d._DetallesComandaPK.IdProducto);
+                        }
+                    }
+
                     IRestResponse response = servicioAPIRestRestaurante.DeleteComanda(ComandaSeleccionada.IdComanda);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         ListaComandas.Remove(ComandaSeleccionada);
-                        servicioDialogo.MostrarMensajeInformacion("Comanda eliminada con exito!", "Comanda Eliminada");
+                        servicioDialogo.MostrarMensajeInformacion("Comanada eliminada con exito!", "COMANDA ELIMINADA");
                     }
                     else
                     {
-                        servicioDialogo.MostrarMensajeError(response.Content, "Error al borrar la comanda");
+                        servicioDialogo.MostrarMensajeError(response.Content, "ERROR - NO SE PUEDO BORRAR LA COMANDA");
                     }
                 }
             }
