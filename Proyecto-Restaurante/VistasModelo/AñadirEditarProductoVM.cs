@@ -96,15 +96,14 @@ namespace Proyecto_Restaurante.VistasModelo
                 if (ProductoActual.IdCategoria != null)
                 {
                     if(ProductoActual.URLFotoProducto.Equals(imagenDefault) || ProductoActual.URLFotoProducto == null)
-                    {
                         ProductoActual.URLFotoProducto = "../Assets/SinImagen.png";
-                    }
                     
                     IRestResponse response = servicioAPIRestRestaurante.PostProducto(ProductoActual);
                     if(response.StatusCode == System.Net.HttpStatusCode.Created)
                     {
                         WeakReferenceMessenger.Default.Send(new NuevoProductoMessage(ProductoActual));
-                    }else if(response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                    }
+                    else if(response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
                     {
                         servicioDialogo.MostrarMensajeError("Error al agregar el producto", "Error ");
                     }
@@ -139,9 +138,7 @@ namespace Proyecto_Restaurante.VistasModelo
             foreach (Producto item in listaProductos)
             {
                 if (ProductoActual.NombreProducto.Equals(item.NombreProducto))
-                {
                     return true;
-                }
             }
             return false;
         }

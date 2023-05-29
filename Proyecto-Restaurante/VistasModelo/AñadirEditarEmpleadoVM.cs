@@ -188,8 +188,6 @@ namespace Proyecto_Restaurante.VistasModelo
                     return true;
                 }
             }
-
-
             return false;
         }
     }
