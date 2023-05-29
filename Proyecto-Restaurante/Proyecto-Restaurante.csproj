@@ -196,6 +196,7 @@
     <Compile Include="Convertidores\ConvertidorProductoSinImagen.cs" />
     <Compile Include="Convertidores\DataGridVisibilityConverter.cs" />
     <Compile Include="Convertidores\UTCDateTimeConverter.cs" />
+    <Compile Include="Mensajes\AvisarCantidadProductoMessage.cs" />
     <Compile Include="Mensajes\AvisarResetProductoMessage.cs" />
     <Compile Include="Mensajes\AvisarResetProductosMessage.cs" />
     <Compile Include="Mensajes\EnviarComandaMessage.cs" />
@@ -376,6 +377,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Assets\Restar.png" />
+    <Resource Include="Assets\Sumar.png" />
     <Content Include="Ayuda\Manual de usuario - DishDash.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -30,10 +30,10 @@ namespace Proyecto_Restaurante.Vistas
             this.DataContext = vm;
         }
 
-        private void dataGrid_CurrentCellEndEdit(object sender, Syncfusion.UI.Xaml.Grid.CurrentCellEndEditEventArgs e)
+        /*private void dataGrid_CurrentCellEndEdit(object sender, Syncfusion.UI.Xaml.Grid.CurrentCellEndEditEventArgs e)
         {
             vm.CalcularImporteTotalComanda();
             vm.DetalleComandaSeleccionada.ActualizarImporteTotal();
-        }
+        }*/
     }
 }

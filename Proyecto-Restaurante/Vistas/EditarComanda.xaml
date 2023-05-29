@@ -9,29 +9,6 @@
         mc:Ignorable="d"
         Title="EditarComanda"  Height="750" Width="1250" MinWidth="1200" MinHeight="650" ShowInTaskbar="False">
     <Window.Resources>
-        <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
-            <Border x:Name="border">
-                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsDefaulted" Value="True">
-                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                </Trigger>
-
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
-                    <Setter Property="Foreground" Value="#FF838383"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-        <Style TargetType="{x:Type StackPanel}" x:Key="ProductosSinUnidades">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=UnidadesEnAlmacen}" Value="0">
-                    <Setter Property="Background" Value="#FFFB5959"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
         <DataTemplate x:Key="PlantillaCategorias">
             <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Margin="10" Background="White" Width="130" Height="130" >
                 <Border.Effect>
@@ -47,7 +24,7 @@
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="PlantillaProductos">
-            <Border BorderBrush="#FF70B98D" BorderThickness="1" Margin="5" Background="#FFCFE6D7" Padding="5" Width="150" Height="150" CornerRadius="10">
+            <Border BorderBrush="#FF70B98D" BorderThickness="1" Margin="5" Background="#FFCFE6D7" Padding="5" Width="150" Height="165" CornerRadius="10">
                 <Border.Effect>
                     <DropShadowEffect/>
                 </Border.Effect>
@@ -59,13 +36,12 @@
                     </Grid.RowDefinitions>
                     <Image Source="{Binding Path=URLFotoProducto}" Width="90" HorizontalAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="0" Margin="5"/>
                     <Separator BorderBrush="#FF28CB68" BorderThickness="1" Width="95" Margin="0,5,0,0" DockPanel.Dock="Top" VerticalAlignment="Center" Grid.Row="1"/>
-                    <StackPanel Grid.Row="2" Style="{StaticResource ProductosSinUnidades}">
+                    <Border Grid.Row="2" Style="{DynamicResource ProductosSinUnidades}">
                         <TextBlock Text="{Binding Path=NombreProducto}"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="15" TextWrapping="Wrap" TextAlignment="Center"/>
-                    </StackPanel>
+                    </Border>
                 </Grid>
             </Border>
         </DataTemplate>
-
         <Style TargetType="{x:Type Button}" x:Key="BotonBorrarLiena">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=DetalleComandaSeleccionada}" Value="{x:Null}">
@@ -81,6 +57,11 @@
                     <Setter Property="Opacity" Value="0.5"/>
                 </DataTrigger>
             </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="BotonesAgregarQuitar" BasedOn="{StaticResource BotonBorrarLiena}">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Margin" Value="5,0"/>
         </Style>
         <DataTemplate x:Key="DataTemplateListBoxProductos">
             <StackPanel Orientation="Vertical">
@@ -109,7 +90,7 @@
             <DockPanel Background="#FFF3FFF7" LastChildFill="True">
                 <StackPanel  DockPanel.Dock="Top" Margin="10">
                     <DockPanel Background="#FFADD4BC">
-                        <Button Width="30" Height="30" Template="{DynamicResource ButtonControlTemplate}" DockPanel.Dock="Right" Command="{Binding Path=RefrescarListaProductosCommand}" ToolTip="Quitar filtros">
+                        <Button Width="30" Height="30" Template="{DynamicResource ButtonControlTemplateSinFondo}" DockPanel.Dock="Right" Command="{Binding Path=RefrescarListaProductosCommand}" ToolTip="Quitar filtros">
                             <Button.Content>
                                 <Image Source="../Assets/refresh.png" />
                             </Button.Content>
@@ -145,6 +126,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="200"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="1.8*"/>
                 <RowDefinition Height="55"/>
             </Grid.RowDefinitions>
@@ -201,28 +183,42 @@
                     <TextBox DockPanel.Dock="Right" Width="150" Text="{Binding Path=ComandaRecibida.Mesa.NombreMesa}" IsReadOnly="True" Template="{DynamicResource TextBoxControlTemplateTomarComanda}" FontWeight="SemiBold" VerticalContentAlignment="Center" FontSize="14" HorizontalContentAlignment="Right"/>
                 </DockPanel>
             </Grid>
-
+            <DockPanel Grid.Row="1" LastChildFill="False" Margin="10,0">
+                <Button Template="{DynamicResource ButtonControlTemplateSinFondo}" Style="{StaticResource BotonesAgregarQuitar}" Command="{Binding Path=SumarCantidadProductoCommand}" DockPanel.Dock="Right"  ToolTip="Agregar mas cantidad">
+                    <Button.Content>
+                        <Image Source="../Assets/Sumar.png" />
+                    </Button.Content>
+                </Button>
+                <Button Template="{DynamicResource ButtonControlTemplateSinFondo}" Style="{StaticResource BotonesAgregarQuitar}" Command="{Binding Path=RestarCantidadProductoCommand}" DockPanel.Dock="Right"  ToolTip="Quitar cantidad">
+                    <Button.Content>
+                        <Image Source="../Assets/Restar.png" />
+                    </Button.Content>
+                </Button>
+            </DockPanel>
             <syncfusion:SfDataGrid x:Name="dataGrid" 
                                    ItemsSource="{Binding ListaDetallesComanda}" 
                                    SelectedItem="{Binding Path=DetalleComandaSeleccionada}"
                                    AllowFiltering="False" 
                                    Padding="5"
-                                   AllowEditing="True"
+                                   AllowEditing="False"
                                    ColumnSizer="Star"
                                    AutoGenerateColumns="False"
-                                   Grid.Row="1" 
+                                   Grid.Row="2" 
                                    FontWeight="SemiBold" 
-                                   CurrentCellEndEdit="dataGrid_CurrentCellEndEdit" Margin="10,5" Style="{DynamicResource SfDataGridStyle}" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}" RowStyle="{DynamicResource VirtualizingCellsControlStyle}">
+                                   Margin="10,5" 
+                                   Style="{DynamicResource SfDataGridStyle}" 
+                                   HeaderStyle="{DynamicResource GridHeaderCellControlStyle}" 
+                                   RowStyle="{DynamicResource VirtualizingCellsControlStyle}">
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn MappingName="Cantidad" Width="75"/>
-                    <syncfusion:GridTextColumn HeaderText="Producto" DisplayBinding="{Binding Path=Producto.NombreProducto}" AllowEditing="False"/>
-                    <syncfusion:GridTextColumn HeaderText="Precio" AllowEditing="False" HorizontalHeaderContentAlignment="Center" DisplayBinding="{Binding Path=Producto.PrecioUnitario}" Width="60" />
-                    <syncfusion:GridTextColumn HeaderText="Total" DisplayBinding="{Binding Path=ImporteTotalProducto, UpdateSourceTrigger=PropertyChanged}" Width="60" AllowEditing="False"/>
+                    <syncfusion:GridTextColumn HeaderText="Producto" DisplayBinding="{Binding Path=Producto.NombreProducto}"/>
+                    <syncfusion:GridTextColumn HeaderText="Precio" HorizontalHeaderContentAlignment="Center" DisplayBinding="{Binding Path=Producto.PrecioUnitario}" Width="60" />
+                    <syncfusion:GridTextColumn HeaderText="Total" DisplayBinding="{Binding Path=ImporteTotalProducto, UpdateSourceTrigger=PropertyChanged}" Width="60"/>
 
                 </syncfusion:SfDataGrid.Columns>
 
             </syncfusion:SfDataGrid>
-            <DockPanel Grid.Row="2" LastChildFill="False" Background="#FFADD4BC" Margin="10,5">
+            <DockPanel Grid.Row="3" LastChildFill="False" Background="#FFADD4BC" Margin="10,5">
                 <StackPanel  Orientation="Vertical" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center">
                     <Separator Margin="5,5,9,5" Width="100" BorderThickness="1" BorderBrush="#FF70957E" HorizontalAlignment="Right"/>
                     <StackPanel Orientation="Horizontal">

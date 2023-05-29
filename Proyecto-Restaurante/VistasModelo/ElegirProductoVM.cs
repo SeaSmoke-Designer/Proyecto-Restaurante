@@ -21,7 +21,6 @@ namespace Proyecto_Restaurante.VistasModelo
         public RelayCommand RefrescarListaProductosCommand { get; }
 
         private ObservableCollection<Categoria> listaCategorias;
-
         public ObservableCollection<Categoria> ListaCategorias
         {
             get { return listaCategorias; }
@@ -29,7 +28,6 @@ namespace Proyecto_Restaurante.VistasModelo
         }
 
         private ObservableCollection<Producto> listaProductos;
-
         public ObservableCollection<Producto> ListaProductos
         {
             get { return listaProductos; }
@@ -37,7 +35,6 @@ namespace Proyecto_Restaurante.VistasModelo
         }
 
         private Categoria categoriaSeleccionada;
-
         public Categoria CategoriaSeleccionada
         {
             get { return categoriaSeleccionada; }
@@ -50,7 +47,6 @@ namespace Proyecto_Restaurante.VistasModelo
         }
 
         private Producto productoSeleccionado;
-
         public Producto ProductoSeleccionado
         {
             get { return productoSeleccionado; }
@@ -79,6 +75,15 @@ namespace Proyecto_Restaurante.VistasModelo
             WeakReferenceMessenger.Default.Register<AvisarResetProductoMessage>(this, (r, m) =>
             {
                 ResetearUnidadesProducto(m.Value);
+            });
+            WeakReferenceMessenger.Default.Register<AvisarCantidadProductoMessage>(this, (r, m) =>
+            {
+                if(m.Value != null)
+                {
+                    DetalleComanda d = m.Value;
+                    CambiarUnidadesEnAlmacen(d);
+                }
+               
             });
         }
 
@@ -138,6 +143,20 @@ namespace Proyecto_Restaurante.VistasModelo
                     ListaProductos[i] = servicioAPIRestRestaurante.GetProducto(id);
             }
         }
+
+        public void CambiarUnidadesEnAlmacen(DetalleComanda d)
+        {
+            for (int i = 0; i < ListaProductos.Count; i++)
+            {
+                if (ListaProductos[i].IdProducto == d.Producto.IdProducto)
+                {
+                    ListaProductos[i].UnidadesEnAlmacen = d.Producto.UnidadesEnAlmacen;
+                    return;
+                }
+                    
+            }
+        }
+
 
         
     }

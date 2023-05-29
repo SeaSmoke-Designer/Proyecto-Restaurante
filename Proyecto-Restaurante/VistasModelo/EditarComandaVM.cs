@@ -21,6 +21,8 @@ namespace Proyecto_Restaurante.VistasModelo
         public RelayCommand BorrarLineaCommand { get; }
         public RelayCommand BorrarComandaCommand { get; }
         public RelayCommand CobrarComandaCommand { get; }
+        public RelayCommand SumarCantidadProductoCommand { get; }
+        public RelayCommand RestarCantidadProductoCommand { get; }
         private readonly ServicioDialogo servicioDialogo;
         private readonly ServicioAPIRestRestaurante servicioAPIRestRestaurante;
         private readonly ServicioNavegacion servicioNavegacion;
@@ -112,6 +114,8 @@ namespace Proyecto_Restaurante.VistasModelo
             BorrarComandaCommand = new RelayCommand(BorrarComanda);
             GuardarComandaCommand = new RelayCommand(EditarComanda);
             CobrarComandaCommand = new RelayCommand(CobrarComanda);
+            SumarCantidadProductoCommand = new RelayCommand(SumarCantidadProducto);
+            RestarCantidadProductoCommand = new RelayCommand(RestarCantidadProducto);
             WeakReferenceMessenger.Default.Register<EditarComandaVM, EnviarImporteCobrar>(this, (r, m) =>
             {
                 if (!m.HasReceivedResponse)
@@ -289,15 +293,11 @@ namespace Proyecto_Restaurante.VistasModelo
                 ComandaRecibida.Pagada = true;
                 IRestResponse response = servicioAPIRestRestaurante.PutComanda(ComandaRecibida);
                 EditarDetallesComanda();
-                //InsertarDetallesComanda(Int32.Parse(response.Content.Substring(4).Replace("\"", "").Replace("}", "")));
-                //servicioAPIRestRestaurante.PutMesa(ComandaActual.Mesa);
-
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     servicioDialogo.MostrarMensajeInformacion("Comanda finalizada con exito!", "COMANDA FINALIZADA");
                     ComandaRecibida = new Comanda();
                     ListaDetallesComanda = new ObservableCollection<DetalleComanda>();
-                    //DetallesComandaProductos = new ObservableCollection<DetalleComanda>();
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
                 {
@@ -307,25 +307,59 @@ namespace Proyecto_Restaurante.VistasModelo
 
         }
 
-        /*public void InsertarDetallesComanda(int idComanda)
+        public void SumarCantidadProducto()
         {
-            IRestResponse responseDetallesComanda;
-            //IRestResponse responseProductos;
-            //ObservableCollection<DetalleComanda> detalleComandas = (ObservableCollection<DetalleComanda>)servicioAPIRestRestaurante.GetDetallesComanda().Where(n => n._DetallesComandaPK.IdComanda == ComandaSeleccionada.IdComanda);
-            foreach (DetalleComanda item in ListaDetallesComanda)
+            if (DetalleComandaSeleccionada != null)
             {
-                item._DetallesComandaPK = new DetalleComandaPK(idComanda, item.Producto.IdProducto);
-                responseDetallesComanda = servicioAPIRestRestaurante.PostDetallesComanda(item);
-                servicioAPIRestRestaurante.PutProducto(item.Producto);
-                if (responseDetallesComanda.StatusCode == System.Net.HttpStatusCode.Created)
+                if (DetalleComandaSeleccionada.Producto.UnidadesEnAlmacen != 0)
                 {
-                    Console.WriteLine("OK");
+                    DetalleComandaSeleccionada.Cantidad += 1;
+                    DetalleComandaSeleccionada.Producto.UnidadesEnAlmacen -= 1;
+                    CambiarUnidadesEnAlmacen(DetalleComandaSeleccionada);
                 }
-                else if (responseDetallesComanda.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
+                else
                 {
-                    servicioDialogo.MostrarMensajeError(responseDetallesComanda.Content, "ERROR - AL INSERTAR EL DETALLE COMANDA");
+                    servicioDialogo.MostrarMensajeAdvertencia("No quedan mas unidades en el almacen", "NO QUENDA UNIDADES");
                 }
+
             }
-        }*/
+
+            CalcularImporteTotal();
+        }
+        public void RestarCantidadProducto()
+        {
+            if (DetalleComandaSeleccionada != null)
+            {
+                if (DetalleComandaSeleccionada.Cantidad > 1)
+                {
+                    DetalleComandaSeleccionada.Cantidad -= 1;
+                    DetalleComandaSeleccionada.Producto.UnidadesEnAlmacen += 1;
+                    CambiarUnidadesEnAlmacen(DetalleComandaSeleccionada);
+                }
+                else
+                {
+                    DetalleComandaSeleccionada.Producto.UnidadesEnAlmacen += 1;
+                    CambiarUnidadesEnAlmacen(DetalleComandaSeleccionada);
+                    ListaDetallesComanda.Remove(DetalleComandaSeleccionada);
+                }
+                CalcularImporteTotal();
+
+               
+            }
+        }
+
+        public void CambiarUnidadesEnAlmacen(DetalleComanda d)
+        {
+            for (int i = 0; i < ListaProductos.Count; i++)
+            {
+                if (ListaProductos[i].IdProducto == d.Producto.IdProducto)
+                {
+                    ListaProductos[i].UnidadesEnAlmacen = d.Producto.UnidadesEnAlmacen;
+                    return;
+                }
+
+            }
+        }
+       
     }
 }

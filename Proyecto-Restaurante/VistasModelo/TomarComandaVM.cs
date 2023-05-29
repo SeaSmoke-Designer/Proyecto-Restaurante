@@ -28,6 +28,8 @@ namespace Proyecto_Restaurante.VistasModelo
         public RelayCommand ElegirEmpleadoCommand { get; }
         public RelayCommand ElegirMesaCommand { get; }
         public RelayCommand ElegirProductoCommand { get; }
+        public RelayCommand SumarCantidadProductoCommand { get; }
+        public RelayCommand RestarCantidadProductoCommand { get; }
 
         private UserControl contenidoVentana;
         public UserControl ContenidoVentana
@@ -110,6 +112,7 @@ namespace Proyecto_Restaurante.VistasModelo
                     m.Reply(r.TotalImporteComanda);
                 }
             });
+            
 
             servicioNavegacion = new ServicioNavegacion();
             servicioAPIRestRestaurante = new ServicioAPIRestRestaurante();
@@ -121,6 +124,8 @@ namespace Proyecto_Restaurante.VistasModelo
             BorrarComandaCommand = new RelayCommand(BorrarComanda);
             PasarAMesaCommand = new RelayCommand(PasarAMesa);
             CobrarComandaCommand = new RelayCommand(CobrarComanda);
+            SumarCantidadProductoCommand = new RelayCommand(SumarCantidadProducto);
+            RestarCantidadProductoCommand = new RelayCommand(RestarCantidadProdcuto);
             NavegarListaProductos();
             DetallesComandaProductos = new ObservableCollection<DetalleComanda>();
         }
@@ -281,7 +286,6 @@ namespace Proyecto_Restaurante.VistasModelo
                 IRestResponse response = servicioAPIRestRestaurante.PostComanda(ComandaActual);
 
                 InsertarDetallesComanda(Int32.Parse(response.Content.Substring(4).Replace("\"", "").Replace("}", "")));
-                //servicioAPIRestRestaurante.PutMesa(ComandaActual.Mesa);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.Created)
                 {
@@ -294,6 +298,45 @@ namespace Proyecto_Restaurante.VistasModelo
                 }
             }
 
+        }
+        public void SumarCantidadProducto()
+        {
+            if(DetalleComandaSeleccionada != null)
+            {
+                if(DetalleComandaSeleccionada.Producto.UnidadesEnAlmacen != 0)
+                {
+                    DetalleComandaSeleccionada.Cantidad += 1;
+                    DetalleComandaSeleccionada.Producto.UnidadesEnAlmacen -= 1;
+                    WeakReferenceMessenger.Default.Send(new AvisarCantidadProductoMessage(DetalleComandaSeleccionada));
+                }
+                else
+                {
+                    servicioDialogo.MostrarMensajeAdvertencia("No quedan mas unidades en el almacen", "NO QUENDA UNIDADES");
+                }
+                
+            }
+
+            CalcularImporteTotalComanda();
+        }
+
+        public void RestarCantidadProdcuto()
+        {
+            if(DetalleComandaSeleccionada != null)
+            {
+                if (DetalleComandaSeleccionada.Cantidad > 1)
+                {
+                    DetalleComandaSeleccionada.Cantidad -= 1;
+                    DetalleComandaSeleccionada.Producto.UnidadesEnAlmacen += 1;
+                    WeakReferenceMessenger.Default.Send(new AvisarCantidadProductoMessage(DetalleComandaSeleccionada));
+                }
+                else
+                {
+                    DetalleComandaSeleccionada.Producto.UnidadesEnAlmacen += 1;
+                    WeakReferenceMessenger.Default.Send(new AvisarCantidadProductoMessage(DetalleComandaSeleccionada));
+                    DetallesComandaProductos.Remove(DetalleComandaSeleccionada);
+                }
+                CalcularImporteTotalComanda();
+            }
         }
     }
 }
