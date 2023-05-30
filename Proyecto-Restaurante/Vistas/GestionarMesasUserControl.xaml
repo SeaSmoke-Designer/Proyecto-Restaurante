@@ -59,14 +59,17 @@
             </Button>
             <TextBlock Text="Gestionar mesas" FontSize="35" FontWeight="Bold"  VerticalAlignment="Center" />
         </DockPanel>
-        <syncfusion:SfDataGrid x:Name="dataGrid" ItemsSource="{Binding ListaMesas, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=MesaSeleccionada, UpdateSourceTrigger=PropertyChanged}"
+        <syncfusion:SfDataGrid x:Name="dataGrid" ItemsSource="{Binding ListaMesas, UpdateSourceTrigger=PropertyChanged}" 
+                               SelectedItem="{Binding Path=MesaSeleccionada, UpdateSourceTrigger=PropertyChanged}"
                                AllowFiltering="True" 
                                Margin="10" 
                                Padding="5"
                                AllowEditing="True"
                                ColumnSizer="Star"
                                AutoGenerateColumns="False"
-                               Background="White" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}">
+                               Background="White" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}" 
+                               FontSize="15" 
+                               FontWeight="SemiBold">
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:GridTextColumn HeaderText="Nombre Mesa" HorizontalHeaderContentAlignment="Center" DisplayBinding="{Binding Path=NombreMesa}"/>
                 <syncfusion:GridTextColumn MappingName="Capacidad"/>

@@ -67,10 +67,6 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void NavegarGestionEmpleados()
         {
-            /*if(ContenidoVentana == servicioNavegacion.CargarGestionarEmpleados())
-            {
-                ContenidoVentana = new UserControl();
-            }*/
             bool? reult = servicioNavegacion.CargarValidacionAdmin();
             if ((bool)reult)
             {
@@ -103,7 +99,7 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public void AbrirManualUsuario()
         {
-            string rutaAyuda = System.IO.Directory.GetCurrentDirectory() + "\\Ayuda\\Manual de usuario - DishDash.chm";
+            string rutaAyuda = System.IO.Directory.GetCurrentDirectory() + "\\Ayuda\\Manual de usuario - DishDash-V1.1.chm";
             System.Diagnostics.Process.Start(rutaAyuda);
         }
 

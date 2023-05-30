@@ -74,7 +74,8 @@ namespace Proyecto_Restaurante.VistasModelo
         public void SeleccionImagen()
         {
             string file = servicioDialogo.DialogoAbrirFichero();
-            ProductoActual.URLFotoProducto = file != null ? servicioAzure.AlmacenarImagenProductoNube(file) : imagenDefault;
+            if (ModoVentana.Equals("Crear"))
+                ProductoActual.URLFotoProducto = file != null ? servicioAzure.AlmacenarImagenProductoNube(file) : imagenDefault;
         }
 
         public void GuardarProducto()

@@ -23,20 +23,17 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
         <Style TargetType="{x:Type TextBlock}" x:Key="TextoTarjeta">
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
-        
+
         <DataTemplate x:Key="DataTemplateEmpleados">
-            
-                <!--<Border BorderBrush="Black" BorderThickness="1" Margin="5" Background="AliceBlue"  Height="170" Width="1000" CornerRadius="5">
-                    <Border.Effect>
-                        <DropShadowEffect/>
-                    </Border.Effect>-->
-                    <Grid>
+            <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -45,21 +42,12 @@
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        
-                    </Grid.RowDefinitions>
-                    <!--<Ellipse Grid.Column="0" Grid.Row="0" Stretch="Fill" Grid.RowSpan="3" Margin="5" Width="150">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding Data.URLFoto, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <Image Source="{Binding Path=URLFoto}" Margin="5" Grid.Column="0" Grid.RowSpan="4" Stretch="Fill"/>
-                        <TextBlock Text="Datos del empleado" HorizontalAlignment="Center" FontSize="25" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"/>-->
-
-                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Margin="8" Height="130" HorizontalAlignment="Center" Source="{Binding Path=Data.URLFoto, UpdateSourceTrigger=PropertyChanged}"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Margin="8" Height="130" HorizontalAlignment="Center" Source="{Binding Path=Data.URLFoto, UpdateSourceTrigger=PropertyChanged}"/>
                     <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Grid.RowSpan="3" VerticalAlignment="Center">
                         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label Content="Nombre :"/>
@@ -143,7 +131,11 @@
                                Padding="5"
                                AllowEditing="False"
                                ColumnSizer="Star"
-                               AutoGenerateColumns="False" Background="White" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}">
+                               AutoGenerateColumns="False" 
+                               Background="White" 
+                               HeaderStyle="{DynamicResource GridHeaderCellControlStyle}"
+                               FontSize="13"
+                               FontWeight="SemiBold">
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:GridTextColumn MappingName="Nombre"/>
                 <syncfusion:GridTextColumn MappingName="Apellido"/>

@@ -379,7 +379,7 @@
     </EmbeddedResource>
     <Resource Include="Assets\Restar.png" />
     <Resource Include="Assets\Sumar.png" />
-    <Content Include="Ayuda\Manual de usuario - DishDash.chm">
+    <Content Include="Ayuda\Manual de usuario - DishDash-V1.1.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="DiagramaDeClases.cd" />

@@ -42,7 +42,10 @@
                                Padding="5"
                                AllowEditing="False"
                                ColumnSizer="Star" 
-                               AutoGenerateColumns="False" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}" Background="White">
+                               AutoGenerateColumns="False" HeaderStyle="{DynamicResource GridHeaderCellControlStyle}" 
+                               Background="White"
+                               FontSize="15"
+                               FontWeight="SemiBold">
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:GridTextColumn HeaderText="Id Comanda" DisplayBinding="{Binding Path=IdComanda}" />
                 <syncfusion:GridTextColumn HeaderText="Cantidad de personas" DisplayBinding="{Binding Path=CantidadPersonas}"/>
