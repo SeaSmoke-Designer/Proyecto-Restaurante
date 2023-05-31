@@ -59,9 +59,6 @@ namespace Proyecto_Restaurante.VistasModelo
                 }
             });
 
-            
-
-
             CargarComandas();
         }
 
@@ -84,7 +81,8 @@ namespace Proyecto_Restaurante.VistasModelo
             if (ComandaSeleccionada != null)
             {
                 bool? result = servicioNavegacion.CargarEditarComanda();
-                ComandaSeleccionada = null; 
+                ComandaSeleccionada = null;
+                CargarComandas();
             }
         }
 

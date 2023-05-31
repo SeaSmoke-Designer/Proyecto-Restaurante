@@ -123,15 +123,13 @@ namespace Proyecto_Restaurante.VistasModelo
                     m.Reply(r.TotalImporteComanda);
                 }
             });
+
             ComandaRecibida = WeakReferenceMessenger.Default.Send<EnviarComandaMessage>();
+
             if (ComandaRecibida != null)
             {
                 ListaDetallesComanda = new ObservableCollection<DetalleComanda>();
-                foreach (DetalleComanda item in servicioAPIRestRestaurante.GetDetallesComanda())
-                {
-                    if (item._DetallesComandaPK.IdComanda == ComandaRecibida.IdComanda)
-                        ListaDetallesComanda.Add(item);
-                }
+                ListaDetallesComanda = DevolverListaDetallesComanda();
                 CalcularImporteTotal();
             }
 
@@ -247,11 +245,11 @@ namespace Proyecto_Restaurante.VistasModelo
         public void EditarDetallesComanda()
         {
             IRestResponse responseDetallesComanda = null;
-            
+            EliminarDetalleComanda();
             foreach (DetalleComanda item in ListaDetallesComanda)
             {
                 item._DetallesComandaPK = new DetalleComandaPK(ComandaRecibida.IdComanda, item.Producto.IdProducto);
-
+                
                 IRestResponse response = servicioAPIRestRestaurante.GetDetalleComanda(item._DetallesComandaPK.IdComanda,item._DetallesComandaPK.IdProducto);
                 if(response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -260,8 +258,7 @@ namespace Proyecto_Restaurante.VistasModelo
                 }else if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
                     responseDetallesComanda = servicioAPIRestRestaurante.PostDetallesComanda(item);
-                }
-                
+                }  
                 servicioAPIRestRestaurante.PutProducto(item.Producto);
                 
                 if (responseDetallesComanda.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
@@ -269,6 +266,35 @@ namespace Proyecto_Restaurante.VistasModelo
                     servicioDialogo.MostrarMensajeError(responseDetallesComanda.Content, "ERROR - AL INSERTAR EL DETALLE COMANDA");
                 }
             }
+        }
+
+        public void EliminarDetalleComanda()
+        {
+            DetalleComanda d;
+            foreach (var item in DevolverListaDetallesComanda())
+            {
+                d = ListaDetallesComanda.FirstOrDefault(n => n.Producto.IdProducto == item.Producto.IdProducto);
+                if (d == null)
+                {
+                    servicioAPIRestRestaurante.DeleteDetallesComanda(item._DetallesComandaPK.IdComanda, item._DetallesComandaPK.IdProducto);
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Devuelve la lista de los detalles de la comanda limpia, es decir, sin ninguna modificacion
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<DetalleComanda> DevolverListaDetallesComanda()
+        {
+            ObservableCollection<DetalleComanda> aux = new ObservableCollection<DetalleComanda>();
+            foreach (DetalleComanda item in servicioAPIRestRestaurante.GetDetallesComanda())
+            {
+                if (item._DetallesComandaPK.IdComanda == ComandaRecibida.IdComanda)
+                    aux.Add(item);
+            }
+            return aux;
         }
 
         
