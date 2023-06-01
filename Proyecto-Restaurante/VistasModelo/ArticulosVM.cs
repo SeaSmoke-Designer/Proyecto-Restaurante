@@ -78,8 +78,7 @@ namespace Proyecto_Restaurante.VistasModelo
             EditarProductoCommand = new RelayCommand(EditarProducto);
             WeakReferenceMessenger.Default.Register<NuevoProductoMessage>(this, (r, m) =>
             {
-                ListaProductos.Add(m.Value);
-                servicioDialogo.MostrarMensajeInformacion("Producto añadido con exito", "Producto Añadido");    
+                CargarProductos();
             });
 
             WeakReferenceMessenger.Default.Register<ArticulosVM, EnviarProductoMessage>(this, (r, m) =>

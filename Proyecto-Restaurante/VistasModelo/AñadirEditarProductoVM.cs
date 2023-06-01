@@ -74,8 +74,10 @@ namespace Proyecto_Restaurante.VistasModelo
         public void SeleccionImagen()
         {
             string file = servicioDialogo.DialogoAbrirFichero();
-            if (ModoVentana.Equals("Crear"))
+            if (ModoVentana.Equals("Crear Producto"))
                 ProductoActual.URLFotoProducto = file != null ? servicioAzure.AlmacenarImagenProductoNube(file) : imagenDefault;
+            else
+                ProductoActual.URLFotoProducto = file != null ? servicioAzure.AlmacenarImagenProductoNube(file) : ProductoActual.URLFotoProducto;
         }
 
         public void GuardarProducto()
@@ -102,6 +104,7 @@ namespace Proyecto_Restaurante.VistasModelo
                     IRestResponse response = servicioAPIRestRestaurante.PostProducto(ProductoActual);
                     if(response.StatusCode == System.Net.HttpStatusCode.Created)
                     {
+                        servicioDialogo.MostrarMensajeInformacion("Producto añadido con exito", "Producto Añadido");
                         WeakReferenceMessenger.Default.Send(new NuevoProductoMessage(ProductoActual));
                     }
                     else if(response.StatusCode == System.Net.HttpStatusCode.UnsupportedMediaType)
@@ -135,8 +138,8 @@ namespace Proyecto_Restaurante.VistasModelo
 
         public bool ProductoExiste()
         {
-            ObservableCollection<Producto> listaProductos = servicioAPIRestRestaurante.GetProductos();
-            foreach (Producto item in listaProductos)
+            //ObservableCollection<Producto> listaProductos = servicioAPIRestRestaurante.GetProductos();
+            foreach (Producto item in servicioAPIRestRestaurante.GetProductos())
             {
                 if (ProductoActual.NombreProducto.Equals(item.NombreProducto))
                     return true;

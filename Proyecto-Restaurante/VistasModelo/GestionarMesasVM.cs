@@ -222,10 +222,13 @@ namespace Proyecto_Restaurante.VistasModelo
         public bool ComprobarMesaConComanda()
         {
             ObservableCollection<Comanda> listaComandas = servicioAPIRestRestaurante.GetComandas();
-            foreach (Comanda item in listaComandas)
+            foreach (Comanda item in listaComandas.Where(n => n.Mesa != null))
             {
-                if (item.Mesa.IdMesa == MesaSeleccionada.IdMesa)
-                    return true;
+                //if(item.Mesa != null)
+                //{
+                    if (item.Mesa.IdMesa == MesaSeleccionada.IdMesa)
+                        return true;
+                //}
             }
 
             return false;
