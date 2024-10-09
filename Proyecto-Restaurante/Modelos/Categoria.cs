@@ -10,6 +10,7 @@ namespace Proyecto_Restaurante.Modelos
 {
     class Categoria : ObservableObject
     {
+        //Prueba
         private int idCategoria;
         [JsonProperty("idCategoria")]
         public int IdCategoria
